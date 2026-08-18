@@ -1,0 +1,143 @@
+---
+
+const faqData = [
+  {
+    question: 'Can I receive payments in my preferred currency?',
+    answer: "Yes. You can set your desired currency in UnumPay's configuration settings.",
+  },
+  {
+    question: 'Can I accept payments directly through UnumPay?',
+    answer: 'Yes. You need a valid merchant account. Add credentials inside the UnumPay app to start.',
+  },
+  {
+    question: "I'm getting an Invalid Request error at checkout.",
+    answer: 'This usually means merchant account credentials are incorrect. Recheck details in the UnumPay app.',
+  },
+  {
+    question: 'Which payment providers are supported?',
+    answer: 'PayTabs, Checkout.com, Stripe, Paymob, and 40+ more PSPs globally.',
+    link: { text: 'View all supported providers →', href: '/coverage/' },
+  },
+  {
+    question: 'Can I reconcile payments from multiple gateways?',
+    answer: 'Yes. UnumPay provides reconciliation reports for up to 7 days. Enable in advanced settings.',
+  },
+  {
+    question: 'How do I view rejected transaction details?',
+    answer: "In the Transaction Module inside UnumPay, or in your payment provider's merchant dashboard.",
+  },
+  {
+    question: 'Does UnumPay provide real-time reporting?',
+    answer: 'Yes. Unified view of total transactions, success rates, payment trends, active providers.',
+  },
+  {
+    question: 'How do I integrate multiple payment gateways?',
+    answer: 'Install UnumPay on Shopify, select gateways, add API keys, click Save. No coding required.',
+  },
+  {
+    question: "I made a payment but haven't received it.",
+    answer: 'UnumPay is an integration hub, not a payment processor. Contact your payment provider directly.',
+  },
+]
+---
+
+<section class="unumpay-faq-section">
+  <div class="unumpay-faq-container">
+    <div class="unumpay-faq-header">
+      <h1 class="unumpay-faq-title">Frequently Asked Questions</h1>
+      <p class="unumpay-faq-subtitle">
+        Everything you need to know about setting up and running UnumPay.
+      </p>
+    </div>
+
+    <div class="unumpay-faq-list">
+      {faqData.map((item, index) => (
+        <div
+          class="unumpay-faq-item"
+        >
+          <button
+            type="button"
+            class="unumpay-faq-trigger"
+            data-faq-trigger
+            data-index={index}
+            aria-expanded={index === 0 ? 'true' : 'false'}
+          >
+            <span>{item.question}</span>
+            <span class="unumpay-faq-trigger-icon">
+              <svg class="icon-plus" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style={index === 0 ? 'display: none;' : ''}>
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              <svg class="icon-minus" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style={index === 0 ? '' : 'display: none;'}>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </span>
+          </button>
+
+          <div class="unumpay-faq-panel" data-faq-panel style={index === 0 ? '' : 'display: none;'}>
+            <p>{item.answer}</p>
+            {item.link && (
+              <a href={item.link.href} class="unumpay-faq-panel-link">
+                {item.link.text}
+              </a>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="unumpay-help-section">
+  <div
+    class="unumpay-help-wrapper"
+  >
+    <div class="unumpay-help-card">
+      <h3 class="unumpay-help-title">Still Have Questions?</h3>
+      <p class="unumpay-help-text">
+        Our support team is here to help you get integrated quickly.
+      </p>
+      <a href="/contact/" class="unumpay-help-cta">
+        Contact Support
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+
+  const triggers = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-faq-trigger]'))
+
+  let openIndex: number | null = 0
+
+  function setFaqState(index: number, isOpen: boolean) {
+    const trigger = triggers[index]
+    const item = trigger.closest('.unumpay-faq-item')
+    const panel = item?.querySelector<HTMLElement>('[data-faq-panel]')
+    const plusIcon = trigger.querySelector<HTMLElement>('.icon-plus')
+    const minusIcon = trigger.querySelector<HTMLElement>('.icon-minus')
+
+    if (panel) panel.style.display = isOpen ? '' : 'none'
+    if (plusIcon) plusIcon.style.display = isOpen ? 'none' : ''
+    if (minusIcon) minusIcon.style.display = isOpen ? '' : 'none'
+    trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false')
+  }
+
+  triggers.forEach((trigger, index) => {
+    trigger.addEventListener('click', () => {
+      const isCurrentlyOpen = openIndex === index
+
+      if (openIndex !== null) {
+        setFaqState(openIndex, false)
+      }
+
+      if (isCurrentlyOpen) {
+        openIndex = null
+      } else {
+        setFaqState(index, true)
+        openIndex = index
+      }
+    })
+  })
+
+</script>

@@ -1,0 +1,158 @@
+---
+
+import HeroImg from '../assets/images/image1.webp'
+import logo1 from '../assets/logos/logo1.png'
+import logo2 from '../assets/logos/logo2.png'
+import logo3 from '../assets/logos/logo3.png'
+import logo4 from '../assets/logos/logo4.png'
+import logo5 from '../assets/logos/logo5.png'
+import logo6 from '../assets/logos/logo6.png'
+import logo7 from '../assets/logos/logo7.png'
+import logo8 from '../assets/logos/logo8.png'
+import logo9 from '../assets/logos/logo9.png'
+import logo10 from '../assets/logos/logo10.png'
+
+const logos = [logo1, logo2, logo3, logo4, logo5, logo6, logo7, logo8, logo9, logo10]
+const marqueeLogos = [...logos, ...logos]
+---
+
+<section class="homepage-section">
+  <div class="hero-home relative overflow-hidden">
+    <div
+      class="hero-home__grid relative z-10 js-fade-in"
+      style="--y-offset: 24px; --scale-from: 0.98;"
+      data-duration="0.9"
+      data-delay="0"
+    >
+      <!-- Left content -->
+      <div class="hero-home__text">
+        <span class="hero-home__badge">✦ Shopify Approved App</span>
+
+        <div
+          class="js-fade-in"
+          style="--y-offset: 24px; --scale-from: 0.98;"
+          data-duration="0.9"
+          data-delay="0.2"
+        >
+          <h1 class="hero-home__title">
+            Simplify Your <br />
+            Shopify <span class="hero-home__title-accent">Payments</span>
+          </h1>
+        </div>
+
+        <div
+          class="js-fade-in"
+          style="--y-offset: 24px; --scale-from: 0.98;"
+          data-duration="0.9"
+          data-delay="0.3"
+        >
+          <p class="hero-home__subheadline">
+            Access <span class="hero-home__subheadline-bold">40+ Payment Gateways</span> for your e-commerce
+            store to sell globally. Manage, monitor, and analyze all your transaction data in one place.
+          </p>
+        </div>
+
+        <div
+          class="js-fade-in"
+          style="--y-offset: 24px; --scale-from: 0.98;"
+          data-duration="0.9"
+          data-delay="0.4"
+        >
+          <div class="hero-home__actions">
+            <a
+              href="https://apps.shopify.com/unum-pay"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="hero-home__primary-cta"
+            >
+              Get Started <span aria-hidden="true">→</span>
+            </a>
+            <a
+              href="#how-it-works"
+              class="hero-home__ghost-cta"
+              id="how-it-works-link"
+            >
+              How It Works <span aria-hidden="true">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right section -->
+      <div class="hero-home__graphic">
+        <img
+          src={HeroImg.src ?? HeroImg}
+          alt="UnumPay integration diagram"
+          class="w-full max-w-2xl h-auto animate-float"
+        />
+      </div>
+    </div>
+
+    <div class="hero-home__marquee-section">
+      <p class="marquee-heading">TRUSTED BY 2,500+ GLOBAL MERCHANTS</p>
+
+      <!-- Logos -->
+      <div class="marquee-wrapper">
+        <div class="marquee-track">
+          <div class="marquee-content animate-marquee">
+            {marqueeLogos.map((logo, index) => (
+              <div class="marquee-logo">
+                <img
+                  src={logo.src ?? logo}
+                  alt={`Brand logo ${index + 1}`}
+                  class="h-8 w-auto object-contain"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  .animate-marquee {
+    animation: marquee 30s linear infinite;
+  }
+  .marquee-wrapper:hover .animate-marquee {
+    animation-play-state: paused;
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-18px);
+    }
+  }
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+</style>
+
+<script>
+  import { initFadeIn } from '../scripts/Animation'
+
+  const howItWorksLink = document.getElementById('how-it-works-link')
+
+  howItWorksLink?.addEventListener('click', (e) => {
+    e.preventDefault()
+    const target = document.getElementById('how-it-works')
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  })
+
+  initFadeIn()
+</script>

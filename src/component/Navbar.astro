@@ -1,0 +1,251 @@
+---
+import Logo from '../assets/logos/logoe.svg'
+
+const navLinks = [
+  { label: 'Home', href: '/' },
+  {
+    label: 'Coverage',
+    href: '/coverage/',
+    dropdown: false,
+    // dropdownItems: [
+    //   { label: 'All Gateways', href: '/coverage' },
+    //   { label: 'Tunisia', href: '/payment-gateways/tunisia' },
+    // ],
+  },
+  { label: 'Pricing', href: '/pricing/' },
+  { label: 'Partners', href: '/become-a-partner/' },
+  { label: 'Our Story', href: '/our-story/' },
+]
+---
+
+<header
+  id="navbar"
+  class="fixed top-0 left-0 right-0 z-1000 pt-3 pb-3 transition-all duration-300"
+  style="background: rgb(13, 10, 28); border-bottom: 1px solid transparent;"
+>
+  <div class="max-w-300 mx-auto px-12 flex items-center justify-between gap-3 md:gap-4">
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2 shrink-0">
+      <img src={Logo.src} alt="UnumPay" class="h-7 md:h-10 w-auto" />
+    </a>
+
+    <!-- Desktop links -->
+    <div class="hidden md:flex items-center gap-6 lg:gap-8">
+      {navLinks.map((link) =>
+        link.dropdown ? (
+          <div class="relative navbar-dropdown" data-dropdown>
+            <button
+              type="button"
+              class="nav-dropdown-btn flex items-center gap-1 text-[15px] lg:text-[16px] font-medium whitespace-nowrap transition-colors cursor-pointer text-[#C9B8E8] hover:text-[#B565E8]"
+              data-href-group={JSON.stringify(link.dropdownItems.map(i => i.href))}
+            >
+              {link.label}
+              <svg
+                class="dropdown-chevron mt-1 transition-transform duration-200"
+                width="15" height="15" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              >
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+
+            <div
+              class="dropdown-menu absolute top-full left-0 mt-2 min-w-45 rounded-xl py-2 shadow-lg z-50 hidden"
+              style="background: #1a1030; border: 0.5px solid #39104d;"
+            >
+              {link.dropdownItems.map((item : any) => (
+                <a
+                  href={item.href}
+                  data-href={item.href}
+                  class="dropdown-item block px-4 py-3 text-[14px] transition-colors text-[#C9B8E8] hover:text-white hover:bg-[#261c3b]"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <a
+            href={link.href}
+            data-href={link.href}
+            class="nav-link flex items-center gap-1 text-[15px] lg:text-[16px] font-medium whitespace-nowrap transition-colors text-[#C9B8E8] hover:text-[#B565E8]"
+          >
+            {link.label}
+          </a>
+        )
+      )}
+    </div>
+
+    <!-- button -->
+    <a
+      href="/contact/"
+      class="hidden lg:inline-flex text-white font-semibold py-2.5 px-5 rounded-lg transition-all cursor-pointer"
+      style="background: linear-gradient(135deg, rgb(200, 18, 213), rgb(106, 3, 206));"
+    >
+      Contact Us
+    </a>
+
+    <!-- Mobile menu toggle -->
+    <button id="mobile-toggle" class="lg:hidden text-white p-1" aria-label="Toggle menu">
+      <svg id="icon-menu" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="12" x2="21" y2="12"></line>
+        <line x1="3" y1="6" x2="21" y2="6"></line>
+        <line x1="3" y1="18" x2="21" y2="18"></line>
+      </svg>
+      <svg id="icon-close" class="hidden" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="lg:hidden pt-10 hidden flex-col gap-5 pb-4 px-6">
+    {navLinks.map((link) =>
+      link.dropdown ? (
+        <div class="flex flex-col gap-3">
+          <span class="text-[13px] font-semibold tracking-wide text-[#8b7fa8] uppercase">
+            {link.label}
+          </span>
+          <div class="flex flex-col gap-3 pl-3">
+            {link.dropdownItems.map((item) => (
+              <a href={item.href} data-href={item.href} class="mobile-link text-[16px] font-medium text-white">
+                {item.label}
+              </a>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <a href={link.href} data-href={link.href} class="mobile-link flex items-center gap-1 text-[17px] font-medium text-white">
+          {link.label}
+        </a>
+      )
+    )}
+    <a
+      href="/contact/"
+      class="inline-flex justify-center text-white font-semibold py-2.5 px-5 rounded-lg transition-all text-center items-center cursor-pointer"
+      style="background: linear-gradient(135deg, rgb(200, 18, 213), rgb(106, 3, 206));"
+    >
+      Contact Us
+    </a>
+  </div>
+</header>
+
+<script>
+  // ---- Active link (path highlight) ----
+  const currentPath = window.location.pathname
+
+  function setActiveStates() {
+    document.querySelectorAll('[data-href]').forEach((el) => {
+      const href = el.getAttribute('data-href')
+      const isActive = href === currentPath
+      if (el.classList.contains('nav-link')) {
+        el.classList.toggle('text-[#B565E8]', isActive)
+        el.classList.toggle('text-[#C9B8E8]', !isActive)
+      }
+      if (el.classList.contains('dropdown-item')) {
+        el.classList.toggle('text-[#B565E8]', isActive)
+        el.classList.toggle('bg-[#261c3b]', isActive)
+        el.classList.toggle('font-semibold', isActive)
+        el.classList.toggle('text-[#C9B8E8]', !isActive)
+      }
+      if (el.classList.contains('mobile-link')) {
+        el.classList.toggle('text-[#B565E8]', isActive)
+        el.classList.toggle('text-white', !isActive)
+      }
+    })
+
+    // highlight "Coverage" parent button if any child route is active
+    document.querySelectorAll('.nav-dropdown-btn').forEach((btn) => {
+      const hrefs = JSON.parse(btn.getAttribute('data-href-group') || '[]')
+      const isParentActive = hrefs.includes(currentPath)
+      btn.classList.toggle('text-[#B565E8]', isParentActive)
+      btn.classList.toggle('text-[#C9B8E8]', !isParentActive)
+    })
+  }
+
+  // ---- Scroll background change ----
+  const navbar = document.getElementById('navbar') as HTMLElement | null
+
+  function handleScroll() {
+    if (!navbar) return
+    const scrolled = window.scrollY > 20
+    if (scrolled) {
+      navbar.style.background = 'rgba(13, 10, 28, 0.9)'
+      navbar.style.backdropFilter = 'blur(12px)'
+      navbar.style.borderBottom = '1px solid rgba(200, 18, 213, 0.15)'
+    } else {
+      navbar.style.background = 'rgb(13, 10, 28)'
+      navbar.style.backdropFilter = 'none'
+      navbar.style.borderBottom = '1px solid transparent'
+    }
+  }
+
+  // ---- Dropdown (desktop hover + click) ----
+  const dropdownWrapper = document.querySelector('[data-dropdown]') as HTMLElement | null
+  const dropdownBtn = dropdownWrapper?.querySelector('.nav-dropdown-btn') as HTMLElement | null
+  const dropdownMenu = dropdownWrapper?.querySelector('.dropdown-menu') as HTMLElement | null
+  const chevron = dropdownWrapper?.querySelector('.dropdown-chevron') as HTMLElement | null
+  let closeTimeout: ReturnType<typeof setTimeout> | null = null
+
+  function openDropdown() {
+    if (closeTimeout) {
+      clearTimeout(closeTimeout)
+      closeTimeout = null
+    }
+    dropdownMenu?.classList.remove('hidden')
+    chevron?.classList.add('rotate-180')
+  }
+
+  function closeDropdownDelayed() {
+    closeTimeout = setTimeout(() => {
+      dropdownMenu?.classList.add('hidden')
+      chevron?.classList.remove('rotate-180')
+    }, 150)
+  }
+
+  function toggleDropdown() {
+    if (!dropdownMenu) return
+    const isHidden = dropdownMenu.classList.contains('hidden')
+    if (isHidden) {
+      openDropdown()
+    } else {
+      dropdownMenu.classList.add('hidden')
+      chevron?.classList.remove('rotate-180')
+    }
+  }
+
+  if (dropdownWrapper && dropdownBtn && dropdownMenu) {
+    dropdownWrapper.addEventListener('mouseenter', openDropdown)
+    dropdownWrapper.addEventListener('mouseleave', closeDropdownDelayed)
+    dropdownBtn.addEventListener('click', toggleDropdown)
+
+    document.addEventListener('click', (e) => {
+      const target = e.target as Node
+      if (!dropdownWrapper.contains(target)) {
+        dropdownMenu.classList.add('hidden')
+        chevron?.classList.remove('rotate-180')
+      }
+    })
+  }
+
+  // ---- Mobile menu toggle ----
+  const mobileToggle = document.getElementById('mobile-toggle') as HTMLElement | null
+  const mobileMenu = document.getElementById('mobile-menu') as HTMLElement | null
+  const iconMenu = document.getElementById('icon-menu') as HTMLElement | null
+  const iconClose = document.getElementById('icon-close') as HTMLElement | null
+  let isOpen = false
+
+  mobileToggle?.addEventListener('click', () => {
+    isOpen = !isOpen
+    mobileMenu?.classList.toggle('hidden', !isOpen)
+    mobileMenu?.classList.toggle('flex', isOpen)
+    iconMenu?.classList.toggle('hidden', isOpen)
+    iconClose?.classList.toggle('hidden', !isOpen)
+  })
+
+  // ---- Init ----
+  window.addEventListener('scroll', handleScroll)
+  setActiveStates()
+  handleScroll()
+</script>

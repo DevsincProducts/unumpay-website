@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/global.css'
+import '../styles/hero.css'
+import '../styles/usecases.css'
+import '../styles/pricing.css'
+import Navbar from '../component/Navbar.astro';
+import Terms from '../component/Terms.astro';
+import Footer from '../component/Footer.astro';
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+---
+
+
+<Layout title="Terms of Use | UnumPay"
+  description="Terms of Use for UnumPay, the Shopify payment gateway mediation app by Devsinc (PVT) Limited. Read our terms before using the platform."
+  canonical="https://www.unumpay.com/terms-of-use/"
+  image="https://www.unumpay.com/og-image.jpg">
+
+	<Navbar />
+
+    <Terms />
+
+	<Footer />
+
+</Layout>

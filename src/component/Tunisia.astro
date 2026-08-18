@@ -1,0 +1,283 @@
+---
+interface Provider {
+  badge: string
+  name: string
+  title: string
+  description: string
+  featuresTitle?: string | null
+  features: string[]
+  connectSteps?: string[]
+  guideLink: string
+  guideLinkText: string
+}
+
+interface PaymentMethod {
+  name: string
+  description?: string
+}
+
+interface Props {
+  data: {
+    countryName: string
+    hero: { title: string; description: string }
+    sectionTitle: string
+    intro: string
+    mainFeatures: string[]
+    providers: Provider[]
+    paymentMethodsTitle: string
+    paymentMethodsIntro: string
+    paymentMethods: PaymentMethod[]
+    crossBorder: { title: string; paragraphs: string[] }
+    faqs: { question: string; answer: string }[]
+    cta: { description: string; subtext: string }
+    footerLinks: { href: string; text: string }[]
+  }
+}
+
+const { data } = Astro.props
+---
+
+<div>
+  <section class="tun-hero-section bg-[#1a0028] relative overflow-hidden">
+    <div class="max-w-215 mx-auto px-4 sm:px-6 md:px-8 xl:px-0 relative z-10">
+      <h2 class="tun-hero-title">{data.hero.title}</h2>
+
+      <p class="text-[16px] sm:text-[17px] leading-relaxed text-[#C9B8E8] max-w-2xl mb-6">
+        {data.hero.description}
+      </p>
+
+      <div>
+        <a href="https://apps.shopify.com/unum-pay" target="_blank" rel="noopener noreferrer" class="tun-hero-cta">
+          Install on Shopify Free <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <div class="max-w-215 mx-auto px-4 sm:px-6 md:px-8 xl:px-0 py-14 md:py-20">
+      <div class="mb-16">
+        <h2 class="text-[26px] sm:text-[32px] font-bold text-[#171721] mb-5">
+          {data.sectionTitle}
+        </h2>
+
+        <p class="text-[16px] leading-[1.8] text-[#4B4B5C] mb-6">
+          {data.intro}
+        </p>
+
+        <h3 class="text-[15px] font-semibold text-[#171721] mb-3">What you get:</h3>
+
+        <ul class="flex flex-col gap-3 mb-6">
+          {data.mainFeatures.map((feature) => (
+            <li class="flex items-start gap-3">
+              <span class="tun-checklist__check mt-0.5 shrink-0 w-5 h-5 rounded-full flex items-center justify-center">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+              </span>
+              <span class="text-[15px] leading-[1.7] text-[#4B4B5C]">{feature}</span>
+            </li>
+          ))}
+        </ul>
+
+        <p class="text-[15px] leading-[1.7] text-[#4B4B5C]">
+          UnumPay is a Shopify-approved app. It does not replace your payment providers. It connects and manages them.
+        </p>
+      </div>
+
+      {data.providers.map((provider) => (
+        <div class="tun-featured-card mb-16 rounded-2xl p-7 sm:p-9">
+          <span class="tun-featured-badge inline-block mb-4 text-[12px] font-semibold px-3 py-1 rounded-full">{provider.badge}</span>
+
+          <h2 class="text-[24px] sm:text-[30px] font-bold text-[#171721] mb-4">
+            {provider.title}
+          </h2>
+
+          <p class="text-[15.5px] leading-[1.8] text-[#4B4B5C] mb-6">
+            {provider.description}
+          </p>
+
+          {provider.featuresTitle && (
+            <h3 class="text-[14.5px] font-semibold text-[#171721] mb-3">{provider.featuresTitle}</h3>
+          )}
+
+          <ul class="flex flex-col gap-2.5 mb-7">
+            {provider.features.map((feature) => (
+              <li class="flex items-start gap-3">
+                <span class="tun-checklist__check mt-0.5 shrink-0 w-5 h-5 rounded-full flex items-center justify-center">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </span>
+                <span class="text-[14.5px] leading-[1.7] text-[#4B4B5C]">{feature}</span>
+              </li>
+            ))}
+          </ul>
+
+          {provider.connectSteps && provider.connectSteps.length > 0 && (
+            <>
+              <h3 class="text-[14.5px] font-semibold text-[#171721] mb-4">
+                How to connect {provider.name} to your Shopify store:
+              </h3>
+
+              <ol class="flex flex-col gap-3 mb-6">
+                {provider.connectSteps.map((step, index) => (
+                  <li class="flex items-start gap-3">
+                    <span class="tun-steps-list__number shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-white text-[12px] font-bold">{index + 1}</span>
+                    {step}
+                  </li>
+                ))}
+              </ol>
+
+              <p class="text-[14.5px] leading-[1.7] text-[#6B7280] mb-5">
+                No custom code required. No developer needed.
+              </p>
+            </>
+          )}
+
+          <a href={provider.guideLink} class="inline-flex items-center gap-2 text-[#6A03CE] font-semibold hover:text-[#C812D5] transition-colors text-[14.5px]">
+            {provider.guideLinkText} <span aria-hidden="true">→</span>
+          </a>
+        </div>
+      ))}
+
+      <div class="mb-16">
+        <h2 class="text-[26px] sm:text-[32px] font-bold text-[#171721] mb-4">
+          {data.paymentMethodsTitle}
+        </h2>
+
+        <p class="text-[15.5px] leading-[1.8] text-[#4B4B5C] mb-6">
+          {data.paymentMethodsIntro}
+        </p>
+
+        <div class="flex flex-col gap-5">
+          {data.paymentMethods.map((method) => (
+            method.description ? (
+              <div class="rounded-xl border border-[#ECE7F5] p-6" style="background: rgb(252, 251, 254);">
+                <h3 class="text-[17px] font-bold text-[#171721] mb-2">{method.name}</h3>
+                <p class="text-[15px] leading-[1.75] text-[#6B7280]">
+                  {method.description}
+                </p>
+              </div>
+            ) : (
+              <div class="flex items-center gap-3 rounded-xl border border-[#ECE7F5] p-4" style="background: rgb(252, 251, 254);">
+                <span class="tun-checklist__check shrink-0 w-6 h-6 rounded-full flex items-center justify-center">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </span>
+                <span class="text-[15px] text-[#171721] font-medium">{method.name}</span>
+              </div>
+            )
+          ))}
+        </div>
+      </div>
+
+      <div class="mb-16">
+        <h2 class="text-[26px] sm:text-[32px] font-bold text-[#171721] mb-5">
+          {data.crossBorder.title}
+        </h2>
+        {data.crossBorder.paragraphs.map((para) => (
+          <p class="text-[16px] leading-[1.8] text-[#4B4B5C] mb-4">{para}</p>
+        ))}
+      </div>
+
+      <div class="mb-16">
+        <h2 class="text-[26px] sm:text-[32px] font-bold text-[#171721] mb-6">Frequently Asked Questions</h2>
+        <div class="flex flex-col gap-3">
+          {data.faqs.map((faq, index) => (
+            <div
+              class="rounded-xl border border-[#ECE7F5] overflow-hidden"
+              style="background: rgb(252, 251, 254);"
+            >
+              <button
+                type="button"
+                data-tun-faq-trigger
+                data-index={index}
+                class="w-full flex items-center justify-between gap-4 text-left px-5 py-4"
+                aria-expanded="false"
+              >
+                <h3 class="text-[15px] font-semibold text-[#171721]">{faq.question}</h3>
+                <svg
+                  class="tun-faq-chevron shrink-0 text-[#6A03CE] transition-transform duration-200"
+                  width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                >
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+
+              <div class="px-5 pb-4" data-tun-faq-panel style="display: none;">
+                <p class="text-[14px] leading-[1.7] text-[#6B7280]">
+                  {faq.answer}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="rounded-2xl p-8 sm:p-10 text-center tum-ls">
+        <h2 class="text-[24px] sm:text-[30px] font-bold text-white mb-3">
+          Start Accepting Payments in {data.countryName} Today
+        </h2>
+        <p class="text-[15.5px] leading-[1.7] text-[#C9B8E8] max-w-xl mx-auto mb-2">
+          {data.cta.description}
+        </p>
+        <p class="text-[15px] text-[#C9B8E8] mb-7">{data.cta.subtext}</p>
+        <div class="flex flex-wrap items-center justify-center gap-3 mb-5">
+          <a href="https://apps.shopify.com/unum-pay" target="_blank" rel="noopener noreferrer" class="tum-btn inline-flex items-center gap-2 text-white font-semibold py-3.5 px-8 rounded-lg transition-all hover:opacity-90 text-[15.5px]">
+            Install UnumPay Free <span aria-hidden="true">→</span>
+          </a>
+        </div>
+        <p class="text-[13px] text-[#9CA3AF]">Shopify-approved app. Used by 2,500+ merchants across 45+ countries.</p>
+      </div>
+
+      <div class="flex flex-col mt-10 pt-8 border-t border-[#ECE7F5] ">
+        <p class="text-[14px] font-semibold text-[#7A6B99] uppercase tracking-wider mb-4">RELATED PAGES</p>
+
+        <div class="flex flex-wrap gap-5">
+          {data.footerLinks.map((link) => (
+            <a href={link.href} class="text-[14px] text-[#6A03CE] font-medium hover:text-[#C812D5] transition-colors flex items-center gap-1.5">
+              {link.text} <span aria-hidden="true">→</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<script>
+
+  const triggers = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-tun-faq-trigger]'))
+  let openIndex: number | null = null
+
+  function setFaqState(index: number, isOpen: boolean) {
+    const trigger = triggers[index]
+    const wrapper = trigger.closest('.rounded-xl')
+    const panel = wrapper?.querySelector<HTMLElement>('[data-tun-faq-panel]')
+    const chevron = trigger.querySelector<HTMLElement>('.tun-faq-chevron')
+
+    if (panel) panel.style.display = isOpen ? '' : 'none'
+    chevron?.classList.toggle('rotate-180', isOpen)
+    trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false')
+  }
+
+  triggers.forEach((trigger, index) => {
+    trigger.addEventListener('click', () => {
+      const isCurrentlyOpen = openIndex === index
+
+      if (openIndex !== null) {
+        setFaqState(openIndex, false)
+      }
+
+      if (isCurrentlyOpen) {
+        openIndex = null
+      } else {
+        setFaqState(index, true)
+        openIndex = index
+      }
+    })
+  })
+</script>

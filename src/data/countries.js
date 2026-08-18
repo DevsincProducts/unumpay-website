@@ -1,0 +1,166 @@
+export const countries = [
+  {
+    slug: 'tunisia',
+    countryName: 'Tunisia',
+    meta: {
+      title: 'Shopify Payment Gateway Tunisia | UnumPay',
+      description: 'Accept payments on your Shopify store in Tunisia. Connect Flouci and other local payment methods through a single integration. No monthly fees.',
+    },
+    hero: {
+      title: 'Shopify Payment Gateway Tunisia',
+      description: 'Connect Flouci to your Shopify store and start accepting local payments in Tunisia today. Free to install. No monthly fees.',
+    },
+    sectionTitle: 'One App. Every Local Tunisia Payment Method. Full Control.',
+    intro: 'UnumPay is a payment mediation platform built for Shopify. Install it once from the Shopify App Store and connect Flouci and other supported Tunisian payment providers from a single dashboard. No custom code. No separate developer work for each provider.',
+    mainFeatures: [
+      'All your payment providers managed from one Shopify app',
+      'Every transaction visible in a single dashboard. No switching between portals.',
+      'Accept TND from local Tunisian buyers and EUR or USD from international customers',
+      'Collect advance payments and deposits directly from your Shopify admin',
+      'Free to install. No monthly fee. 0.85% per successful transaction only',
+    ],
+    providers: [
+      {
+        badge: 'Featured Integration',
+        name: 'Flouci',
+        title: "Flouci on Shopify, Tunisia's Local Payment Method, Connected",
+        description: 'Flouci is a Tunisian mobile payment solution that allows customers to pay using their Flouci wallet at checkout. It is widely used for online purchases within Tunisia and is the verified local integration available for Tunisian Shopify merchants through UnumPay.',
+        featuresTitle: 'What Flouci enables:',
+        features: [
+          'TND (Tunisian Dinar) transactions',
+          'Mobile wallet payments at Shopify checkout',
+          'Online purchases for Tunisian customers. No bank card required.',
+          'Access to Tunisian customers who pay via D17, ClicToPay, and e-Dinar through the Flouci network',
+        ],
+        connectSteps: [
+          'Install UnumPay from the Shopify App Store',
+          'Open your UnumPay dashboard and go to Payment Providers',
+          'Select Flouci and complete the activation steps',
+          'Flouci will appear as a payment option at your Shopify checkout',
+        ],
+        guideLink: '/flouci-integration-guide/',
+        guideLinkText: 'Read the Flouci integration guide',
+      },
+    ],
+    paymentMethodsTitle: 'Local Payment Methods Available Through Flouci',
+    paymentMethodsIntro: 'Flouci connects your Shopify store to the wider Tunisian payment ecosystem. The following local payment methods are accessible to your customers through the Flouci network, without any additional integrations on your side.',
+    paymentMethods: [
+      { name: 'D17', description: 'Tunisian shoppers with a D17 wallet can complete purchases through the Flouci checkout flow.' },
+      { name: 'ClicToPay', description: 'Customers using ClicToPay-linked bank cards can pay through the Flouci-enabled checkout on your Shopify store.' },
+      { name: 'e-Dinar', description: 'Customers who hold postal accounts and pay via e-Dinar can transact through the Flouci network at your Shopify checkout.' },
+    ],
+    crossBorder: {
+      title: 'Accept TND Locally and EUR from International Customers',
+      paragraphs: [
+        'Tunisian merchants often serve two customer groups: local buyers in Tunisia paying in TND, and international or diaspora customers, primarily in France, Italy, Germany, and other European countries, who pay in EUR.',
+        'Local providers like Flouci handle TND transactions for Tunisian buyers. Adding an international payment option alongside Flouci ensures overseas and diaspora customers can also complete purchases without issues.',
+        'A multi-provider setup means no customer reaches your checkout and finds no working payment option.',
+      ],
+    },
+    faqs: [
+      { question: 'How do I accept payments on Shopify in Tunisia?', answer: 'Install UnumPay from the Shopify App Store and connect Flouci or any other supported Tunisian payment provider from a single dashboard. No custom code or developer required.' },
+      { question: 'How do I integrate Flouci with Shopify?', answer: 'Install UnumPay, open your dashboard, go to Payment Providers, select Flouci, and complete the activation steps. Flouci will then appear as a payment option at your Shopify checkout.' },
+      { question: 'Can I use Stripe in Tunisia?', answer: 'Stripe is not natively available in Tunisia. However, you can connect Stripe alongside Flouci through UnumPay to serve international customers while Flouci handles local TND transactions.' },
+      { question: 'Does PayPal work for Tunisian Shopify merchants?', answer: 'PayPal has limited availability for Tunisian merchants. UnumPay lets you combine multiple providers so you are not dependent on a single gateway for international payments.' },
+      { question: 'What payment methods do Tunisian customers use online?', answer: 'Tunisian customers commonly use Flouci, D17, ClicToPay, and e-Dinar for online purchases. UnumPay connects your Shopify store to all of these through the Flouci network.' },
+      { question: 'How do I accept EUR payments from customers in France and Europe?', answer: 'Add an international payment provider alongside Flouci through UnumPay. This ensures diaspora and European customers can pay in EUR while local Tunisian buyers continue paying in TND.' },
+      { question: 'Is there a monthly fee to use UnumPay?', answer: 'No. UnumPay is free to install with no monthly fees. You only pay 0.85% per successful transaction processed through your connected gateways.' },
+    ],
+    cta: {
+      description: 'UnumPay is free to install. No monthly fee. No setup cost. Pay only when a sale is made. 0.60% per successful transaction.',
+      subtext: 'Connect Flouci and go live the same day.',
+    },
+    footerLinks: [
+      { href: '/flouci-integration-guide/', text: 'Flouci integration guide' },
+      { href: '/coverage/', text: 'All supported gateways' },
+      { href: '/pricing/', text: 'Pricing' },
+    ],
+  },
+
+  {
+    slug: 'south-africa',
+    countryName: 'South Africa',
+    meta: {
+      title: 'Shopify Payment Gateway South Africa | UnumPay',
+      description: 'Accept payments on your Shopify store in South Africa. Connect Flutterwave and Paystack through a single integration. No monthly fees.',
+    },
+    hero: {
+      title: 'Shopify Payment Gateway South Africa',
+      description: 'Connect Flutterwave and Paystack to your Shopify store and start accepting payments across South Africa today. Free to install. No monthly fees.',
+    },
+    sectionTitle: 'One App. Every Local South Africa Payment Method. Full Control.',
+    intro: 'UnumPay is a payment mediation platform built for Shopify. Install it once from the Shopify App Store and connect Flutterwave and Paystack from a single dashboard. No custom code. No separate developer work.',
+    mainFeatures: [
+      'All your payment providers managed from one Shopify app',
+      'Every transaction visible in a single dashboard with no switching between portals',
+      'Accept ZAR from local South African buyers and international currencies from cross-border buyers',
+      'Collect advance payments and deposits directly from your Shopify admin',
+      'Free to install. No monthly fee. 0.85% per successful transaction only',
+    ],
+    providers: [
+      {
+        badge: 'Featured Integration',
+        name: 'Flutterwave',
+        title: 'Flutterwave',
+        description: 'Flutterwave is a leading African payment provider that supports card payments, bank transfers, mobile money, and QR payments across South Africa and the wider continent. It is well suited to merchants who sell both locally and across other African markets.',
+        featuresTitle: null,
+        features: [
+          'Supported currency: ZAR and multi-currency',
+          'Best for: Merchants selling across South Africa and other African markets',
+        ],
+        connectSteps: [],
+        guideLink: '/flutterwave-integration-guide/',
+        guideLinkText: 'Read the Flutterwave integration guide',
+      },
+      {
+        badge: 'Featured Integration',
+        name: 'Paystack',
+        title: 'Paystack',
+        description: 'Paystack is a widely used African payment gateway supporting cards, instant EFT, Capitec Pay, and Apple Pay. It is known for a smooth checkout experience and strong reliability for South African online stores.',
+        featuresTitle: null,
+        features: [
+          'Supported currency: ZAR and multi-currency',
+          'Best for: Merchants who want a smooth, card-first checkout for South African buyers',
+        ],
+        connectSteps: [],
+        guideLink: '/paystack-integration-guide/',
+        guideLinkText: 'Read the Paystack integration guide',
+      },
+    ],
+    paymentMethodsTitle: 'Payment Methods for South African Shoppers',
+    paymentMethodsIntro: 'Through Flutterwave and Paystack, your Shopify store can accept the payment methods South African customers use most.',
+    paymentMethods: [
+      { name: 'Debit and credit cards (Visa, Mastercard)' },
+      { name: 'Ozow (instant EFT)' },
+      { name: 'Capitec Pay' },
+      { name: 'Apple Pay' },
+      { name: 'Bank transfer and EFT' },
+      { name: 'Mobile money' },
+    ],
+    crossBorder: {
+      title: 'Accept ZAR Locally and International Currencies from Cross-Border Buyers',
+      paragraphs: [
+        'South African merchants often sell to both local buyers paying in ZAR and international customers paying in other currencies. Flutterwave and Paystack both handle ZAR transactions for local buyers, and multi-currency support lets you serve cross-border customers from the same checkout.',
+        'Running both providers through UnumPay means you can route transactions and keep a complete checkout experience for every customer.',
+      ],
+    },
+    faqs: [
+      { question: 'How do I accept payments on Shopify in South Africa?', answer: 'Install UnumPay from the Shopify App Store and connect Flutterwave, Paystack, or any other supported South African payment provider from a single dashboard.' },
+      { question: 'How do I integrate Flutterwave with Shopify?', answer: 'Install UnumPay, open your dashboard, go to Payment Providers, select Flutterwave, and complete the activation steps.' },
+      { question: 'How do I integrate Paystack with Shopify?', answer: 'Install UnumPay, open your dashboard, go to Payment Providers, select Paystack, and complete the activation steps.' },
+      { question: 'Can I use both Flutterwave and Paystack at the same time?', answer: 'Yes. UnumPay lets you connect multiple providers at once so you can route transactions between them.' },
+      { question: 'What payment methods do South African customers use online?', answer: 'South African customers commonly use debit and credit cards, Ozow, Capitec Pay, Apple Pay, and EFT.' },
+      { question: 'Is there a monthly fee to use UnumPay?', answer: 'No. UnumPay is free to install with no monthly fees. You only pay 0.85% per successful transaction.' },
+    ],
+    cta: {
+      description: 'UnumPay is free to install. No monthly fee. No setup cost. Pay only when a sale is made. 0.85% per successful transaction.',
+      subtext: 'Connect Flutterwave and Paystack and go live the same day.',
+    },
+    footerLinks: [
+      { href: '/flutterwave-integration-guide/', text: 'Flutterwave integration guide' },
+      { href: '/paystack-integration-guide/', text: 'Paystack integration guide' },
+      { href: '/coverage/', text: 'All supported gateways' },
+      { href: '/pricing/', text: 'Pricing' },
+    ],
+  },
+]

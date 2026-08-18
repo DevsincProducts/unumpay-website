@@ -1,0 +1,45 @@
+<!-- ---
+// Loader.astro
+---
+
+<div class="site-loader" id="site-loader">
+  <div class="up-loader">
+    <span class="up-loader__sq up-loader__sq--1"></span>
+    <span class="up-loader__sq up-loader__sq--2"></span>
+    <span class="up-loader__sq up-loader__sq--3"></span>
+    <span class="up-loader__sq up-loader__sq--4"></span>
+  </div>
+</div>
+
+<style>
+  .site-loader {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .site-loader.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+</style>
+
+<script>
+  const loader = document.getElementById('site-loader') as HTMLElement | null
+
+  function finishLoading() {
+    setTimeout(() => {
+      if (!loader) return
+      loader.classList.add('is-hidden')
+
+      setTimeout(() => {
+        loader.remove()
+      }, 500)
+    }, 500)
+  }
+
+  if (document.readyState === 'complete') {
+    finishLoading()
+  } else {
+    window.addEventListener('load', finishLoading)
+  }
+</script> -->

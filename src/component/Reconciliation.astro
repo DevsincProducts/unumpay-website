@@ -1,0 +1,153 @@
+---
+
+---
+
+<div>
+  <section class="recon-section-setup">
+    <div
+      class="recon-section-setup-container"
+    >
+      <span class="recon-content-span">SETUP GUIDE</span>
+      <h1 class="recon-content-h1">
+        Reconciliation Setup Guide
+      </h1>
+      <div class="recon-content-p">
+        Create a custom Shopify app and connect it for full reconciliation visibility Using UnumPay.
+      </div>
+    </div>
+  </section>
+
+  <section class="recon-setup-section">
+    <div class="recon-setup-container">
+      <p class="recon-subtext">
+        This document covers the complete process of setting up reconciliation reports with UnumPay by creating a custom Shopify app from the Dev Dashboard and installing it on your store.
+      </p>
+
+      <div class="mb-10">
+        <h2 class="recon-title">Prerequisites</h2>
+        <ul style="padding-left: 24px; margin: 0px; list-style-type: disc; list-style-position: outside;">
+          <li style="font-size: 16px; color: rgb(55, 65, 81); line-height: 1.9; margin-bottom: 6px;">
+            Access to Shopify Admin
+          </li>
+          <li style="font-size: 16px; color: rgb(55, 65, 81); line-height: 1.9; margin-bottom: 6px;">
+            Staff account with <strong>App development &gt; Develop</strong> permission
+          </li>
+          <li style="font-size: 16px; color: rgb(55, 65, 81); line-height: 1.9; margin-bottom: 6px;">
+            Or store owner access
+          </li>
+        </ul>
+      </div>
+
+      <hr style="border-width: 1px medium medium; border-style: solid none none; border-color: rgb(243, 238, 255) currentcolor currentcolor; border-image: none; margin: 48px 0px;" />
+
+      <!-- PART 1 -->
+      <div class="recon-part">
+        <div class="recon-part-header">
+          <span class="recon-part-circle">1</span>
+        </div>
+        <h2 class="recon-part-title">Part 1: Create the App</h2>
+      </div>
+
+      <div class="recon-step">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+          <span class="recon-step-label">Step 2</span>
+          <h3 class="recon-step-title">Navigate to Dev Dashboard</h3>
+        </div>
+        <p class="recon-step-desc">Follow this path in Shopify Admin:</p>
+        <div class="recon-breadcrumb">
+          <span class="recon-breadcrumb-item">Shopify Admin</span>
+          <span class="recon-breadcrumb-sep">→</span>
+          <span class="recon-breadcrumb-item">Settings</span>
+          <span class="recon-breadcrumb-sep">→</span>
+          <span class="recon-breadcrumb-item">Apps</span>
+          <span class="recon-breadcrumb-sep">→</span>
+          <span class="recon-breadcrumb-item">Develop apps</span>
+          <span class="recon-breadcrumb-sep">→</span>
+          <span class="recon-breadcrumb-item">Build apps in Dev Dashboard</span>
+          <span class="recon-breadcrumb-sep">→</span>
+          <span class="recon-breadcrumb-item recon-breadcrumb-active">Create app</span>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="recon-step">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+          <span class="recon-step-label">Step 2</span>
+          <h3 class="recon-step-title">Configure the App</h3>
+        </div>
+        <p class="recon-step-desc">Under <strong>Start from Dev Dashboard</strong>:</p>
+        <ol class="recon-ordered-list">
+          <li style="padding-left: 20px; margin: 0px; list-style-type: decimal;">Enter your <strong>app name</strong></li>
+          <li style="padding-left: 20px; margin: 0px; list-style-type: decimal;">Click <strong>Create</strong></li>
+        </ol>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="recon-step">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+          <span class="recon-step-label">Step 3</span>
+          <h3 class="recon-step-title">Configure App Settings</h3>
+        </div>
+        <p class="recon-step-desc">In the app settings configure the following:</p>
+
+        <span class="recon-section-label">URLS SECTION</span>
+        <p class="recon-field-label"><strong>App URL</strong></p>
+        <div class="recon-code-block">https://shopify.dev/apps/default-app-home</div>
+        <p class="recon-note">(use default if app is not embedded in admin)</p>
+
+        <div class="mb-5">
+          <span class="recon-section-label">WEBHOOKS SECTION</span>
+          <p class="recon-field-label">Select a Webhook API version, e.g:</p>
+          <div class="recon-code-block">2025-01</div>
+        </div>
+
+        <span class="recon-section-label">ACCESS SECTION</span>
+        <p class="recon-field-label">Enter your required API scopes, e.g:</p>
+        <div class="recon-code-block">read_orders, write_fulfillments, read_locations</div>
+      </div>
+
+      <div class="recon-step">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+          <span class="recon-step-label">Step 4</span>
+          <h3 class="recon-step-title">Release the Version</h3>
+        </div>
+        <p class="recon-step-desc">Click <strong>Release</strong> to publish your app version.</p>
+      </div>
+
+      <hr style="border-width: 1px medium medium; border-style: solid none none; border-color: rgb(243, 238, 255) currentcolor currentcolor; border-image: none; margin: 48px 0px;" />
+
+      <div class="recon-part">
+        <div class="recon-part-header">
+          <span class="recon-part-circle">2</span>
+        </div>
+        <h2 class="recon-part-title">Part 2: Install the App on Your Store</h2>
+      </div>
+
+      <div class="recon-step">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+          <span class="recon-step-label">Step 1</span>
+          <h3 class="recon-step-title">Install via Dev Dashboard</h3>
+        </div>
+        <ol class="recon-ordered-list">
+          <li style="font-size: 16px; color: rgb(55, 65, 81); line-height: 1.9; margin-bottom: 6px;">In the Dev Dashboard go to your app</li>
+          <li style="font-size: 16px; color: rgb(55, 65, 81); line-height: 1.9; margin-bottom: 6px;">Click the <strong>Installs</strong> section</li>
+          <li style="font-size: 16px; color: rgb(55, 65, 81); line-height: 1.9; margin-bottom: 6px;">Click <strong>Install app</strong></li>
+          <li style="font-size: 16px; color: rgb(55, 65, 81); line-height: 1.9; margin-bottom: 6px;">Select your store <em>(Your Store Name)</em></li>
+          <li style="font-size: 16px; color: rgb(55, 65, 81); line-height: 1.9; margin-bottom: 6px;">Click <strong>Install</strong></li>
+        </ol>
+      </div>
+
+      <hr style="border-width: 1px medium medium; border-style: solid none none; border-color: rgb(243, 238, 255) currentcolor currentcolor; border-image: none; margin: 48px 0px;" />
+
+      <div class="mb-10">
+        <h2 class="recon-title">Share This With UnumPay</h2>
+        <p class="recon-step-desc">Once your app is created and installed, share the following credentials with UnumPay to complete the reconciliation setup:</p>
+        <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: 16px; margin-bottom: 16px;">
+          <div class="recon-code-block" style="flex: 1; min-width: 200px; text-align: center;">client_id</div>
+          <div class="recon-code-block" style="flex: 1; min-width: 200px; text-align: center;">client_secret</div>
+        </div>
+        <p class="recon-note">Send these to <strong style="color: rgb(106, 3, 206);">unumpay@devsinc.com</strong> or share them through your designated UnumPay onboarding contact.</p>
+      </div>
+    </div>
+  </section>
+</div>

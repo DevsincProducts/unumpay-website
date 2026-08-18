@@ -1,0 +1,225 @@
+@import "tailwindcss";
+
+body {
+  font-family: 'Poppins', sans-serif;
+  scrollbar-width: thin;
+  scrollbar-color: #a1a1a1 #2c2c2c !important; 
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #2c2c2c;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #7e7e7e;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #e5e5e5;
+}
+
+.site-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #1a0028;
+  background-image: radial-gradient(
+    circle at 50% 50%,
+    rgba(106, 3, 206, 0.28) 0%,
+    rgba(26, 0, 40, 0) 65%
+  );
+}
+
+.up-loader {
+  position: relative;
+  width: 64px;
+  height: 64px;
+}
+
+.up-loader__sq {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border-radius: 5px;
+  animation: up-sq-swap 1.8s ease-in-out infinite;
+}
+
+.up-loader__sq--1 {
+  top: 0;
+  left: 0;
+  background: #C812D5;
+  filter: drop-shadow(0 0 6px rgba(200, 18, 213, 0.55));
+  animation-name: up-sq1;
+}
+
+.up-loader__sq--2 {
+  top: 0;
+  right: 0;
+  background: #6a03ce;
+  filter: drop-shadow(0 0 6px rgba(106, 3, 206, 0.55));
+  animation-name: up-sq2;
+}
+
+.up-loader__sq--3 {
+  bottom: 0;
+  left: 0;
+  background: #6a03ce;
+  filter: drop-shadow(0 0 6px rgba(106, 3, 206, 0.55));
+  animation-name: up-sq3;
+}
+
+.up-loader__sq--4 {
+  bottom: 0;
+  right: 0;
+  background: #C812D5;
+  filter: drop-shadow(0 0 6px rgba(200, 18, 213, 0.55));
+  animation-name: up-sq4;
+}
+
+@keyframes up-sq1 {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(42px, 42px); }
+}
+
+@keyframes up-sq2 {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(-42px, 42px); }
+}
+
+@keyframes up-sq3 {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(42px, -42px); }
+}
+
+@keyframes up-sq4 {
+  0%, 100% { transform: translate(0, 0); }
+  50%      { transform: translate(-42px, -42px); }
+}
+
+.js-fade-in {
+  opacity: 0;
+  transform: translateY(var(--y-offset, 24px)) scale(var(--scale-from, 0.98));
+  will-change: opacity, transform;
+}
+
+.js-fade-in.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* FadeInUp / FadeInLeft / FadeInRight (scroll into view) */
+.js-fade-scroll {
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+.js-fade-scroll[data-direction='up'] {
+  transform: translateY(var(--y-offset, 40px));
+}
+
+.js-fade-scroll[data-direction='left'] {
+  transform: translateX(calc(-1 * var(--x-offset, 40px)));
+}
+
+.js-fade-scroll[data-direction='right'] {
+  transform: translateX(var(--x-offset, 40px));
+}
+
+.js-fade-scroll.is-visible {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.privacy-policy-heading {
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.15;
+  margin: 0 auto 16px;
+}
+
+.privacy-policy-subtitle {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.65);
+  font-weight: 400;
+  margin: 0 auto;
+}
+
+.privacy-policy-main-section {
+  background: white; 
+  padding-top: 60px; 
+  padding-bottom: 60px;
+}
+
+.privacy-content-container {
+  max-width: 800px; 
+  margin: 0px auto; 
+  padding: 0px 48px;
+}
+
+.privacy-section-title {
+  font-family: Poppins, sans-serif; 
+  font-weight: 600; font-size: 20px; 
+  color: rgb(23, 23, 33); 
+  margin-top: 40px; 
+  margin-bottom: 12px; 
+  padding-bottom: 8px; 
+  border-bottom: 2px solid rgb(243, 238, 255);
+}
+
+.privacy-section-text {
+  font-family: Poppins, sans-serif; 
+  font-weight: 400; 
+  font-size: 16px; 
+  color: rgb(55, 65, 81); 
+  line-height: 1.9; 
+  white-space: pre-line; 
+  margin: 0px;
+}
+
+.comparison-table-wrapper {
+  overflow-x: auto;
+  margin: 40px 0;
+}
+
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.comparison-table thead th {
+  padding: 18px 12px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #1a0b3b;
+  border-bottom: 1px solid #e8e2f5;
+}
+
+.comparison-table tbody td {
+  padding: 18px 12px;
+  border-bottom: 1px solid #e8e2f5;
+  color: #433a59;
+  font-size: 16px;
+  line-height: 1.6;
+  vertical-align: top;
+}
+
+.comparison-table tbody td:first-child {
+  width: 28%;
+  text-align: left;
+  font-weight: 600;
+  color: #1a0b3b;
+}
+
+.comparison-table thead th:first-child {
+  width: 28%;
+}

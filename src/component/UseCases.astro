@@ -1,0 +1,368 @@
+---
+// UseCases.astro
+import image4 from '../assets/images/image4.webp'
+import image5 from '../assets/images/image5.webp'
+import image6 from '../assets/images/image6.webp'
+import image7 from '../assets/images/image7.webp'
+import blogImage1 from '../assets/images/image2.png'
+import blogImage2 from '../assets/images/image3.png'
+import blogImage3 from '../assets/images/image4.png'
+import LimeLight from '../assets/logos/LimeLight.png'
+import Cambridge from '../assets/logos/cambridge.webp'
+import One from '../assets/logos/one.webp'
+import Zep from '../assets/logos/zep.png'
+import Jomo from '../assets/logos/jomo.webp'
+import Zartash from '../assets/logos/zartash.webp'
+
+const useCases = [
+  {
+    image: image4,
+    number: '01',
+    tag: 'USE CASE 01',
+    title: 'Sell Global. Accept Payment in Any Currency.',
+    desc: 'Shopify Payments is only available in a few countries. For the rest of the world, merchants are left without a native checkout solution. UnumPay fills that gap. As a Shopify-approved payment app, UnumPay works as a native payment solution for every region where Shopify Payments is not available. Sell to customers anywhere in the world and accept payments in their local currency.',
+  },
+  {
+    image: image5,
+    number: '02',
+    tag: 'USE CASE 02',
+    title: 'Never Lose a Sale to a Failed Payment.',
+    desc: 'Relying on a single payment gateway puts your entire revenue at risk. If it goes down, your checkout goes down with it. UnumPay connects your Shopify store to 40+ payment gateways through one integration, so you can run multiple gateways simultaneously and keep your store open for business no matter what.',
+  },
+  {
+    image: image6,
+    number: '03',
+    tag: 'USE CASE 03',
+    title: 'Every Transaction. One Dashboard.',
+    desc: 'When you are processing payments through multiple providers, reconciliation becomes complicated fast. UnumPay brings everything into one unified dashboard with real-time transaction monitoring, success rates, revenue tracking, refund management, and detailed reporting across all your connected gateways.',
+  },
+  {
+    image: image7,
+    number: '04',
+    tag: 'USE CASE 04',
+    title: 'Easy Onboarding. Every Payment Option Your Customers Expect.',
+    desc: 'Getting started with UnumPay is simple. Connect your Shopify store once and instantly unlock a full range of payment options including card payments, e-wallets, payment links, Google Pay, Apple Pay, and local payment gateways relevant to your market.',
+  },
+]
+
+const testimonials = [
+  {
+    logo: LimeLight,
+    initials: 'Limelight',
+    name: 'Limelight',
+    role: 'Shopify Merchant',
+    text: 'A must have app for multiple payments tracking. Easy to use as well. I would recommend it to everyone',
+  },
+  {
+    logo: One,
+    initials: 'ONE',
+    name: 'ONE',
+    role: 'Shopify Merchant',
+    text: 'A good app for multiple payment gateway tracking. Making it easire for online payments reconciliation. Customer Support is nice. application is excellent. easy to integrate and wrok around with alot of transactions.',
+  },
+  {
+    logo: Zartash,
+    initials: 'NA',
+    name: 'Zartash',
+    role: 'Shopify Merchant',
+    text: 'So far so good!! Overall experience is good for this app. Thank you for making it easier for online payments',
+  },
+  {
+    logo: Cambridge,
+    initials: 'IW',
+    name: 'Cambridge',
+    role: 'Shopify Merchant',
+    text: 'Experience is good for this app. Very helpful to reconcile daily payment transactions. Thanks for making it easire for online payments reconciliation',
+  },
+  {
+    logo: Zep,
+    initials: 'JP',
+    name: 'Zephyr',
+    role: 'Shopify Merchant',
+    text: 'An excellent app for payment gateways reporting with top class support and guidance. Alchemative guys are super fast at response and support especially Mr. Sikandar. He guided us for every step to integrate the app with our store.',
+  },
+  {
+    logo: Jomo,
+    initials: 'JO',
+    name: 'Jomo',
+    role: 'Shopify Merchant',
+    text: 'This app has made payment integration and reconciliation an automated and seamless process for us. Allows us to process and confirm prepaid orders much quicker! Also have an amazing support team!',
+  },
+]
+
+const articles = [
+  {
+    image: blogImage1,
+    category: 'Shopify Payments',
+    date: 'Jun 30, 2026',
+    title: 'Is Shopify Payments Available in Tunisia?',
+    excerpt: 'Shopify Payments is not available in Tunisia. As of 2026 it operates in around 39 countries and Tunisia is not one of them...',
+    link: 'https://www.unumpay.com/blog/is-shopify-payments-available-in-tunisia/',
+  },
+  {
+    image: blogImage2,
+    category: 'Shopify Payments',
+    date: 'Jun 24, 2026',
+    title: 'Why Pakistani Shopify Stores Lose Sales at Checkout',
+    excerpt: 'Missing payment options are one of the most common and most fixable causes of checkout drop-off for Pakistani Shopify...',
+    link: '/blog/why-pakistani-shopify-stores-lose-sales-at-checkout/',
+  },
+  {
+    image: blogImage3,
+    category: 'Shopify Payments',
+    date: 'Jun 9, 2026',
+    title: 'UnumPay Partners with Aik by BankIslami to Enable Raast QR Payments for Shopify Stores in Pakistan',
+    excerpt: "Raast is Pakistan's first instant payment system built by the State Bank of Pakistan. This guide explains what Raast is, how...",
+    link: '/blog/unumpay-partners-with-aik-by-bankislami-raast-qr-payments/',
+  },
+]
+
+// const CARDS_PER_PAGE = 3
+// const totalPages = Math.ceil(testimonials.length / CARDS_PER_PAGE)
+// const pagesOfTestimonials = Array.from({ length: totalPages }, (_, i) =>
+//   testimonials.slice(i * CARDS_PER_PAGE, i * CARDS_PER_PAGE + CARDS_PER_PAGE)
+// )
+---
+
+<div>
+  <section class="work-section bg-white stats-section">
+    <div class="max-w-300 mx-auto px-6 md:px-10 lg:px-12] xl:px-12">
+      <span class="work-eyebrow">USE CASES</span>
+      <h2 class="work-heading">Real Problems. Real Solutions.</h2>
+      <p class="work-subtitle">
+        UnumPay solves the exact challenges Shopify merchants face when scaling payments globally.
+      </p>
+
+      <div class="usecases-list">
+        {useCases.map((item, index) => (
+          <div
+            class={`usecase-row js-fade-scroll ${index % 2 === 1 ? 'usecase-row--reverse' : ''}`}
+            data-direction="up"
+            style="--y-offset: 40px;"
+            data-duration="0.7"
+            data-delay="0"
+            data-amount="0.2"
+          >
+            <div class="usecase-image-wrapper">
+              <img src={item.image.src ?? item.image} alt={item.title} class="usecase-image" />
+              <div class="usecase-badge">{item.number}</div>
+            </div>
+
+            <div class="usecase-content">
+              <span class="usecase-tag">{item.tag}</span>
+              <div class="uc-section__accent-line"></div>
+              <h3 class="usecase-title">{item.title}</h3>
+              <p class="usecase-desc">{item.desc}</p>
+              <a href="https://www.unumpay.com/contact/" class="usecase-link">
+                Learn More <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="work-section bg-white stats-section mt-8" style="background: linear-gradient(#fff, #f9f7ff);">
+    <div class="max-w-300 mx-auto px-6 md:px-10 lg:px-12] xl:px-12 pb-6 sm:pb-0">
+      <span class="work-eyebrow">CUSTOMER SUCCESS STORIES</span>
+      <h2 class="work-heading">Loved by Shopify Merchants Worldwide</h2>
+      <p class="work-subtitle">
+        Real merchants. Real results. See how UnumPay is transforming payment experiences for Shopify stores.
+      </p>
+
+      <div class="testimonial-carousel" id="testimonial-carousel">
+        <button class="testimonial-arrow testimonial-arrow--left" id="testimonial-prev" aria-label="Previous">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+
+        <div class="testimonial-grid-wrapper">
+          <div class="testimonial-grid" id="testimonial-grid">
+            {testimonials.map((item, index) => (
+              <div class="testimonial-card" data-index={index}>
+                <div class="css-section__card-accent"></div>
+                <div class="testimonial-header">
+                  <div class="testimonial-avatar">
+                    {item.logo ? (
+                      <img src={item.logo.src ?? item.logo} alt={item.name} class="testimonial-logo-img" />
+                    ) : (
+                      item.initials
+                    )}
+                  </div>
+                  <div>
+                    <p class="testimonial-name">{item.name}</p>
+                    <p class="testimonial-role">{item.role}</p>
+                  </div>
+                </div>
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <button class="testimonial-arrow testimonial-arrow--right" id="testimonial-next" aria-label="Next">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
+      </div>
+
+      <div class="testimonial-dots" id="testimonial-dots"></div>
+      
+    </div>
+  </section>
+
+  <section class="work-section bg-white stats-section">
+    <div class="max-w-300 mx-auto px-6 md:px-10 lg:px-12] xl:px-12">
+      <span class="work-eyebrow">RESOURCE HUB</span>
+      <h1 class="work-heading">Shopify Payment Guides & Insights</h1>
+      <p class="work-subtitle">
+        Tips, tutorials and expert guides for Shopify merchants navigating payments globally.
+      </p>
+
+      <div class="blog-grid">
+        {articles.map((article) => (
+          <div class="blog-card">
+            <div class="blog-image-wrapper">
+              <img src={article.image.src ?? article.image} alt={article.title} class="blog-image" />
+            </div>
+
+            <div class="blog-content">
+              <span class="blog-category">{article.category}</span>
+              <p class="blog-date">{article.date}</p>
+              <h3 class="blog-title">{article.title}</h3>
+              <p class="blog-excerpt">{article.excerpt}</p>
+              <a href={article.link} class="blog-link">
+                Read Article <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="blog-cta-wrapper">
+        <a href="/blogs" class="blog-cta">
+          View All Articles <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  import { initFadeInScroll } from '../scripts/Animation'
+
+const AUTO_SLIDE_INTERVAL = 3500
+
+const carousel = document.getElementById('testimonial-carousel') as HTMLElement | null
+const prevBtn = document.getElementById('testimonial-prev') as HTMLButtonElement | null
+const nextBtn = document.getElementById('testimonial-next') as HTMLButtonElement | null
+const dotsContainer = document.getElementById('testimonial-dots') as HTMLElement | null
+const grid = document.getElementById('testimonial-grid') as HTMLElement | null
+const cards = grid ? Array.from(grid.querySelectorAll<HTMLElement>('.testimonial-card')) : []
+
+let itemsPerPage = getItemsPerPage()
+let currentPage = 0
+let isPaused = false
+let intervalId: ReturnType<typeof setInterval> | null = null
+
+function getItemsPerPage() {
+  const w = window.innerWidth
+  if (w <= 768) return 1
+  if (w <= 1024) return 2
+  return 3
+}
+
+function totalPages() {
+  return Math.ceil(cards.length / itemsPerPage)
+}
+
+function renderDots() {
+  if (!dotsContainer) return
+  dotsContainer.innerHTML = ''
+  for (let i = 0; i < totalPages(); i++) {
+    const dot = document.createElement('button')
+    dot.className = 'testimonial-dot' + (i === currentPage ? ' testimonial-dot--active' : '')
+    dot.dataset.page = String(i)
+    dot.setAttribute('aria-label', `Go to page ${i + 1}`)
+    dot.addEventListener('click', () => {
+      showPage(i)
+      restartInterval()
+    })
+    dotsContainer.appendChild(dot)
+  }
+}
+
+function showPage(index: number) {
+  const total = totalPages()
+  currentPage = (index + total) % total
+  const start = currentPage * itemsPerPage
+  const end = start + itemsPerPage
+  cards.forEach((card, i) => {
+    card.style.display = i >= start && i < end ? '' : 'none'
+  })
+  const dots = dotsContainer ? Array.from(dotsContainer.querySelectorAll<HTMLButtonElement>('.testimonial-dot')) : []
+  dots.forEach((dot, i) => dot.classList.toggle('testimonial-dot--active', i === currentPage))
+}
+
+function goPrev() {
+  showPage(currentPage - 1)
+  restartInterval()
+}
+
+function goNext() {
+  showPage(currentPage + 1)
+  restartInterval()
+}
+
+function startInterval() {
+  if (isPaused || totalPages() <= 1) return
+  intervalId = setInterval(() => showPage(currentPage + 1), AUTO_SLIDE_INTERVAL)
+}
+
+function stopInterval() {
+  if (intervalId) {
+    clearInterval(intervalId)
+    intervalId = null
+  }
+}
+
+function restartInterval() {
+  stopInterval()
+  startInterval()
+}
+
+function handleResize() {
+  const newItemsPerPage = getItemsPerPage()
+  if (newItemsPerPage !== itemsPerPage) {
+    itemsPerPage = newItemsPerPage
+    currentPage = 0
+    renderDots()
+    showPage(0)
+    restartInterval()
+  }
+}
+
+prevBtn?.addEventListener('click', goPrev)
+nextBtn?.addEventListener('click', goNext)
+window.addEventListener('resize', handleResize)
+
+carousel?.addEventListener('mouseenter', () => {
+  isPaused = true
+  stopInterval()
+})
+
+carousel?.addEventListener('mouseleave', () => {
+  isPaused = false
+  startInterval()
+})
+
+renderDots()
+showPage(0)
+startInterval()
+
+initFadeInScroll()
+</script>

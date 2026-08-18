@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/global.css'
+import '../styles/hero.css'
+import '../styles/usecases.css'
+import '../styles/pricing.css'
+import Blogs from '../components/Blogs';
+import '../styles/blogs.css'
+import blogs from '../data/blogs.json';
+import Navbar from '../component/Navbar.astro';
+import Footer from '../component/Footer.astro';
+
+// ---- Single source of truth: src/data/blogs.json ----
+// Naya blog add karne ke liye bas us JSON array mein ek object push karein.
+
+const articles = [...blogs]
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  .map((entry) => ({
+    image: entry.image,
+    category: entry.category,
+    date: entry.date,
+    title: entry.title,
+    excerpt: entry.excerpt,
+    slug: `/blog/${entry.slug}/`,
+  }));
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+---
+
+
+<Layout title="Shopify Payment Guides and Insights | UnumPay Blog"
+  description="Expert guides, tutorials, and insights for Shopify merchants on local and global payment gateways. Stay ahead with the latest payment trends and integration tips."
+  canonical="https://www.unumpay.com/blog/"
+  image="https://www.unumpay.com/og-image.jpg">
+
+	<Navbar />
+
+	<Blogs client:load articles={articles} />
+
+	<Footer />
+
+</Layout>

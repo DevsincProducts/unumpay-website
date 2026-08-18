@@ -1,0 +1,212 @@
+---
+// Work.astro
+import image2 from '../assets/images/image2.webp'
+import image3 from '../assets/images/image8.webp'
+import image4 from '../assets/images/image9.webp'
+import image5 from '../assets/images/image3.webp'
+import image6 from '../assets/images/Advance_Payment.webp'
+import image7 from '../assets/images/Paid_Order.webp'
+import image8 from '../assets/images/Payment_Gateway.webp'
+import image9 from '../assets/images/Customizable_Dashboard.webp'
+import image10 from '../assets/images/Currency_Switcher.webp'
+
+const stats = [
+  { target: 40, suffix: '+', label: 'Payment Gateways' },
+  { target: 45, suffix: '+', label: 'Countries' },
+  { target: 80, suffix: 'K+', label: 'Transactions / Month' },
+  { target: 8, prefix: '$', suffix: 'M+', label: 'Processed / Month' },
+  { target: 4.6, decimals: 1, label: 'App Store Rating' },
+]
+
+const steps = [
+  {
+    image: image2,
+    number: 1,
+    title: 'Install UnumPay',
+    desc: 'Install the app from the Shopify App Store in one click. No developer needed.',
+  },
+  {
+    image: image3,
+    number: 2,
+    title: 'Connect Your Gateways',
+    desc: 'Choose from 40+ payment providers and activate them instantly from your dashboard.',
+  },
+  {
+    image: image4,
+    number: 3,
+    title: 'Start Accepting Payments',
+    desc: 'Go live and start accepting payments from customers worldwide in minutes.',
+  },
+]
+
+const features = [
+  {
+    image: image5,
+    title: 'Intuitive Payment Integrations',
+    desc: 'Choose the best payment provider for your business. Offering a range of top-notch payment providers.',
+  },
+  {
+    image: image7,
+    title: 'Paid Order Reporting',
+    desc: 'Get a comprehensive report on paid orders, payments and list order gateways along with their transaction ID.',
+  },
+  {
+    image: image10,
+    title: 'Currency Switcher',
+    desc: 'Add and switch currencies to cater to your customers all around the globe.',
+  },
+  {
+    image: image8,
+    title: 'Payment Gateway Configuration',
+    desc: 'Configure and integrate your desired payment gateway all by yourself.',
+  },
+  {
+    image: image9,
+    title: 'Customizable Dashboard',
+    desc: 'Optimize your order table as you see fit. Add filters, generate reports, and analyze the performance of your payment gateway.',
+  },
+  {
+    image: image6,
+    title: 'Advance Payment',
+    desc: 'Allowing you to take advance payment from customers for the products they ordered and are to be received at later dates.',
+  },
+]
+---
+
+<section class="work-section bg-white stats-section" id="stats-section">
+  <div class="max-w-300 mx-auto px-6 md:px-10 lg:px-12] xl:px-12">
+    <span class="work-eyebrow">THE NUMBERS</span>
+    <h2 class="work-heading">Powering Shopify Merchants Worldwide</h2>
+    <p class="work-subtitle">
+      Connecting Shopify stores worldwide to multiple payment gateways, processing millions
+      in transactions every month through one seamless integration.
+    </p>
+
+    <div class="stats-row">
+      {stats.map((stat) => (
+        <div
+          class="stat-circle"
+        >
+          <span
+            class="stat-number"
+            data-target={stat.target}
+            data-decimals={stat.decimals ?? 0}
+            data-prefix={stat.prefix ?? ''}
+            data-suffix={stat.suffix ?? ''}
+          >
+            {stat.prefix}
+            {stat.decimals ? (0).toFixed(stat.decimals) : 0}
+            {stat.suffix}
+          </span>
+          <span class="stat-label">{stat.label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="work-section bg-white stats-section" id="how-it-works">
+  <div class="max-w-300 mx-auto px-6 md:px-10 lg:px-12] xl:px-12">
+    <span class="work-eyebrow">HOW IT WORKS</span>
+    <h2 class="work-heading mb-14!">From Install to Live in Minutes</h2>
+
+    <div class="steps-row">
+      {steps.map((step) => (
+        <div
+          class="step-card"
+        >
+          <img src={step.image.src ?? step.image} alt={step.title} class="step-image" />
+          <div class="flex gap-2">
+            <div class="step-badge">{step.number}. </div>
+            <h3 class="step-title">{step.title}</h3>
+          </div>
+          <p class="step-desc">{step.desc}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="step-cta-wrapper">
+      <a href="https://apps.shopify.com/unum-pay" target="_blank" rel="noopener noreferrer" class="step-cta">
+        Install on Shopify
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="work-section bg-white stats-section">
+  <div class="max-w-300 mx-auto px-6 md:px-10 lg:px-12] xl:px-12">
+    <span class="work-eyebrow">KEY FEATURES</span>
+    <h2 class="work-heading">Everything You Need to Manage Shopify Payments</h2>
+    <p class="work-subtitle">
+      Powerful tools built for Shopify merchants. Manage gateways, monitor transactions, and grow your business without the complexity.
+    </p>
+
+    <div class="features-grid">
+      {features.map((feature) => (
+        <div
+          class="feature-card"
+        >
+          <div class="feature-icon">
+            <img src={feature.image.src ?? feature.image} alt={feature.title} />
+          </div>
+          <div class="gap-2! flex flex-col">
+            <h3 class="feature-title">{feature.title}</h3>
+            <p class="feature-desc">{feature.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  
+  const statsSection = document.getElementById('stats-section') as HTMLElement | null
+  const statNumbers = Array.from(document.querySelectorAll<HTMLElement>('.stat-number'))
+  let hasAnimated = false
+ 
+  function animateNumbers() {
+    const duration = 1800
+    const startTime = performance.now()
+ 
+    function step(now: number) {
+      const progress = Math.min((now - startTime) / duration, 1)
+      const eased = 1 - Math.pow(1 - progress, 3)
+ 
+      statNumbers.forEach((el) => {
+        const target = parseFloat(el.dataset.target || '0')
+        const decimals = parseInt(el.dataset.decimals || '0', 10)
+        const prefix = el.dataset.prefix || ''
+        const suffix = el.dataset.suffix || ''
+ 
+        const current = target * eased
+        const displayValue = decimals ? current.toFixed(decimals) : Math.floor(current).toString()
+ 
+        el.textContent = `${prefix}${displayValue}${suffix}`
+      })
+ 
+      if (progress < 1) {
+        requestAnimationFrame(step)
+      }
+    }
+ 
+    requestAnimationFrame(step)
+  }
+ 
+  if (statsSection && statNumbers.length) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            hasAnimated = true
+            animateNumbers()
+            observer.unobserve(statsSection)
+          }
+        })
+      },
+      { threshold: 0.3 }
+    )
+ 
+    observer.observe(statsSection)
+  }
+</script>

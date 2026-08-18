@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/global.css'
+import '../styles/hero.css'
+import '../styles/usecases.css'
+import '../styles/pricing.css'
+import Gateway from '../components/Gateway';
+import '../styles/coverage.css'
+import Navbar from '../component/Navbar.astro';
+import Footer from '../component/Footer.astro';
+import Loader from '../component/Loader.astro';
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+---
+
+
+<Layout title="Global Payment Gateway Coverage | UnumPay"
+  description="UnumPay connects Shopify stores to 40+ local and global payment gateways across 45+ countries. Browse all supported PSPs and find your payment gateway integration guide."
+  canonical="https://www.unumpay.com/coverage/"
+  image="https://www.unumpay.com/og-image.jpg">
+
+	<Loader />
+
+	<Navbar />
+
+    <Gateway client:load />
+
+	<Footer />
+
+</Layout>

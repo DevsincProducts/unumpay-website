@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/global.css'
+import '../styles/coverage.css'
+import '../styles/tunisia.css'
+import '../styles/hero.css'
+import '../styles/usecases.css'
+import '../styles/pricing.css'
+import GatewayGuide from '../components/Flouci.jsx';
+import { gatewayGuides } from '../data/payments';
+import Navbar from '../component/Navbar.astro';
+import Footer from '../component/Footer.astro';
+import Loader from '../component/Loader.astro';
+
+export async function getStaticPaths() {
+  return gatewayGuides.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+
+const pageTitle = `${entry.name} Integration Guide | UnumPay`;
+const pageDescription = `Set up ${entry.name} as a payment gateway on your Shopify store through the UnumPay app in ${entry.setupTime}. Step-by-step guide for merchants in ${entry.regions?.join(', ')}.`;
+const pageCanonical = `https://www.unumpay.com/${entry.slug}`;
+
+---
+
+<Layout title={pageTitle}
+  description={pageDescription}
+  canonical={pageCanonical}
+  image="https://www.unumpay.com/og-image.jpg">
+
+  <Loader />
+
+  <Navbar />
+
+  <GatewayGuide data={entry} client:load />
+  
+  <Footer />
+
+</Layout>

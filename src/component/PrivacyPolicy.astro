@@ -1,0 +1,68 @@
+---
+
+const privacySections = [
+  {
+    title: '1. What We Collect',
+    content: 'We collect your Shopify store URL, transaction data, contact details, and usage analytics to provide and improve the Service.',
+  },
+  {
+    title: '2. How We Use It',
+    content: 'To provide the Service, improve performance, send service updates, and respond to support requests. We do not use your data for advertising purposes.',
+  },
+  {
+    title: '3. What We Do Not Do',
+    content: 'We do not sell, rent, or share your data with advertisers or unrelated third parties.',
+  },
+  {
+    title: '4. Data Storage',
+    content: 'Data is stored on secure servers using industry-standard TLS/SSL encryption. We comply with applicable data protection regulations.',
+  },
+  {
+    title: '5. Third Party Gateways',
+    content: "When you connect a gateway that provider also receives transaction data per their own privacy policy. Review each gateway's policy before connecting.",
+  },
+  {
+    title: '6. Cookies',
+    content: 'We use cookies for session management and analytics only. No advertising cookies.',
+  },
+  {
+    title: '7. Your Rights',
+    content:
+      'You may request access, correction, or deletion of your data at any time by emailing <span class="privacy-section-text">hello@unumpay.com</span>.',
+  },
+  {
+    title: '8. Data Retention',
+    content: 'Transaction data retained for 7 years for compliance. Account data deleted within 30 days of account closure.',
+  },
+  {
+    title: '9. Contact',
+    content:
+      '<span class="privacy-section-text">hello@unumpay.com</span><br />' +
+      '<span class="privacy-section-text">www.unumpay.com/privacy-policy</span>',
+  },
+]
+---
+
+<div>
+  <section class="pri-section pt-34!">
+    <div class="cta-section__glow" aria-label="hidden"></div>
+    <div class="pri-content">
+      <h1 class="privacy-policy-heading">Privacy Policy</h1>
+
+      <p class="privacy-policy-subtitle">
+        Last updated April 2026 · Your data is safe with us.
+      </p>
+    </div>
+  </section>
+
+  <section class="privacy-policy-main-section">
+    <div class="privacy-content-container">
+      {privacySections.map((section) => (
+        <div class="privacy-section-item">
+          <h3 class="privacy-section-title">{section.title}</h3>
+          <p class="privacy-section-text" set:html={section.content} />
+        </div>
+      ))}
+    </div>
+  </section>
+</div>

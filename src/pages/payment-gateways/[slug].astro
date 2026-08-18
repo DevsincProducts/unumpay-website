@@ -1,0 +1,33 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/global.css'
+import '../../styles/hero.css'
+import '../../styles/usecases.css'
+import '../../styles/pricing.css'
+import '../../styles/tunisia.css'
+import Navbar from '../../component/Navbar.astro';
+import Footer from '../../component/Footer.astro';
+import { countries } from '../../data/countries.js';
+import Tunisia from '../../component/Tunisia.astro';
+
+export function getStaticPaths() {
+  return countries.map((country) => ({
+    params: { slug: country.slug },
+    props: { country },
+  }));
+}
+
+const { country } = Astro.props;
+---
+
+<Layout
+  title={country.meta.title}
+  description={country.meta.description}
+  canonical={`https://www.unumpay.com/payment-gateways/${country.slug}/`}
+  image="https://www.unumpay.com/og-image.jpg">
+
+  <Navbar />
+  <Tunisia data={country} />
+  <Footer />
+
+</Layout>

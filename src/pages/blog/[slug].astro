@@ -1,0 +1,138 @@
+---
+import type { MarkdownHeading } from 'astro';
+import { createMarkdownProcessor } from '@astrojs/markdown-remark';
+import rehypeSlug from 'rehype-slug';
+import Layout from '../../layouts/Layout.astro';
+import '../../styles/template.css'
+import '../../styles/pricing.css'
+import '../../styles/hero.css'
+import '../../styles/usecases.css'
+import '../../styles/global.css'
+import { ArrowLeft, Calendar, Clock, User } from 'lucide-astro'
+import blogs from '../../data/blogs.json';
+import Navbar from '../../component/Navbar.astro';
+import Footer from '../../component/Footer.astro';
+
+export async function getStaticPaths() {
+  return blogs.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props as { entry: (typeof blogs)[number] };
+
+const rawBody = entry.body ?? '';
+
+const firstH2Index = rawBody.indexOf('\n## ');
+
+const introMarkdown = firstH2Index !== -1 ? rawBody.slice(0, firstH2Index) : rawBody;
+const restMarkdown = firstH2Index !== -1 ? rawBody.slice(firstH2Index) : '';
+
+const processor = await createMarkdownProcessor({
+  syntaxHighlight: 'shiki',
+  rehypePlugins: [rehypeSlug],
+});
+
+const introResult = await processor.render(introMarkdown);
+const restResult = await processor.render(restMarkdown);
+
+const introHtml = introResult.code;
+const restHtml = restResult.code;
+
+const headings: MarkdownHeading[] = [
+  ...(introResult.metadata?.headings ?? []),
+  ...(restResult.metadata?.headings ?? []),
+];
+
+const wordCount = rawBody.trim().split(/\s+/).length;
+const readTime = Math.ceil(wordCount / 200);
+
+const pageTitle = `${entry.title} | UnumPay Blog`;
+const pageDescription = entry.excerpt ?? `Read ${entry.title} on the UnumPay blog.`;
+const pageCanonical = `https://www.unumpay.com/blogs/${entry.slug}/`;
+
+---
+
+<Layout title={pageTitle}
+  description={pageDescription}
+  canonical={pageCanonical}
+  image="https://www.unumpay.com/og-image.jpg">
+
+  <Navbar />
+
+  <section class="template-section">
+    <div class='cta-section__glow' aria-label='hidden'></div>
+     <div class="template-section-content">
+      <div class="blog-detail-breadcrumb">
+        <a href="/blogs" class="blog-back-link flex gap-2"><ArrowLeft size="14" /> Back to Blog</a>
+        <span class="blog-breadcrumb-sep">·</span>
+        <span class="blog-breadcrumb-title">{entry.title}</span>
+      </div>
+      <span class="blog-detail-category">{entry.category}</span>
+      <h1 class="blog-detail-title">{entry.title}</h1>
+      <div class="blog-detail-meta">
+        <span><Calendar size="14" /> {entry.date}</span>
+        <span><Clock size="14" />  {readTime} min read</span>
+        <span><User size="14" />  {entry.author}</span>
+      </div>
+     </div>
+  </section>
+
+  <section class="blog-detail-body bg-white">
+    <div class="post-body-inner">
+      <div style="border-radius: 16px; overflow: hidden; aspect-ratio: 16 / 9; margin-bottom: 40px;">
+        {entry.image && (
+          <img src={entry.image} alt={entry.title} style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+        )}
+      </div>
+
+      <div class="text-[#333] text-[16px] sm:text-[17px] leading-6 sm:leading-7 mb-5 blog-intro" set:html={introHtml} />
+
+      <div class="bg-[#F8F5FC] border-l-4 border-[#8B2BE2] rounded-2xl p-5 mb-10">
+        {headings.length > 0 && (
+          <div class="blog-toc-box ">
+            <h3 class="text-[#1A0028] font-bold text-[15px] mb-4">Table of Contents</h3>
+            <ol class="space-y-2.5 text-sm text-[#555] list-none pl-0">
+              {headings
+                .filter((h: MarkdownHeading) => h.depth === 2)
+                .map((heading: MarkdownHeading, index: number) => (
+                  <li class="flex gap-2">
+                    <span class="font-bold text-[#8B2BE2] shrink-0">{index + 1}.</span>
+                    <a href={`#${heading.slug}`}
+                    class="font-semibold text-[#333] hover:text-[#8B2BE2] transition-colors">
+                      {heading.text}
+                    </a>
+                  </li>
+                ))}
+            </ol>
+          </div>
+        )}
+      </div>
+
+      <div class="blog-detail-content" set:html={restHtml} />
+
+      <div class="mt-8 flex items-center gap-3 text-sm text-[#8B7DA8]">
+        <a href="https://www.unumpay.com" class="hover:text-[#8B2BE2] transition-colors">
+          Visit UnumPay
+        </a>
+      </div>
+
+      <div class="mt-6 flex flex-wrap items-center gap-3">
+        <a href="https://apps.shopify.com/unum-pay" class="inline-flex items-center justify-center px-4 py-2 rounded-md border border-[#8B2BE2] text-[#8B2BE2] text-sm font-medium hover:bg-[#8B2BE2] hover:text-white transition-colors">
+          Install on Shopify
+        </a>
+        <a href="/contact" class="inline-flex items-center justify-center px-4 py-2 rounded-md border border-[#8B2BE2] text-[#8B2BE2] text-sm font-medium hover:bg-[#8B2BE2] hover:text-white transition-colors">
+          Contact Us
+        </a>
+      </div>
+
+      <div class="mt-12 pt-6 border-t border-gray-200">
+        <a href="/blogs" class="inline-flex items-center gap-2 text-[#8B2BE2] hover:text-[#A040FF] font-semibold transition-colors"><ArrowLeft size="14" /> Back to All Articles</a>
+      </div>
+       </div>
+  </section>
+
+  <Footer />
+
+</Layout>

@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+import '../styles/global.css'
+import '../styles/hero.css'
+import '../styles/usecases.css'
+import '../styles/pricing.css'
+import Navbar from '../component/Navbar.astro';
+import Footer from '../component/Footer.astro';
+import Pricing from '../component/Pricing.astro';
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+---
+
+
+<Layout title="Pay As You Go for Your Shopify Store, No Hidden Charges | UnumPay"
+  description="UnumPay charges just 0.85% per successful transaction. No setup fees, no monthly charges, no hidden costs. Free to install on Shopify."
+  canonical="https://www.unumpay.com/pricing/"
+  image="https://www.unumpay.com/og-image.jpg">
+
+	<Navbar />
+
+	<Pricing />
+
+	<Footer />
+
+</Layout>

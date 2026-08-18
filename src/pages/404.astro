@@ -1,0 +1,28 @@
+---
+import Footer from "../component/Footer.astro";
+import Navbar from "../component/Navbar.astro";
+import Layout from "../layouts/Layout.astro";
+import '../styles/global.css'
+import '../styles/pricing.css'
+import '../styles/usecases.css'
+
+---
+
+<Layout>
+
+    <Navbar />
+
+    <section class="min-h-[60vh] flex items-center justify-center bg-[#1a0028] pt-30! pb-12">
+        <div class="text-center">
+            <div class="text-[120px] font-bold text-[#8B2BE2] leading-none mb-4">404</div>
+            <div class="text-[36px] font-semibold text-white mb-4">Page Not Found</div>
+            <p class="text-[#C9B8E8] text-lg mb-8 max-w-md mx-auto">The page you're looking for doesn't exist or has been moved.</p>
+            <a href="/" class="inline-block bg-[#8B2BE2] hover:bg-[#A040FF] text-white font-semibold py-3 px-8 rounded-lg transition-all hover:shadow-[0_0_24px_rgba(139,43,226,0.5)]">
+                Back to Home
+            </a>
+        </div>
+    </section>
+
+    <Footer />
+
+</Layout>
