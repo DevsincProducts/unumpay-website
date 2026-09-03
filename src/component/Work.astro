@@ -294,6 +294,11 @@ document.addEventListener('astro:page-load', () => {
     // view and the stepper starts. Show step one from the outset instead.
     setActiveTab(0)
 
+    // Fetch step 0's clip immediately, independent of whether the section is
+    // anywhere near the viewport yet — see the identical comment in the Key
+    // Features slider above for why.
+    if (videos[0] && videos[0].readyState === 0) videos[0].load()
+
     let activeIndex = 0
     let hoverPaused = false
     let fallbackId: ReturnType<typeof setTimeout> | null = null
@@ -520,6 +525,14 @@ document.addEventListener('astro:page-load', () => {
     const videos = cards.map((card) => card.querySelector('video'))
     videos.forEach(primeFirstFrame)
 
+    // Fetch card 0's clip immediately, independent of whether the section is
+    // anywhere near the viewport yet. Playback still waits for the section to
+    // actually be ~60% on screen (readyToStart below) — this only decouples
+    // *fetching* from *playing*, so the data is already there (or well on its
+    // way) by the time the reader scrolls to it, instead of the fetch only
+    // starting at that moment and racing to buffer enough to play in time.
+    if (videos[0] && videos[0].readyState === 0) videos[0].load()
+
     const progressRoot = document.getElementById('kf-progress')
     const dots = progressRoot ? Array.from(progressRoot.querySelectorAll<HTMLButtonElement>('[data-kf-dot]')) : []
 
@@ -691,12 +704,16 @@ document.addEventListener('astro:page-load', () => {
     slider.addEventListener('scroll', onSliderScroll, { passive: true })
     window.addEventListener('resize', computeTilts, { signal })
 
-    // Pause only while the cursor is over an individual card — moving
-    // between cards (even within the row) resumes it immediately.
-    cards.forEach((card) => {
-      card.addEventListener('mouseenter', pauseForHover)
-      card.addEventListener('mouseleave', resumeFromHover)
-    })
+    // Pause-on-hover removed. Unlike the How It Works stepper (a static
+    // layout that works fine with the same feature), every card here is
+    // continuously repositioned/rescaled by computeTilts() as the row moves —
+    // and a card sliding under a stationary cursor fires a real 'mouseenter'
+    // with no matching 'mouseleave', since the browser only re-evaluates
+    // hover state on actual pointer movement, not on content moving under a
+    // fixed pointer. That permanently froze this carousel on whichever card
+    // it happened to land on — the "1st card doesn't play" report. The
+    // self-heal check on hoverPaused (in tick(), below) was a mitigation for
+    // this; removing the feature here removes the failure mode entirely.
 
     // Manual navigation — click a bar to jump straight to that card.
     dots.forEach((dot, i) => {
