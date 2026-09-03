@@ -233,7 +233,9 @@
 .testimonial-stars {
   display: flex;
   gap: 2px;
-  color: #f59e0b;
+  /* #f59e0b only hits 2.15:1 on white — well under the 4.5:1 WCAG AA floor.
+     This deeper amber keeps the same hue but reads as a real rating. */
+  color: #b45309;
   font-size: 14px;
   cursor: pointer;
   margin-bottom: 16px;
@@ -339,7 +341,7 @@
 
 .blog-date {
   font-size: 12px;
-  color: #9ca3af;
+  color: #4b5563;
   margin-bottom: 8px;
   font-weight: 400;
 }
@@ -650,13 +652,17 @@
 .footer-link-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 4px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .footer-link {
+  /* Padding (not just the 12px list gap) so the actual clickable box clears
+     the 24px touch-target minimum, not just the 14px line of text. */
+  display: inline-block;
+  padding: 6px 0;
   font-size: 14px;
   color: #c9b8e8;
   font-weight: 400;

@@ -67,7 +67,7 @@ const navLinks = [
           <a
             href={link.href}
             data-href={link.href}
-            class="nav-link flex items-center gap-1 text-[15px] lg:text-[16px] font-medium whitespace-nowrap transition-colors text-[#C9B8E8] hover:text-[#B565E8]"
+            class="nav-link flex items-center gap-1 py-2 text-[15px] lg:text-[16px] font-medium whitespace-nowrap transition-colors text-[#C9B8E8] hover:text-[#B565E8]"
           >
             {link.label}
           </a>
@@ -108,14 +108,14 @@ const navLinks = [
           </span>
           <div class="flex flex-col gap-3 pl-3">
             {link.dropdownItems.map((item) => (
-              <a href={item.href} data-href={item.href} class="mobile-link text-[16px] font-medium text-white">
+              <a href={item.href} data-href={item.href} class="mobile-link py-2 text-[16px] font-medium text-white">
                 {item.label}
               </a>
             ))}
           </div>
         </div>
       ) : (
-        <a href={link.href} data-href={link.href} class="mobile-link flex items-center gap-1 text-[17px] font-medium text-white">
+        <a href={link.href} data-href={link.href} class="mobile-link flex items-center gap-1 py-2 text-[17px] font-medium text-white">
           {link.label}
         </a>
       )

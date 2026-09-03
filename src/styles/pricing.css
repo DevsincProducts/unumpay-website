@@ -1002,7 +1002,7 @@
   width: 100%;
   padding: 0 16px;
   font-size: 15px;
-  color: rgb(156, 163, 175);
+  color: rgb(75, 85, 99);
   outline: none;
   box-sizing: border-box;
   transition: border-color 0.2s;
@@ -1016,7 +1016,7 @@
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
-  color: rgb(156, 163, 175);
+  color: rgb(75, 85, 99);
   font-size: 12px;
   line-height: 1;
 }
@@ -1231,7 +1231,7 @@
   border-image: none;
   cursor: pointer;
   font-size: 22px;
-  color: rgb(156, 163, 175);
+  color: rgb(75, 85, 99);
   line-height: 1;
   padding: 4px 8px;
   transition: color 0.2s ease, transform 0.2s ease;
