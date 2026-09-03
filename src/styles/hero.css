@@ -441,6 +441,7 @@
 }
 
 .kf-progress-bar {
+  position: relative;
   width: 28px;
   flex-shrink: 0;
   height: 4px;
@@ -450,6 +451,15 @@
   background: rgb(229, 229, 240);
   cursor: pointer;
   transition: background 0.3s ease, width 0.3s ease;
+}
+
+/* The visible bar stays a thin 4px line by design, but a 4px-tall tap
+   target fails every touch-size guideline — this pseudo-element pads the
+   actual hit area out to 24px without changing what's drawn. */
+.kf-progress-bar::after {
+  content: '';
+  position: absolute;
+  inset: -10px 0;
 }
 
 .kf-progress-bar:hover {

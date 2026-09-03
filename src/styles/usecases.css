@@ -100,8 +100,9 @@
   font-size: 14px;
   font-weight: 600;
   color: #6a03ce;
-  display: inline;
-  margin-top: 24px;
+  display: inline-block;
+  padding: 5px 0;
+  margin-top: 19px;
   text-decoration: none;
   transition: color 0.2s;
 }
@@ -588,7 +589,7 @@
 .footer-contact {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 2px;
   margin-bottom: 24px;
 }
 
@@ -596,6 +597,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
+  padding: 5px 0;
   text-decoration: none;
   font-size: 14px;
   color: #c9b8e8;
@@ -744,6 +746,8 @@
 }
 
 .footer-bottom-link {
+  display: inline-block;
+  padding: 6px 0;
   font-size: 13px;
   color: #6b7280;
   transition: color 0.2s;

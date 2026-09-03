@@ -140,6 +140,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  padding: 5px 0;
   transition: color .3s, gap .2s;
 }
 
