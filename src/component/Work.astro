@@ -203,15 +203,12 @@ document.addEventListener('astro:page-load', () => {
     else v.addEventListener('loadedmetadata', prime, { once: true })
   }
 
-  // Key Features / How It Works are below the fold on every page that uses
-  // this component — nothing above depends on them being ready on the very
-  // first frame. Deferring their (observer-heavy) setup to idle time keeps
-  // it off the critical path that Total Blocking Time measures, instead of
-  // competing with hero rendering for the main thread immediately on load.
-  const runWhenIdle: (fn: () => void) => void =
-    typeof requestIdleCallback === 'function'
-      ? (fn) => requestIdleCallback(fn, { timeout: 1000 })
-      : (fn) => setTimeout(fn, 1)
+  // Tried deferring this setup to requestIdleCallback for a TBT win, but on
+  // a soft (client-side) navigation the browser can sit "busy" long enough
+  // that idle never fires for several seconds — so a card/video that must
+  // show instantly on arrival was instead showing several seconds late.
+  // That's worse than the TBT cost, so this runs synchronously again.
+  const runWhenIdle: (fn: () => void) => void = (fn) => fn()
 
   const statsSection = document.getElementById('stats-section') as HTMLElement | null
   const statNumbers = Array.from(document.querySelectorAll<HTMLElement>('.stat-number'))
