@@ -131,7 +131,7 @@ const keyFeatures = [
 
       <div class="hiw-stage">
         {steps.map((step, i) => (
-          <video class="hiw-stage__video" data-hiw-video={i} src={step.video} poster={step.poster} muted playsinline preload={i === 0 ? 'auto' : 'metadata'}></video>
+          <video class="hiw-stage__video" data-hiw-video={i} src={step.video} poster={step.poster} muted playsinline preload="metadata"></video>
         ))}
       </div>
     </div>
@@ -157,7 +157,7 @@ const keyFeatures = [
         {keyFeatures.map((f, i) => (
           <div class="kf-card" data-kf-id={f.id} style={`background:${f.cardBg}`}>
             <div class="kf-card-media">
-              <video src={f.video} poster={f.poster} muted playsinline preload={i === 0 ? 'auto' : 'metadata'}></video>
+              <video src={f.video} poster={f.poster} muted playsinline preload="metadata"></video>
             </div>
             <div class="kf-card-body">
               <h3 class="kf-card-title">{f.title}</h3>
@@ -389,16 +389,31 @@ document.addEventListener('astro:page-load', () => {
             }, 200)
           })
         }
-
-        const durationMs =
-          isFinite(activeVideo.duration) && activeVideo.duration > 0
-            ? activeVideo.duration * 1000 + 800
-            : 5000
-        armFallback(durationMs)
       })
 
-      // Placeholder fallback in case the clip never becomes ready at all.
-      armFallback(6000)
+      // The real bug: this used to arm the "move to next step" timer for
+      // (duration + 800ms) the instant play() was merely *requested* — using
+      // the clip's own duration as a stand-in for "duration + however long it
+      // takes to fetch". On a fresh, uncached load that fetch can easily take
+      // longer than the clip itself, so the timer routinely fired and skipped
+      // the step before it ever produced a single playing frame — the exact
+      // "only posters, video never starts" report. Now the duration-based
+      // timer only arms once the browser's 'playing' event confirms playback
+      // actually began.
+      const onPlaying = () => {
+        if (activeVideo !== videos[activeIndex]) return
+        const remaining =
+          isFinite(activeVideo.duration) && activeVideo.duration > activeVideo.currentTime
+            ? (activeVideo.duration - activeVideo.currentTime) * 1000 + 800
+            : 5000
+        armFallback(remaining)
+      }
+      activeVideo.addEventListener('playing', onPlaying, { once: true, signal })
+
+      // Safety net in case the clip never becomes playable at all — generous,
+      // since a step with no "previous step" to prefetch it (step 0's first
+      // activation) is racing the whole page's initial load burst alone.
+      armFallback(12000)
     }
 
     function goToIndex(index: number) {
@@ -450,6 +465,15 @@ document.addEventListener('astro:page-load', () => {
     }
 
     function ensureStepperPlaying() {
+      // Scrolling the page can move a tab under a stationary cursor and fire
+      // a real 'mouseenter' with no matching 'mouseleave' afterward — browsers
+      // don't reliably re-check hover state on scroll, only on actual pointer
+      // movement. That left hoverPaused stuck true forever, permanently
+      // freezing the stepper. `:hover` reflects the browser's real current
+      // hover state regardless of how hoverPaused got set, so it self-heals.
+      if (hoverPaused && !root.matches(':hover')) {
+        hoverPaused = false
+      }
       if (!stepperOnScreen() || hoverPaused) return
       if (!started) {
         started = true
@@ -595,11 +619,31 @@ document.addEventListener('astro:page-load', () => {
       if (nextVideo && nextVideo.readyState === 0) nextVideo.load()
 
       const activeVideo = videos[activeIndex]
-      const durationMs =
-        activeVideo && isFinite(activeVideo.duration) && activeVideo.duration > 0
-          ? activeVideo.duration * 1000 + 800
-          : 4000
-      armFallback(durationMs)
+      if (!activeVideo) return
+
+      // The real bug: this used to arm the "move to next card" timer for
+      // (duration + 800ms) the instant play() was merely *requested* — using
+      // the clip's own duration as a stand-in for "duration + however long it
+      // takes to fetch". On a fresh, uncached load a 3s clip can easily take
+      // 5+ seconds to buffer, so the timer routinely fired and skipped the
+      // card before it ever produced a single playing frame — the exact
+      // "carousel cycles through posters, video never starts" report. Now the
+      // duration-based timer is only armed once the browser's 'playing' event
+      // confirms playback actually began.
+      const onPlaying = () => {
+        if (activeVideo !== videos[activeIndex]) return
+        const remaining =
+          isFinite(activeVideo.duration) && activeVideo.duration > activeVideo.currentTime
+            ? (activeVideo.duration - activeVideo.currentTime) * 1000 + 800
+            : 5000
+        armFallback(remaining)
+      }
+      activeVideo.addEventListener('playing', onPlaying, { once: true, signal })
+
+      // Safety net in case the clip never becomes playable at all — generous,
+      // since a card with no "previous card" to prefetch it (card 0's first
+      // activation) is racing the whole page's initial load burst alone.
+      armFallback(12000)
     }
 
     function goToIndex(index: number, instant = false) {
@@ -721,6 +765,16 @@ document.addEventListener('astro:page-load', () => {
 
     function tick() {
       positionFirstCard()
+      // Scrolling the page can move a card under a stationary cursor and
+      // fire a real 'mouseenter' with no matching 'mouseleave' afterward —
+      // browsers don't reliably re-check hover state on scroll, only on
+      // actual pointer movement. That left hoverPaused stuck true forever,
+      // permanently freezing the carousel on whatever card that was. `:hover`
+      // reflects the browser's real current hover state regardless of how
+      // hoverPaused got set, so it's a reliable way to self-heal a stale flag.
+      if (hoverPaused && !slider!.matches(':hover')) {
+        hoverPaused = false
+      }
       if (!positioned || hoverPaused) return
       if (!started) {
         if (!readyToStart()) return
