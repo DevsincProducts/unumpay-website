@@ -359,12 +359,11 @@ document.addEventListener('astro:page-load', () => {
 
       // preload="none" videos never start fetching on their own — kick off
       // the load explicitly now that this one is actually about to be shown.
+      // (Previously this also force-loaded the NEXT step's clip ahead of
+      // time; skipped now — the poster image already covers the "don't show
+      // an empty box" need, so pre-fetching MBs of video nobody's watching
+      // yet isn't worth the bandwidth.)
       if (activeVideo.readyState === 0) activeVideo.load()
-
-      // Also start fetching the NEXT step's clip in the background so it's
-      // already buffered by the time its turn comes up.
-      const nextVideo = videos[(activeIndex + 1) % videos.length]
-      if (nextVideo && nextVideo.readyState === 0) nextVideo.load()
 
       whenReady(activeVideo, () => {
         if (activeIndex !== videos.indexOf(activeVideo)) return
@@ -572,12 +571,11 @@ document.addEventListener('astro:page-load', () => {
         }
       })
 
-      // Start fetching the NEXT card's clip now, in the background, so it's
-      // already buffered by the time its turn comes up instead of only
-      // starting to load (and visibly lagging) once it becomes active.
-      const nextVideo = videos[(activeIndex + 1) % videos.length]
-      if (nextVideo && nextVideo.readyState === 0) nextVideo.load()
-
+      // Previously this also force-loaded the NEXT card's clip ahead of time.
+      // That's no longer needed now that every clip has a poster image (the
+      // card never shows an empty box while its video loads), and skipping
+      // it avoids fetching 1-3MB clips for cards the visitor may never
+      // reach — this carousel auto-advances even without scrolling into view.
       const activeVideo = videos[activeIndex]
       const durationMs =
         activeVideo && isFinite(activeVideo.duration) && activeVideo.duration > 0

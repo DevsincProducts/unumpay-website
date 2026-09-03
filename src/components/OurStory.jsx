@@ -59,7 +59,7 @@ const OurStory = () => {
     <div>
 
     <FadeInSection className="pri-section">
-        <div className='cta-section__glow' aria-label='hidden'></div>
+        <div className='cta-section__glow' aria-hidden='true'></div>
         <div className="pri-content">
             <span className="pri-badge">✦ OUR STORY</span>
 
@@ -208,7 +208,7 @@ const OurStory = () => {
     </FadeInSection>
 
     <FadeInSection className="pri-section">
-        <div className='cta-section__glow' aria-label='hidden'></div>
+        <div className='cta-section__glow' aria-hidden='true'></div>
         <div className="pri-content">
 
             <h2 className="pri-sec-heading">

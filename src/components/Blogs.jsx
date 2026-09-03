@@ -58,7 +58,7 @@ const Blogs = ({ articles }) => {
   return (
     <div className="blog-page">
       <FadeInSection className="blog-hero-section">
-        <div className='cta-section__glow' aria-label='hidden'></div>
+        <div className='cta-section__glow' aria-hidden='true'></div>
         <div className="blog-hero-content">
           <span className="blog-hero-badge">RESOURCE HUB</span>
 
@@ -79,9 +79,13 @@ const Blogs = ({ articles }) => {
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="blog-search-input"
               />
-              <button type="button" className="blog-search-icon" aria-label="Search">
+              {/* Decorative only — the input above is what actually performs
+                  the search live via onChange. A focusable button here did
+                  nothing (pointer-events: none) but still announced itself
+                  to screen readers as an interactive "Search" control. */}
+              <span className="blog-search-icon" aria-hidden="true">
                 <Search size={18} />
-              </button>
+              </span>
             </div>
           </div>
         </div>

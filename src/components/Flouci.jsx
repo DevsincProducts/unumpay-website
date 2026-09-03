@@ -229,7 +229,7 @@ const Flouci = ({ data }) => {
       {/* Bottom CTA - "full" layout (full-width dark section, e.g. Abhi Pay, Aik by BankIslami) */}
       {data.bottomCta?.layout === 'full' && (
         <FadeInSection className="pree-section">
-          <div className='cta-section__glow' aria-label='hidden'></div>
+          <div className='cta-section__glow' aria-hidden='true'></div>
           <FadeInUp className="pri-content">
 
             <FadeInUp delay={0.1} className="pri-sec-heading">
