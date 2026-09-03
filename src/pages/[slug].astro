@@ -9,6 +9,7 @@ import '../styles/pricing.css'
 import GatewayGuide from '../components/Flouci.jsx';
 import { gatewayGuides } from '../data/payments';
 import { clampDescription } from '../utils/seo.js';
+import liveGuideSeo from '../data/guide-seo.json';
 import Navbar from '../component/Navbar.astro';
 import Footer from '../component/Footer.astro';
 import Loader from '../component/Loader.astro';
@@ -24,18 +25,23 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 
-const pageTitle = `${entry.name} Integration Guide | UnumPay`;
-// Gateways with a long region list pushed this past the ~160 characters a
-// search result shows. Name the first two markets, summarise the rest, and
-// clamp so a long gateway name can never blow the limit again.
+// The live site has its own hand-written title/description per gateway
+// (fetched from unumpay.com and checked in at src/data/guide-seo.json) —
+// matching those exactly is what "replicate the live site's SEO" means for
+// this route. The generated version is a fallback only, for a gateway added
+// here that doesn't exist on the live site yet.
+const live = liveGuideSeo[entry.slug];
 const regions = entry.regions ?? [];
 const regionText =
   regions.length > 2
     ? `${regions.slice(0, 2).join(', ')} and more`
     : regions.join(' and ');
-const pageDescription = clampDescription(
-  `Connect ${entry.name} to your Shopify store with UnumPay in ${entry.setupTime}. Step-by-step integration guide for merchants in ${regionText}.`
-);
+const pageTitle = live?.title ?? `${entry.name} Integration Guide | UnumPay`;
+const pageDescription =
+  live?.description ??
+  clampDescription(
+    `Connect ${entry.name} to your Shopify store with UnumPay in ${entry.setupTime}. Step-by-step integration guide for merchants in ${regionText}.`
+  );
 
 // Each guide has its own OG image on the live site; a couple don't, so fall
 // back to the shared one rather than emitting a link to a 404.

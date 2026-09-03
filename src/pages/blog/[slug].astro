@@ -13,6 +13,7 @@ import Footer from '../../component/Footer.astro';
 import { formatDate, readTimeFromBody } from '../../utils/dates.js';
 import { getMarkdownProcessor } from '../../utils/markdown.js';
 import { clampDescription } from '../../utils/seo.js';
+import liveBlogSeo from '../../data/blog-seo.json';
 
 export async function getStaticPaths() {
   return blogs.map((entry) => ({
@@ -59,10 +60,13 @@ const readTime = entry.readTime ?? readTimeFromBody(rawBody);
 const pageTitle = `${entry.title} | UnumPay Blog`;
 const fullExcerpt = entry.excerpt ?? `Read ${entry.title} on the UnumPay blog.`;
 
-// Several excerpts run well past what a search result shows (the longest was
-// ~395 characters), so they'd be truncated mid-word in the SERP. Clamp on a
-// word boundary and keep the full excerpt for the schema, which has no limit.
-const pageDescription = clampDescription(fullExcerpt);
+// The live site has its own per-post meta description (fetched from
+// unumpay.com, checked in at src/data/blog-seo.json) — that's what
+// "replicate the live site's SEO" means here. The visible card excerpt
+// above is a separate, shorter field and is left untouched. Several
+// excerpts run well past what a search result shows, so a post with no
+// live entry still gets clamped rather than truncated mid-word in the SERP.
+const pageDescription = liveBlogSeo[entry.slug]?.description ?? clampDescription(fullExcerpt);
 
 // blogs.json stores dates as display strings ("Jun 24, 2026"); schema.org and
 // the article:* OG tags both need ISO 8601.
