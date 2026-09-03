@@ -203,6 +203,16 @@ document.addEventListener('astro:page-load', () => {
     else v.addEventListener('loadedmetadata', prime, { once: true })
   }
 
+  // Key Features / How It Works are below the fold on every page that uses
+  // this component — nothing above depends on them being ready on the very
+  // first frame. Deferring their (observer-heavy) setup to idle time keeps
+  // it off the critical path that Total Blocking Time measures, instead of
+  // competing with hero rendering for the main thread immediately on load.
+  const runWhenIdle: (fn: () => void) => void =
+    typeof requestIdleCallback === 'function'
+      ? (fn) => requestIdleCallback(fn, { timeout: 1000 })
+      : (fn) => setTimeout(fn, 1)
+
   const statsSection = document.getElementById('stats-section') as HTMLElement | null
   const statNumbers = Array.from(document.querySelectorAll<HTMLElement>('.stat-number'))
   let hasAnimated = false
@@ -466,7 +476,9 @@ document.addEventListener('astro:page-load', () => {
     ensureStepperPlaying()
   }
 
-  document.querySelectorAll<HTMLElement>('[data-hiw-root]').forEach(initHowStepper)
+  runWhenIdle(() => {
+    document.querySelectorAll<HTMLElement>('[data-hiw-root]').forEach(initHowStepper)
+  })
 
   // ---------- Key Features video slider — horizontal scroll-snap row of
   // cards that tilt in 3D as they move away from center. Each card's own
@@ -741,7 +753,7 @@ document.addEventListener('astro:page-load', () => {
     tick()
   }
 
-  initKeyFeaturesSlider()
+  runWhenIdle(initKeyFeaturesSlider)
 })
 </script>
 
