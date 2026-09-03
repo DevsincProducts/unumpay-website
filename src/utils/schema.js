@@ -42,6 +42,17 @@ export const organizationSchema = {
     'https://www.facebook.com/unumpay',
     'https://apps.shopify.com/unum-pay',
   ],
+  areaServed: [
+    { '@type': 'Place', name: 'Worldwide' },
+    { '@type': 'Country', name: 'Pakistan' },
+    { '@type': 'Country', name: 'South Africa' },
+    { '@type': 'Country', name: 'Nigeria' },
+    { '@type': 'Country', name: 'Algeria' },
+    { '@type': 'Country', name: 'Egypt' },
+    { '@type': 'Country', name: 'Kenya' },
+    { '@type': 'Country', name: 'Tunisia' },
+    { '@type': 'Country', name: 'Brazil' },
+  ],
   knowsAbout: [
     'Shopify payment gateways',
     'Payment gateway integration',
@@ -50,6 +61,15 @@ export const organizationSchema = {
     'Payment reconciliation',
     'E-commerce payments',
   ],
+};
+
+// A separate Brand node lets Google associate the visual/marketing identity
+// with the Organization entity, distinct from the org's legal/contact facts.
+export const brandSchema = {
+  '@type': 'Brand',
+  '@id': `${SITE}/#brand`,
+  name: 'UnumPay',
+  logo: { '@id': `${SITE}/#logo` },
 };
 
 export const websiteSchema = {
@@ -70,6 +90,8 @@ export const softwareApplicationSchema = {
   applicationCategory: 'BusinessApplication',
   applicationSubCategory: 'Shopify Payment App',
   operatingSystem: 'Web',
+  softwareRequirements: 'Shopify store',
+  url: `${SITE}/`,
   installUrl: 'https://apps.shopify.com/unum-pay',
   publisher: { '@id': ORG_ID },
   description:

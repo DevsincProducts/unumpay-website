@@ -13,10 +13,11 @@ import '../styles/hero.css'
 import '../styles/usecases.css'
 import Loader from '../component/Loader.astro';
 
-import { graph, organizationSchema, websiteSchema, softwareApplicationSchema, ORG_ID, WEBSITE_ID } from '../utils/schema.js'
+import { graph, organizationSchema, websiteSchema, softwareApplicationSchema, brandSchema, ORG_ID, WEBSITE_ID } from '../utils/schema.js'
 
 const homeSchema = graph([
   organizationSchema,
+  brandSchema,
   websiteSchema,
   softwareApplicationSchema,
   {
@@ -31,6 +32,15 @@ const homeSchema = graph([
     mainEntity: { '@id': 'https://www.unumpay.com/#softwareapplication' },
     primaryImageOfPage: { '@id': 'https://www.unumpay.com/#logo' },
     inLanguage: 'en',
+    // Same entities the live homepage's schema names, so Google can connect
+    // this page to the concepts it's actually about beyond the page text.
+    mentions: [
+      { '@type': 'Organization', name: 'Shopify' },
+      { '@type': 'Thing', name: '40+ payment gateways' },
+      { '@type': 'Thing', name: '45+ countries' },
+      { '@type': 'Thing', name: 'transaction monitoring' },
+      { '@type': 'Thing', name: 'payment reconciliation' },
+    ],
   },
 ])
 ---
