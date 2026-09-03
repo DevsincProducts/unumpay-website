@@ -1095,6 +1095,30 @@
   }
 }
 
+/* On small phones the 32px side padding inside each journey card was eating
+   a third of the already-narrow (230px) card width, forcing body text into
+   a squeeze. Tighten the card and section padding so the text gets the
+   room back without changing the layout at larger sizes. */
+@media (max-width: 400px) {
+  .journey-section {
+    padding: 64px 16px !important;
+  }
+
+  .journey-entry--left .journey-item,
+  .journey-entry--right .journey-item {
+    margin-left: 24px;
+    width: calc(100% - 24px);
+  }
+
+  .journey-item {
+    padding: 22px 20px;
+  }
+
+  .journey-title {
+    font-size: 16px;
+  }
+}
+
 @media (max-width: 768px) {
   .why-matters-container {
     grid-template-columns: 1fr;
