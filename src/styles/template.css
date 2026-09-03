@@ -1,3 +1,11 @@
+/* The live site's <body> is #1A0028, so gaps between sections (e.g. below
+   the hero gradient) show that dark purple instead of the browser default
+   white. Scoped to this wrapper rather than <body> so other pages that
+   import this stylesheet aren't affected. */
+.blog-page {
+  background: #1a0028;
+}
+
 .template-section {
   background: linear-gradient(
     135deg,
@@ -295,6 +303,77 @@
   margin-bottom: 20px;
 }
 
+/* ===== Tables =====
+   Markdown produces bare <table>/<th>/<td> with no classes, so this
+   replicates the original site's table look (zebra rows, header/border
+   colours) by targeting the elements directly. */
+.blog-intro table,
+.blog-detail-content table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 15px;
+  margin: 24px 0;
+  /* Table can't scroll on its own without breaking table-layout, so the
+     outer element scrolls and the inner rows are re-declared as table
+     display to keep columns aligned. */
+  display: block;
+  overflow-x: auto;
+}
+
+.blog-intro table thead,
+.blog-intro table tbody,
+.blog-intro table tr,
+.blog-detail-content table thead,
+.blog-detail-content table tbody,
+.blog-detail-content table tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.blog-intro th,
+.blog-detail-content th {
+  padding: 12px 16px;
+  font-weight: 700;
+  color: #1a0028;
+  border-bottom: 2px solid #e8dcf5;
+  text-align: center;
+}
+
+.blog-intro th:first-child,
+.blog-detail-content th:first-child {
+  text-align: left;
+}
+
+.blog-intro td,
+.blog-detail-content td {
+  padding: 12px 16px;
+  vertical-align: top;
+  color: #333;
+  line-height: 24px;
+  white-space: normal;
+  border-bottom: 1px solid #f0eaf8;
+  text-align: center;
+}
+
+.blog-intro td:first-child,
+.blog-detail-content td:first-child {
+  text-align: left;
+  font-weight: 500;
+  color: #1a0028;
+}
+
+.blog-intro tbody tr:nth-child(odd),
+.blog-detail-content tbody tr:nth-child(odd) {
+  background: #fafafa;
+}
+
+.blog-intro tbody tr:nth-child(even),
+.blog-detail-content tbody tr:nth-child(even) {
+  background: white;
+}
+
 /* ===== Responsive ===== */
 @media (min-width: 640px) {
   .blog-intro p,
@@ -307,5 +386,15 @@
   .blog-detail-content h2 {
     font-size: 28px;
     line-height: 36px;
+  }
+
+  .blog-intro td,
+  .blog-detail-content td {
+    line-height: 26px;
+  }
+
+  .blog-intro table,
+  .blog-detail-content table {
+    font-size: 16px;
   }
 }

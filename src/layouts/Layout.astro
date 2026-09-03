@@ -1,46 +1,239 @@
 ---
+import { ClientRouter } from 'astro:transitions';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  imageAlt?: string;
+  canonical?: string;
+  ogType?: string;
+  noindex?: boolean;
+  schema?: Record<string, any> | Record<string, any>[];
+  publishedTime?: string;
+  modifiedTime?: string;
+  author?: string;
+  section?: string;
+}
+
 const {
   title = "Simplify Your Shopify Payments | UnumPay",
   description = "Connect your Shopify store to 40+ payment gateways worldwide. Accept local and global payments, track transactions in real time, all in one place.",
-  image = "/og-image.jpg",
-  canonical = "https://www.unumpay.com",
+  image = "/opengraph.jpg",
+  imageAlt = title,
+  canonical,
+  ogType = "website",
+  noindex = false,
+  schema,
+  publishedTime,
+  modifiedTime,
+  author,
+  section,
 } = Astro.props;
+
+// Canonical is DERIVED from the URL actually being served, not hand-passed as
+// a string per page. Hand-passing is what caused every blog URL to canonical
+// to a non-existent path (/blogs/<slug>/ when the real route is /blog/<slug>/),
+// which would have deindexed the whole blog. A page can still override it, but
+// the default is now always correct by construction.
+const canonicalURL = canonical
+  ? new URL(canonical, Astro.site).href
+  : new URL(Astro.url.pathname, Astro.site).href;
+
+// og:image must be absolute — relative paths are rejected by most scrapers.
+const ogImageURL = new URL(image, Astro.site).href;
+
+const schemaArray = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>{title}</title>
 		<meta name="description" content={description} />
-		<meta name="robots" content="index, follow" /> 
-		<link rel="canonical" href={canonical} />
-		<link rel="icon" type="image/svg+xml" href="/og-image.jpg" />
-		<link rel="icon" href="/og-image.jpg" />
+		<meta name="robots" content={noindex ? "noindex, follow" : "index, follow"} />
+		<link rel="canonical" href={canonicalURL} />
+
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+		<link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<meta name="theme-color" content="#6a03ce" />
 		<meta name="generator" content={Astro.generator} />
+
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Clicker+Script&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&family=Inconsolata:wght@200..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Lateef:wght@200;300;400;500;600;700;800&family=Manrope:wght@200..800&family=Orbitron:wght@400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+		<!--
+			Only the four weights the site actually uses (400/500/600/700 — the
+			codebase has no 100/200/300/800/900 and no italics). It was
+			requesting all 18 variants, i.e. 14 font files that were downloaded
+			and never drawn with.
+
+			Loaded via preload+onload rather than a plain stylesheet link so the
+			font never blocks first paint; the noscript copy covers JS-off.
+		-->
+		<link
+			rel="preload"
+			as="style"
+			href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+			onload="this.onload=null;this.rel='stylesheet'"
+		>
+		<noscript>
+			<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+		</noscript>
+
+		<link rel="preconnect" href="https://www.googletagmanager.com">
+		<link rel="preconnect" href="https://connect.facebook.net">
+		<link rel="dns-prefetch" href="https://api.web3forms.com">
+
+		<!--
+			Analytics (GTM + GA4 + Meta Pixel).
+
+			Deliberately deferred: nothing is fetched until the visitor's first
+			real interaction (or a 5s fallback), so none of it competes with
+			first paint. gtag() is shimmed up front so any tracking call made
+			before the real script lands still queues into dataLayer instead of
+			throwing.
+
+			Page views are handled manually because this site uses view
+			transitions — a client-side navigation never reloads the document,
+			so without the astro:page-load hook below only the first page of
+			each session would ever be recorded.
+		-->
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			if (typeof window.gtag !== 'function') {
+				window.gtag = function () { window.dataLayer.push(arguments); };
+			}
+
+			(function () {
+				var GA4_ID = 'G-KJQ9DC49TH';
+				var GTM_ID = 'GTM-N4NZV6DB';
+				var FB_ID = '367868465475167';
+				var loaded = false;
+
+				function inject(src) {
+					var s = document.createElement('script');
+					s.async = true;
+					s.src = src;
+					document.head.appendChild(s);
+				}
+
+				function loadAnalytics() {
+					if (loaded) return;
+					loaded = true;
+					window.__analyticsReady = true;
+
+					// Google Tag Manager
+					window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+					inject('https://www.googletagmanager.com/gtm.js?id=' + GTM_ID);
+
+					// GA4
+					inject('https://www.googletagmanager.com/gtag/js?id=' + GA4_ID);
+					window.gtag('js', new Date());
+					window.gtag('config', GA4_ID);
+
+					// Meta Pixel
+					if (!window.fbq) {
+						var n = (window.fbq = function () {
+							n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+						});
+						if (!window._fbq) window._fbq = n;
+						n.push = n;
+						n.loaded = true;
+						n.version = '2.0';
+						n.queue = [];
+						inject('https://connect.facebook.net/en_US/fbevents.js');
+					}
+					window.fbq('init', FB_ID);
+					window.fbq('track', 'PageView');
+				}
+
+				window.__loadAnalytics = loadAnalytics;
+
+				['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (evt) {
+					window.addEventListener(evt, loadAnalytics, { once: true, passive: true });
+				});
+				setTimeout(loadAnalytics, 5000);
+			})();
+
+			// Record a page view on every client-side navigation. The very first
+			// page is already covered by the gtag config / fbq PageView above,
+			// so this only fires for navigations after analytics has loaded.
+			document.addEventListener('astro:page-load', function () {
+				if (!window.__analyticsReady) return;
+				var path = location.pathname + location.search;
+				window.gtag('event', 'page_view', {
+					page_path: path,
+					page_location: location.href,
+					page_title: document.title,
+				});
+				if (window.fbq) window.fbq('track', 'PageView');
+				window.dataLayer.push({ event: 'spa_pageview', page_path: path });
+			});
+		</script>
+
 		<!-- Open Graph -->
-		<meta property="og:type" content="website" />
+		<meta property="og:type" content={ogType} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		<meta property="og:url" content={canonical} />
-		<meta property="og:image" content={image} />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:image" content={ogImageURL} />
+		<meta property="og:image:alt" content={imageAlt} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
 		<meta property="og:site_name" content="UnumPay" />
+		<meta property="og:locale" content="en_US" />
+
+		{ogType === 'article' && publishedTime && (
+			<meta property="article:published_time" content={publishedTime} />
+		)}
+		{ogType === 'article' && modifiedTime && (
+			<meta property="article:modified_time" content={modifiedTime} />
+		)}
+		{ogType === 'article' && author && (
+			<meta property="article:author" content={author} />
+		)}
+		{ogType === 'article' && section && (
+			<meta property="article:section" content={section} />
+		)}
+
 		<!-- Twitter -->
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
-		<meta name="twitter:image" content={image} />
+		<meta name="twitter:image" content={ogImageURL} />
+		<meta name="twitter:image:alt" content={imageAlt} />
 
-		<title>UNUMPAY</title>
+		{schemaArray.map((s) => (
+			<script type="application/ld+json" set:html={JSON.stringify(s)} />
+		))}
+
+		<slot name="head" />
+
+		<ClientRouter />
 	</head>
 	<body>
+		<noscript>
+			<iframe
+				src="https://www.googletagmanager.com/ns.html?id=GTM-N4NZV6DB"
+				height="0"
+				width="0"
+				style="display:none;visibility:hidden"
+				title="Google Tag Manager"
+			></iframe>
+		</noscript>
 		<slot />
 	</body>
 </html>
+
+<script>
+	import { initFadeInScroll } from '../scripts/Animation'
+	document.addEventListener('astro:page-load', () => {
+		initFadeInScroll()
+	})
+</script>
 
 <style>
 	html,

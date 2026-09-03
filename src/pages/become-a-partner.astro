@@ -10,13 +10,61 @@ import Footer from '../component/Footer.astro';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import { graph, organizationSchema, websiteSchema, breadcrumb, ORG_ID, WEBSITE_ID, SITE } from '../utils/schema.js'
+
+const partnerSchema = graph([
+  organizationSchema,
+  websiteSchema,
+  {
+    '@type': 'WebPage',
+    '@id': `${SITE}/become-a-partner/#webpage`,
+    url: `${SITE}/become-a-partner/`,
+    name: 'Partner with UnumPay as Payment and Agency Partnerships | UnumPay',
+    description:
+      'Join the UnumPay partner network and reach thousands of Shopify merchants worldwide. Apply as a Payment Partner or Agency Partner to grow your reach globally.',
+    isPartOf: { '@id': WEBSITE_ID },
+    about: { '@id': ORG_ID },
+    mainEntity: { '@id': `${SITE}/become-a-partner/#partner-programs` },
+    breadcrumb: { '@id': `${SITE}/become-a-partner/#breadcrumb` },
+    inLanguage: 'en',
+  },
+  {
+    '@type': 'ItemList',
+    '@id': `${SITE}/become-a-partner/#partner-programs`,
+    name: 'UnumPay Partner Programs',
+    numberOfItems: 2,
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        item: {
+          '@type': 'Thing',
+          name: 'Payment Partner Program',
+          description:
+            'List your payment gateway on UnumPay and reach Shopify merchants across 45+ countries.',
+        },
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        item: {
+          '@type': 'Thing',
+          name: 'Agency Partner Program',
+          description:
+            'Shopify agencies and developers earn recurring commissions by referring clients to UnumPay.',
+        },
+      },
+    ],
+  },
+  breadcrumb([['Home', '/'], ['Partners', '/become-a-partner/']], '/become-a-partner/#breadcrumb'),
+])
+
 ---
 
 
 <Layout title="Partner with UnumPay as Payment and Agency Partnerships | UnumPay"
   description="Join the UnumPay partner network and reach thousands of Shopify merchants worldwide. Apply as a Payment Partner or Agency Partner to grow your reach globally."
-  canonical="https://www.unumpay.com/become-a-partner/"
-  image="https://www.unumpay.com/og-image.jpg">
+  schema={partnerSchema}>
 
 	<Navbar />
 

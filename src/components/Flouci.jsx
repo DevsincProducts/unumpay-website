@@ -1,6 +1,7 @@
 import { ArrowLeft } from 'lucide-react'
 import React, { useState } from 'react'
-import { FadeInUp } from './Animations'
+import { FadeInUp, FadeInSection } from './Animations'
+import FaqAccordion from './FaqAccordion'
 
 // Replaces {name} and {checkoutDisplayText} placeholders with real values
 const resolveText = (text, data) =>
@@ -10,7 +11,6 @@ const resolveText = (text, data) =>
 
 const Flouci = ({ data }) => {
   const [copied, setCopied] = useState(false)
-  const [openFaqIndex, setOpenFaqIndex] = useState(0)
 
   const handleCopy = (link) => {
     navigator.clipboard.writeText(link)
@@ -136,7 +136,7 @@ const Flouci = ({ data }) => {
 
   return (
     <div>
-      <section className='bg-[#1a0028] relative overflow-hidden' style={{ paddingTop: '110px', paddingBottom: '40px' }}>
+      <FadeInSection className='bg-[#1a0028] relative overflow-hidden' style={{ paddingTop: '110px', paddingBottom: '40px' }}>
         <div className='absolute inset-0 bg-linear-to-br from-[#2D0050]/40 to-transparent pointer-events-none'></div>
         <div className='px-4 sm:px-6 md:px-8 xl:px-0 relative z-10 w-full max-w-225 mx-auto'>
           <a href="/coverage/" className='inline-flex items-center gap-2 text-[#C9B8E8] hover:text-white 
@@ -151,16 +151,16 @@ const Flouci = ({ data }) => {
             Set up {data.name} as a payment gateway on your Shopify store through the UnumPay app. Follow these steps to start accepting payments in minutes.
           </p>
         </div>
-      </section>
+      </FadeInSection>
 
-      <section className="pt-8 md:pt-12 pb-14 md:pb-20 bg-white">
+      <FadeInSection className="pt-8 md:pt-12 pb-14 md:pb-20 bg-white">
         <div className="px-4 sm:px-6 md:px-8 xl:px-0 w-full max-w-225 mx-auto">
 
           <div className="flg-header-card">
             <div className="flg-header-left">
               <img src={data.logo.src ?? data.logo} alt={data.name} className="flg-header-logo" />
               <div className='flg-line'></div>
-              <h1 className="flg-header-title">{data.name}</h1>
+              <span className="flg-header-title">{data.name}</span>
               {data.regions?.map((region) => (
                 <span className="flg-tag" key={region}>{region}</span>
               ))}
@@ -200,27 +200,12 @@ const Flouci = ({ data }) => {
           </div>
 
           <div className="flg-faq-card">
-            <h3 className="flg-faq-heading">Common Questions</h3>
-            <div className="flg-faq-list">
-              {data.commonQuestions.map((item, index) => {
-                const isOpen = openFaqIndex === index
-                return (
-                  <div className="flg-faq-item" key={item.question}>
-                    <button
-                      type="button"
-                      onClick={() => setOpenFaqIndex((prev) => (prev === index ? null : index))}
-                      className={`flg-faq-question ${isOpen ? 'flg-faq-question--open' : ''}`}
-                    >
-                      <span>{item.question}</span>
-                      <span className="flg-faq-icon">{isOpen ? '−' : '+'}</span>
-                    </button>
-                    {isOpen && (
-                      <p className="flg-faq-answer">{item.answer}</p>
-                    )}
-                  </div>
-                )
-              })}
-            </div>
+            <h3 className="flg-faq-heading">FAQ</h3>
+            <FaqAccordion
+              items={data.commonQuestions}
+              columns={1}
+              colors={{ openQuestion: 'rgb(200, 18, 213)', icon: 'rgb(200, 18, 213)', answer: 'rgb(107, 114, 128)' }}
+            />
           </div>
 
           {/* Bottom CTA - "box" layout (dark box inside white section, e.g. Flouci) */}
@@ -239,11 +224,11 @@ const Flouci = ({ data }) => {
           )}
 
         </div>
-      </section>
+      </FadeInSection>
 
       {/* Bottom CTA - "full" layout (full-width dark section, e.g. Abhi Pay, Aik by BankIslami) */}
       {data.bottomCta?.layout === 'full' && (
-        <section className="pree-section">
+        <FadeInSection className="pree-section">
           <div className='cta-section__glow' aria-label='hidden'></div>
           <FadeInUp className="pri-content">
 
@@ -262,7 +247,7 @@ const Flouci = ({ data }) => {
             </FadeInUp>
 
           </FadeInUp>
-        </section>
+        </FadeInSection>
       )}
 
     </div>

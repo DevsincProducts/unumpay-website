@@ -43,10 +43,18 @@ function buildMapDots(width, height) {
 
 // --- NEW: floating icon badges (positions in %, so they stay responsive) ---
 const FLOATING_ICONS = [
-  { Icon: CreditCard, top: '22%', left: '18%', size: 22, delay: '0s' },
-  { Icon: Wallet, top: '30%', left: '82%', size: 22, delay: '0.7s' },
-  { Icon: CreditCard, top: '75%', left: '80%', size: 20, delay: '1.3s' },
-  { Icon: Wallet, top: '70%', left: '20%', size: 20, delay: '0.4s' },
+  { Icon: CreditCard, top: '22%', left: '18%', size: 30, delay: '0s' },
+  { Icon: Wallet, top: '30%', left: '82%', size: 30, delay: '0.7s' },
+  { Icon: CreditCard, top: '75%', left: '80%', size: 28, delay: '1.3s' },
+  { Icon: Wallet, top: '70%', left: '20%', size: 28, delay: '0.4s' },
+]
+
+// A few sparkle points per badge, each twinkling on its own staggered
+// timer — purely decorative "glitter" around the icon.
+const SPARKLES = [
+  { top: '-6px', left: '-6px', size: 7, delay: '0s' },
+  { top: '-2px', left: '100%', size: 5, delay: '0.6s' },
+  { top: '100%', left: '30%', size: 6, delay: '1.1s' },
 ]
 
 const FloatingIcons = () => {
@@ -55,32 +63,73 @@ const FloatingIcons = () => {
       {FLOATING_ICONS.map(({ Icon, top, left, size, delay }, i) => (
         <div
           key={i}
+          className="gtw-float-badge"
           style={{
             position: 'absolute',
             top,
             left,
             transform: 'translate(-50%, -50%)',
-            width: 40,
-            height: 32,
-            borderRadius: 8,
+            width: 62,
+            height: 50,
+            borderRadius: 12,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            background: 'rgba(20, 12, 30, 0.55)',
-            border: '1px solid rgba(234, 189, 255, 0.18)',
-            boxShadow: '0 0 10px rgba(0, 0, 0, 0.25)',
+            background: 'rgba(20, 12, 30, 0.6)',
+            border: '1px solid rgba(234, 189, 255, 0.22)',
+            boxShadow: '0 0 14px rgba(0, 0, 0, 0.3)',
             animation: `floatIcon 4s ease-in-out infinite`,
             animationDelay: delay,
-            opacity: 0.5
+            opacity: 0.75,
+            cursor: 'default',
           }}
         >
           <Icon size={size} color="#eabdff" strokeWidth={1.5} />
+
+          {SPARKLES.map((s, si) => (
+            <span
+              key={si}
+              className="gtw-sparkle"
+              style={{
+                position: 'absolute',
+                top: s.top,
+                left: s.left,
+                width: s.size,
+                height: s.size,
+                animationDelay: s.delay,
+              }}
+            />
+          ))}
         </div>
       ))}
       <style>{`
         @keyframes floatIcon {
           0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
           50% { transform: translate(-50%, -50%) translateY(-10px); }
+        }
+
+        @keyframes sparkleTwinkle {
+          0%, 100% { opacity: 0; transform: scale(0.3) rotate(0deg); }
+          50% { opacity: 1; transform: scale(1) rotate(90deg); }
+        }
+
+        .gtw-float-badge {
+          pointer-events: auto;
+          transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, opacity 0.3s ease;
+        }
+
+        .gtw-float-badge:hover {
+          transform: translate(-50%, -50%) scale(1.18) !important;
+          opacity: 1 !important;
+          border-color: rgba(200, 18, 213, 0.6);
+          box-shadow: 0 0 26px rgba(200, 18, 213, 0.45);
+        }
+
+        .gtw-sparkle {
+          border-radius: 50%;
+          background: radial-gradient(circle, #fff 0%, #eabdff 55%, transparent 75%);
+          pointer-events: none;
+          animation: sparkleTwinkle 2.2s ease-in-out infinite;
         }
       `}</style>
     </div>
@@ -98,8 +147,42 @@ const GlobalBackground = () => {
     let width = canvas.parentElement.clientWidth
     let height = canvas.parentElement.clientHeight
     let dpr = Math.min(window.devicePixelRatio, 2)
-    let mapDots = []
 
+    // The world map is ~2,900 dots and never moves, so it gets painted once
+    // into its own offscreen canvas and blitted as a single image each frame.
+    // Re-stroking every dot per frame was costing ~90ms/frame on its own —
+    // roughly six times the whole 16.7ms budget for 60fps.
+    let mapLayer = document.createElement('canvas')
+
+    const buildMapLayer = () => {
+      mapLayer.width = Math.max(1, width * dpr)
+      mapLayer.height = Math.max(1, height * dpr)
+      const mctx = mapLayer.getContext('2d')
+      mctx.setTransform(dpr, 0, 0, dpr, 0, 0)
+      mctx.clearRect(0, 0, width, height)
+      mctx.fillStyle = 'rgba(234, 189, 255, 0.18)'
+      for (const d of buildMapDots(width, height)) {
+        mctx.beginPath()
+        mctx.arc(d.x, d.y, 1.1, 0, Math.PI * 2)
+        mctx.fill()
+      }
+    }
+
+    // One pre-rendered glow sprite, stamped per particle, instead of building
+    // 90 fresh radial gradients on every single frame.
+    const GLOW_R = 12
+    const glow = document.createElement('canvas')
+    glow.width = glow.height = GLOW_R * 2
+    {
+      const gctx = glow.getContext('2d')
+      const g = gctx.createRadialGradient(GLOW_R, GLOW_R, 0, GLOW_R, GLOW_R, GLOW_R)
+      g.addColorStop(0, 'rgba(234,189,255,0.9)')
+      g.addColorStop(1, 'rgba(234,189,255,0)')
+      gctx.fillStyle = g
+      gctx.fillRect(0, 0, GLOW_R * 2, GLOW_R * 2)
+    }
+
+    let resizeTimer = null
     const resize = () => {
       width = canvas.parentElement.clientWidth
       height = canvas.parentElement.clientHeight
@@ -109,9 +192,17 @@ const GlobalBackground = () => {
       canvas.style.width = `${width}px`
       canvas.style.height = `${height}px`
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-      mapDots = buildMapDots(width, height)
+      // Rebuilding the map is the expensive part — debounce it so dragging a
+      // window edge doesn't recompute it on every resize event.
+      clearTimeout(resizeTimer)
+      resizeTimer = setTimeout(buildMapLayer, 120)
     }
     resize()
+    // Building the map costs ~85ms. Run it after the first frame rather than
+    // during hydration, so arriving on this page (especially via a client-side
+    // navigation) never waits on it — the gradient and particles are already
+    // on screen, and the dots fade in a frame later.
+    requestAnimationFrame(buildMapLayer)
 
     // Particles: baseVX/baseVY never decay, so movement never stops.
     // vx/vy is an extra "kick" from the cursor that fades back to 0.
@@ -150,13 +241,8 @@ const GlobalBackground = () => {
     const draw = () => {
       ctx.clearRect(0, 0, width, height)
 
-      // Static world map dots (dim, behind everything else)
-      ctx.fillStyle = 'rgba(234, 189, 255, 0.18)'
-      mapDots.forEach((d) => {
-        ctx.beginPath()
-        ctx.arc(d.x, d.y, 1.1, 0, Math.PI * 2)
-        ctx.fill()
-      })
+      // Static world map dots — one blit of the pre-rendered layer.
+      if (mapLayer.width > 1) ctx.drawImage(mapLayer, 0, 0, width, height)
 
       const mouse = mouseRef.current
 
@@ -232,17 +318,14 @@ const GlobalBackground = () => {
         ctx.fill()
       }
 
-      // Glowing moving particles (drawn last, on top)
+      // Glowing moving particles (drawn last, on top). The halo is the
+      // pre-rendered sprite scaled to size rather than a fresh gradient.
+      ctx.fillStyle = '#eabdff'
       particles.forEach((p) => {
-        const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 3)
-        grad.addColorStop(0, 'rgba(234,189,255,0.9)')
-        grad.addColorStop(1, 'rgba(234,189,255,0)')
-        ctx.fillStyle = grad
-        ctx.beginPath()
-        ctx.arc(p.x, p.y, p.r * 3, 0, Math.PI * 2)
-        ctx.fill()
-
-        ctx.fillStyle = '#eabdff'
+        const r = p.r * 3
+        ctx.drawImage(glow, p.x - r, p.y - r, r * 2, r * 2)
+      })
+      particles.forEach((p) => {
         ctx.beginPath()
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2)
         ctx.fill()
@@ -250,10 +333,25 @@ const GlobalBackground = () => {
 
       frameId = requestAnimationFrame(draw)
     }
-    draw()
+
+    // Only animate while the hero is actually on screen. Once it's scrolled
+    // past there is nothing to look at, and leaving the loop running keeps
+    // burning main-thread time for the rest of the visit.
+    let running = false
+    const start = () => { if (!running) { running = true; draw() } }
+    const stop = () => { running = false; cancelAnimationFrame(frameId) }
+
+    const io = new IntersectionObserver(
+      (entries) => { entries[0]?.isIntersecting ? start() : stop() },
+      { threshold: 0 }
+    )
+    io.observe(canvas)
+    start()
 
     return () => {
-      cancelAnimationFrame(frameId)
+      stop()
+      io.disconnect()
+      clearTimeout(resizeTimer)
       canvas.removeEventListener('mousemove', onMouseMove)
       canvas.removeEventListener('mouseleave', onMouseLeave)
       window.removeEventListener('resize', resize)

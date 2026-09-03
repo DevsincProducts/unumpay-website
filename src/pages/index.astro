@@ -7,19 +7,38 @@ import HeroSection from '../component/HeroSection.astro';
 import UseCases from '../component/UseCases.astro';
 import Work from '../component/Work.astro';
 import PaymentGateway from '../components/PaymentGateway'
+import PciCompliance from '../component/PciCompliance.astro'
 import '../styles/global.css'
 import '../styles/hero.css'
 import '../styles/usecases.css'
 import Loader from '../component/Loader.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import { graph, organizationSchema, websiteSchema, softwareApplicationSchema, ORG_ID, WEBSITE_ID } from '../utils/schema.js'
+
+const homeSchema = graph([
+  organizationSchema,
+  websiteSchema,
+  softwareApplicationSchema,
+  {
+    '@type': 'WebPage',
+    '@id': 'https://www.unumpay.com/#webpage',
+    url: 'https://www.unumpay.com/',
+    name: 'Simplify Your Shopify Payments | UnumPay',
+    description:
+      'Connect your Shopify store to 40+ payment gateways worldwide. Accept local and global payments, track transactions in real time, all in one place.',
+    isPartOf: { '@id': WEBSITE_ID },
+    about: { '@id': ORG_ID },
+    mainEntity: { '@id': 'https://www.unumpay.com/#softwareapplication' },
+    primaryImageOfPage: { '@id': 'https://www.unumpay.com/#logo' },
+    inLanguage: 'en',
+  },
+])
 ---
 
 <Layout title="Simplify Your Shopify Payments | UnumPay"
-  description="Connect your Shopify store to 40+ payment gateways worldwide. Accept payments securely with UnumPay."
-  canonical="https://www.unumpay.com/"
-  image="https://www.unumpay.com/og-image.jpg">
+  description="Connect your Shopify store to 40+ payment gateways worldwide. Accept local and global payments, track transactions in real time, all in one place."
+  image="/og-home.jpg"
+  schema={homeSchema}>
 
 	<Loader />
 
@@ -29,7 +48,9 @@ import Loader from '../component/Loader.astro';
 
 	<Work />
 
-	<PaymentGateway client:load />
+	<PaymentGateway client:visible />
+
+	<PciCompliance />
 
 	<UseCases />
 

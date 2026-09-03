@@ -1,5 +1,14 @@
 import React from 'react'
-import { FadeIn, FadeInLeft, FadeInRight, FadeInUp } from './Animations'
+import { FadeIn, FadeInLeft, FadeInRight, FadeInUp, FadeInSection } from './Animations'
+import umarRana from '../assets/images/team-umar-rana.webp'
+import tayyabKhawaja from '../assets/images/team-tayyab-khawaja.webp'
+import irfanBhutta from '../assets/images/team-irfan-bhutta.webp'
+
+const teamMembers = [
+  { image: umarRana, name: 'Umar Rana', role: 'Founder', linkedin: 'https://www.linkedin.com/in/theumarrana/' },
+  { image: tayyabKhawaja, name: 'Tayyab Khawaja', role: 'Co-founder', linkedin: 'https://www.linkedin.com/in/khawaja-muhammad-tayyab-zahid-39590028/' },
+  { image: irfanBhutta, name: 'Irfan Bhutta', role: 'Product Manager', linkedin: 'https://www.linkedin.com/in/irfan-bhutta/' },
+]
 
 const journeyItems = [
   {
@@ -49,7 +58,7 @@ const OurStory = () => {
   return (
     <div>
 
-    <section className="pri-section">
+    <FadeInSection className="pri-section">
         <div className='cta-section__glow' aria-label='hidden'></div>
         <div className="pri-content">
             <span className="pri-badge">✦ OUR STORY</span>
@@ -63,9 +72,9 @@ const OurStory = () => {
             </p>
 
         </div>
-    </section>
+    </FadeInSection>
 
-    <section className='our-story-mission'>
+    <FadeInSection className='our-story-mission'>
         <div className="our-story-mission-content">
             <h2 className="our-story-mission-badge">OUR MISSION</h2>
 
@@ -74,9 +83,9 @@ const OurStory = () => {
             </p>
 
         </div>
-    </section>
+    </FadeInSection>
 
-    <section className="journey-section">
+    <FadeInSection className="journey-section">
         <span className="journey-badge">✦ OUR JOURNEY</span>
         <h2 className="journey-heading">Our Journey</h2>
 
@@ -114,9 +123,9 @@ const OurStory = () => {
             )
             })}
         </div>
-    </section>
+    </FadeInSection>
 
-    <section className="why-matters-section">
+    <FadeInSection className="why-matters-section">
         <div className="why-matters-container">
 
             {/* Left column */}
@@ -164,9 +173,41 @@ const OurStory = () => {
             </FadeInRight>
 
         </div>
-    </section>
+    </FadeInSection>
 
-    <section className="pri-section">
+    <FadeInSection className="our-team-section">
+        <span className="our-team-badge">OUR TEAM</span>
+        <h2 className="our-team-heading">The People Driving UnumPay Forward</h2>
+
+        <div className="our-team-grid">
+            {teamMembers.map((member) => (
+                <FadeInUp className="our-team-card" key={member.name}>
+                    <div className="our-team-photo-wrap">
+                        <img src={member.image.src ?? member.image} alt={member.name} className="our-team-photo" loading="lazy" />
+                    </div>
+                    <div className="our-team-info">
+                        <div>
+                            <p className="our-team-name">{member.name}</p>
+                            <p className="our-team-role">{member.role}</p>
+                        </div>
+                        <a
+                            href={member.linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="our-team-linkedin"
+                            aria-label={`${member.name} on LinkedIn`}
+                        >
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45Z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </FadeInUp>
+            ))}
+        </div>
+    </FadeInSection>
+
+    <FadeInSection className="pri-section">
         <div className='cta-section__glow' aria-label='hidden'></div>
         <div className="pri-content">
 
@@ -192,8 +233,8 @@ const OurStory = () => {
             </div>
 
         </div>
-    </section>
-      
+    </FadeInSection>
+
     </div>
   )
 }

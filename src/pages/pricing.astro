@@ -10,13 +10,67 @@ import Pricing from '../component/Pricing.astro';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import { graph, organizationSchema, websiteSchema, softwareApplicationSchema, faqPage, breadcrumb, ORG_ID, WEBSITE_ID, SITE } from '../utils/schema.js'
+
+const pricingSchema = graph([
+  organizationSchema,
+  websiteSchema,
+  softwareApplicationSchema,
+  {
+    '@type': 'WebPage',
+    '@id': `${SITE}/pricing/#webpage`,
+    url: `${SITE}/pricing/`,
+    name: 'Pay As You Go for Your Shopify Store, No Hidden Charges | UnumPay',
+    description:
+      'UnumPay charges just 0.85% per successful transaction. No setup fees, no monthly charges, no hidden costs. Free to install on Shopify.',
+    isPartOf: { '@id': WEBSITE_ID },
+    about: { '@id': ORG_ID },
+    mainEntity: { '@id': `${SITE}/pricing/#offer` },
+    breadcrumb: { '@id': `${SITE}/pricing/#breadcrumb` },
+    inLanguage: 'en',
+  },
+  {
+    '@type': 'Offer',
+    '@id': `${SITE}/pricing/#offer`,
+    name: 'UnumPay Standard Pricing',
+    category: 'Pay-as-you-go',
+    availability: 'https://schema.org/InStock',
+    priceCurrency: 'USD',
+    price: '0',
+    offeredBy: { '@id': ORG_ID },
+    itemOffered: { '@id': `${SITE}/#softwareapplication` },
+    priceSpecification: [
+      {
+        '@type': 'UnitPriceSpecification',
+        name: 'Transaction fee',
+        price: '0.85',
+        priceCurrency: 'USD',
+        unitText: 'percent per successful transaction',
+      },
+      {
+        '@type': 'UnitPriceSpecification',
+        name: 'Setup fee',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+      {
+        '@type': 'UnitPriceSpecification',
+        name: 'Monthly fee',
+        price: '0',
+        priceCurrency: 'USD',
+      },
+    ],
+  },
+  breadcrumb([['Home', '/'], ['Pricing', '/pricing/']], '/pricing/#breadcrumb'),
+])
+
 ---
 
 
 <Layout title="Pay As You Go for Your Shopify Store, No Hidden Charges | UnumPay"
   description="UnumPay charges just 0.85% per successful transaction. No setup fees, no monthly charges, no hidden costs. Free to install on Shopify."
-  canonical="https://www.unumpay.com/pricing/"
-  image="https://www.unumpay.com/og-image.jpg">
+  image="/og-pricing.jpg"
+  schema={pricingSchema}>
 
 	<Navbar />
 

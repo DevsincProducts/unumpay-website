@@ -11,13 +11,31 @@ import Reconciliation from '../component/Reconciliation.astro';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import { graph, organizationSchema, websiteSchema, breadcrumb, WEBSITE_ID, SITE } from '../utils/schema.js'
+
+const reconSchema = graph([
+  organizationSchema,
+  websiteSchema,
+  {
+    '@type': 'WebPage',
+    '@id': `${SITE}/reconciliation-setup/#webpage`,
+    url: `${SITE}/reconciliation-setup/`,
+    name: 'Reconciliation Setup Guide | UnumPay',
+    description:
+      'Learn how to set up and use reconciliation reports in UnumPay. Track and reconcile all your Shopify payment transactions in one place.',
+    isPartOf: { '@id': WEBSITE_ID },
+    breadcrumb: { '@id': `${SITE}/reconciliation-setup/#breadcrumb` },
+    inLanguage: 'en',
+  },
+  breadcrumb([['Home', '/'], ['Reconciliation Setup', '/reconciliation-setup/']], '/reconciliation-setup/#breadcrumb'),
+])
+
 ---
 
 
 <Layout title="Reconciliation Setup Guide | UnumPay"
   description="Learn how to set up and use reconciliation reports in UnumPay. Track and reconcile all your Shopify payment transactions in one place."
-  canonical="https://www.unumpay.com/reconciliation-setup/"
-  image="https://www.unumpay.com/og-image.jpg">
+  schema={reconSchema}>
 
 	<Navbar />
 

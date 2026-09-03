@@ -9,6 +9,7 @@ import Navbar from '../../component/Navbar.astro';
 import Footer from '../../component/Footer.astro';
 import { countries } from '../../data/countries.js';
 import Tunisia from '../../component/Tunisia.astro';
+import { graph, organizationSchema, websiteSchema, softwareApplicationSchema, faqPage, breadcrumb, ORG_ID, WEBSITE_ID, SITE } from '../../utils/schema.js';
 
 export function getStaticPaths() {
   return countries.map((country) => ({
@@ -18,13 +19,49 @@ export function getStaticPaths() {
 }
 
 const { country } = Astro.props;
+
+const countrySchema = graph([
+  organizationSchema,
+  websiteSchema,
+  softwareApplicationSchema,
+  {
+    '@type': 'WebPage',
+    '@id': `${SITE}/payment-gateways/${country.slug}/#webpage`,
+    url: `${SITE}/payment-gateways/${country.slug}/`,
+    name: country.meta.title,
+    description: country.meta.description,
+    isPartOf: { '@id': WEBSITE_ID },
+    about: { '@id': ORG_ID },
+    breadcrumb: { '@id': `${SITE}/payment-gateways/${country.slug}/#breadcrumb` },
+    inLanguage: 'en',
+  },
+  ...(country.providers?.length
+    ? [{
+        '@type': 'ItemList',
+        '@id': `${SITE}/payment-gateways/${country.slug}/#gateway-list`,
+        name: `Payment gateways available in ${country.countryName}`,
+        numberOfItems: country.providers.length,
+        itemListElement: country.providers.map((p, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          item: { '@type': 'Thing', name: p.name, description: p.description },
+        })),
+      }]
+    : []),
+  ...(country.faqs?.length
+    ? [faqPage(country.faqs, `/payment-gateways/${country.slug}/#faq`)]
+    : []),
+  breadcrumb(
+    [['Home', '/'], ['Coverage', '/coverage/'], [country.countryName, `/payment-gateways/${country.slug}/`]],
+    `/payment-gateways/${country.slug}/#breadcrumb`
+  ),
+]);
 ---
 
 <Layout
   title={country.meta.title}
   description={country.meta.description}
-  canonical={`https://www.unumpay.com/payment-gateways/${country.slug}/`}
-  image="https://www.unumpay.com/og-image.jpg">
+  schema={countrySchema}>
 
   <Navbar />
   <Tunisia data={country} />

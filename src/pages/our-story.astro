@@ -10,13 +10,32 @@ import Footer from '../component/Footer.astro';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import { graph, organizationSchema, websiteSchema, breadcrumb, ORG_ID, WEBSITE_ID, SITE } from '../utils/schema.js'
+
+const ourStorySchema = graph([
+  organizationSchema,
+  websiteSchema,
+  {
+    '@type': 'AboutPage',
+    '@id': `${SITE}/our-story/#webpage`,
+    url: `${SITE}/our-story/`,
+    name: 'Pioneering Shopify Payment Innovation Since 2016 | UnumPay',
+    description:
+      'Learn how UnumPay was built to solve real merchant payment challenges. From startup to 2500+ active merchants across 45+ countries.',
+    isPartOf: { '@id': WEBSITE_ID },
+    about: { '@id': ORG_ID },
+    breadcrumb: { '@id': `${SITE}/our-story/#breadcrumb` },
+    inLanguage: 'en',
+  },
+  breadcrumb([['Home', '/'], ['About Us', '/our-story/']], '/our-story/#breadcrumb'),
+])
+
 ---
 
 
 <Layout title="Pioneering Shopify Payment Innovation Since 2016 | UnumPay"
   description="Learn how UnumPay was built to solve real merchant payment challenges. From startup to 2500+ active merchants across 45+ countries."
-  canonical="https://www.unumpay.com/our-story/"
-  image="https://www.unumpay.com/og-image.jpg">
+  schema={ourStorySchema}>
 
 	<Navbar />
 

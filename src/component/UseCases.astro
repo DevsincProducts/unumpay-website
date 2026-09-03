@@ -1,18 +1,21 @@
 ---
 // UseCases.astro
-import image4 from '../assets/images/image4.webp'
-import image5 from '../assets/images/image5.webp'
-import image6 from '../assets/images/image6.webp'
-import image7 from '../assets/images/image7.webp'
-import blogImage1 from '../assets/images/image2.png'
-import blogImage2 from '../assets/images/image3.png'
-import blogImage3 from '../assets/images/image4.png'
-import LimeLight from '../assets/logos/LimeLight.png'
+import image4 from '../assets/images/usecase-global-currency.webp'
+import image5 from '../assets/images/usecase-multi-gateway.webp'
+import image6 from '../assets/images/usecase-unified-dashboard.webp'
+import image7 from '../assets/images/usecase-payment-options.webp'
+import blogImage1 from '../assets/images/image2.webp'
+import blogImage2 from '../assets/images/image3.webp'
+import blogImage3 from '../assets/images/image4.webp'
+import LimeLight from '../assets/logos/LimeLight.webp'
 import Cambridge from '../assets/logos/cambridge.webp'
 import One from '../assets/logos/one.webp'
-import Zep from '../assets/logos/zep.png'
+import Zep from '../assets/logos/zep.webp'
 import Jomo from '../assets/logos/jomo.webp'
 import Zartash from '../assets/logos/zartash.webp'
+import Zeen from '../assets/logos/zeen.webp'
+import NidaAzwer from '../assets/logos/nida-azwer.webp'
+import CottonSilk from '../assets/logos/cotton-and-silk.webp'
 
 const useCases = [
   {
@@ -20,66 +23,80 @@ const useCases = [
     number: '01',
     tag: 'USE CASE 01',
     title: 'Sell Global. Accept Payment in Any Currency.',
-    desc: 'Shopify Payments is only available in a few countries. For the rest of the world, merchants are left without a native checkout solution. UnumPay fills that gap. As a Shopify-approved payment app, UnumPay works as a native payment solution for every region where Shopify Payments is not available. Sell to customers anywhere in the world and accept payments in their local currency.',
+    desc: 'Shopify Payments is only available in a few countries, leaving merchants everywhere else without a native checkout solution. UnumPay fills that gap. As a Shopify-approved payment app, it works wherever Shopify Payments is unavailable, so you can sell globally and accept payments in local currency.',
   },
   {
     image: image5,
     number: '02',
     tag: 'USE CASE 02',
     title: 'Never Lose a Sale to a Failed Payment.',
-    desc: 'Relying on a single payment gateway puts your entire revenue at risk. If it goes down, your checkout goes down with it. UnumPay connects your Shopify store to 40+ payment gateways through one integration, so you can run multiple gateways simultaneously and keep your store open for business no matter what.',
+    desc: 'Relying on a single payment gateway puts your entire revenue at risk. If it goes down, your checkout goes down with it. UnumPay connects your Shopify store to 40+ payment gateways through one single integration, so you can run several gateways at once and keep your store open no matter what happens.',
   },
   {
     image: image6,
     number: '03',
     tag: 'USE CASE 03',
     title: 'Every Transaction. One Dashboard.',
-    desc: 'When you are processing payments through multiple providers, reconciliation becomes complicated fast. UnumPay brings everything into one unified dashboard with real-time transaction monitoring, success rates, revenue tracking, refund management, and detailed reporting across all your connected gateways.',
+    desc: 'When you process payments through multiple providers, reconciliation quickly becomes complex and slow. UnumPay brings every one of your gateways into one unified dashboard, giving you live transaction monitoring, success rates, revenue tracking, and refund data from a single place.',
   },
   {
     image: image7,
     number: '04',
     tag: 'USE CASE 04',
-    title: 'Easy Onboarding. Every Payment Option Your Customers Expect.',
-    desc: 'Getting started with UnumPay is simple. Connect your Shopify store once and instantly unlock a full range of payment options including card payments, e-wallets, payment links, Google Pay, Apple Pay, and local payment gateways relevant to your market.',
+    title: 'Every Payment Option Your Customers Expect.',
+    desc: 'Getting started with UnumPay is simple and fast. Connect your Shopify store once and instantly unlock a full range of payment options, including card payments, e-wallets, payment links, Google Pay, Apple Pay, and all the local payment gateways that are most relevant to your market.',
   },
 ]
 
 const testimonials = [
   {
     logo: LimeLight,
-    initials: 'Limelight',
+    initials: 'LI',
     name: 'Limelight',
     role: 'Shopify Merchant',
-    text: 'A must have app for multiple payments tracking. Easy to use as well. I would recommend it to everyone',
+    text: 'A must have app for multiple payments tracking. Easy to use as well. I would recommend it to everyone.',
   },
   {
-    logo: One,
-    initials: 'ONE',
-    name: 'ONE',
+    logo: CottonSilk,
+    initials: 'CS',
+    name: 'Cotton & Silk',
+    role: 'Shopify Merchant',
+    text: 'Very Good app for payment gateways reporting with top class support and guidance. Alchemative guys are super fast at response and support especially Mr. Sikandar. He guided us for every step to integrate the app with our store.',
+  },
+  {
+    logo: Zartash,
+    initials: 'ZA',
+    name: 'Zartash',
+    role: 'Shopify Merchant',
+    text: 'So far so good!! Overall experience is good for this app. Thank you for making it easier for online payments.',
+  },
+  {
+    logo: Zeen,
+    initials: 'ZN',
+    name: 'Zeen',
     role: 'Shopify Merchant',
     text: 'A good app for multiple payment gateway tracking. Making it easire for online payments reconciliation. Customer Support is nice. application is excellent. easy to integrate and wrok around with alot of transactions.',
   },
   {
-    logo: Zartash,
-    initials: 'NA',
-    name: 'Zartash',
+    logo: One,
+    initials: 'ON',
+    name: 'ONE',
     role: 'Shopify Merchant',
-    text: 'So far so good!! Overall experience is good for this app. Thank you for making it easier for online payments',
+    text: 'The only reason for the review & giving five-star is a Good experience for this app. easy to reconcile daily payments. Special thanks to Mr. Sikandar for swift supporting & helping with the integration of the App.',
+  },
+  {
+    logo: NidaAzwer,
+    initials: 'NA',
+    name: 'Nida Azwer',
+    role: 'Shopify Merchant',
+    text: 'Very cooperative people and very easy app! Sikandar from alchemative really helps his customers! Strong recommendation',
   },
   {
     logo: Cambridge,
-    initials: 'IW',
+    initials: 'CA',
     name: 'Cambridge',
     role: 'Shopify Merchant',
     text: 'Experience is good for this app. Very helpful to reconcile daily payment transactions. Thanks for making it easire for online payments reconciliation',
-  },
-  {
-    logo: Zep,
-    initials: 'JP',
-    name: 'Zephyr',
-    role: 'Shopify Merchant',
-    text: 'An excellent app for payment gateways reporting with top class support and guidance. Alchemative guys are super fast at response and support especially Mr. Sikandar. He guided us for every step to integrate the app with our store.',
   },
   {
     logo: Jomo,
@@ -87,6 +104,13 @@ const testimonials = [
     name: 'Jomo',
     role: 'Shopify Merchant',
     text: 'This app has made payment integration and reconciliation an automated and seamless process for us. Allows us to process and confirm prepaid orders much quicker! Also have an amazing support team!',
+  },
+  {
+    logo: Zep,
+    initials: 'ZE',
+    name: 'Zephyr',
+    role: 'Shopify Merchant',
+    text: 'An excellent app for payment gateways reporting with top class support and guidance. Alchemative guys are super fast at response and support especially Mr. Sikandar. He guided us for every step to integrate the app with our store.',
   },
 ]
 
@@ -113,7 +137,7 @@ const articles = [
     date: 'Jun 9, 2026',
     title: 'UnumPay Partners with Aik by BankIslami to Enable Raast QR Payments for Shopify Stores in Pakistan',
     excerpt: "Raast is Pakistan's first instant payment system built by the State Bank of Pakistan. This guide explains what Raast is, how...",
-    link: '/blog/unumpay-partners-with-aik-by-bankislami-raast-qr-payments/',
+    link: '/blog/raast-qr-payments-shopify-pakistan/',
   },
 ]
 
@@ -125,8 +149,8 @@ const articles = [
 ---
 
 <div>
-  <section class="work-section bg-white stats-section">
-    <div class="max-w-300 mx-auto px-6 md:px-10 lg:px-12] xl:px-12">
+  <section class="work-section bg-white stats-section js-fade-scroll" data-direction="up">
+    <div class="max-w-300 mx-auto px-6 md:px-10 lg:px-12 xl:px-12">
       <span class="work-eyebrow">USE CASES</span>
       <h2 class="work-heading">Real Problems. Real Solutions.</h2>
       <p class="work-subtitle">
@@ -144,7 +168,7 @@ const articles = [
             data-amount="0.2"
           >
             <div class="usecase-image-wrapper">
-              <img src={item.image.src ?? item.image} alt={item.title} class="usecase-image" />
+              <img src={item.image.src ?? item.image} alt={item.title} class="usecase-image" loading="lazy" />
               <div class="usecase-badge">{item.number}</div>
             </div>
 
@@ -163,8 +187,8 @@ const articles = [
     </div>
   </section>
 
-  <section class="work-section bg-white stats-section mt-8" style="background: linear-gradient(#fff, #f9f7ff);">
-    <div class="max-w-300 mx-auto px-6 md:px-10 lg:px-12] xl:px-12 pb-6 sm:pb-0">
+  <section class="work-section bg-white stats-section js-fade-scroll" data-direction="up" style="background: linear-gradient(#fff, #f9f7ff);">
+    <div class="max-w-300 mx-auto px-6 md:px-10 lg:px-12 xl:px-12 pb-6 sm:pb-0">
       <span class="work-eyebrow">CUSTOMER SUCCESS STORIES</span>
       <h2 class="work-heading">Loved by Shopify Merchants Worldwide</h2>
       <p class="work-subtitle">
@@ -186,7 +210,7 @@ const articles = [
                 <div class="testimonial-header">
                   <div class="testimonial-avatar">
                     {item.logo ? (
-                      <img src={item.logo.src ?? item.logo} alt={item.name} class="testimonial-logo-img" />
+                      <img src={item.logo.src ?? item.logo} alt={item.name} class="testimonial-logo-img" loading="lazy" />
                     ) : (
                       item.initials
                     )}
@@ -211,14 +235,14 @@ const articles = [
       </div>
 
       <div class="testimonial-dots" id="testimonial-dots"></div>
-      
+
     </div>
   </section>
 
-  <section class="work-section bg-white stats-section">
-    <div class="max-w-300 mx-auto px-6 md:px-10 lg:px-12] xl:px-12">
+  <section class="work-section bg-white stats-section js-fade-scroll" data-direction="up">
+    <div class="max-w-300 mx-auto px-6 md:px-10 lg:px-12 xl:px-12">
       <span class="work-eyebrow">RESOURCE HUB</span>
-      <h1 class="work-heading">Shopify Payment Guides & Insights</h1>
+      <h2 class="work-heading">Shopify Payment Guides & Insights</h2>
       <p class="work-subtitle">
         Tips, tutorials and expert guides for Shopify merchants navigating payments globally.
       </p>
@@ -227,7 +251,7 @@ const articles = [
         {articles.map((article) => (
           <div class="blog-card">
             <div class="blog-image-wrapper">
-              <img src={article.image.src ?? article.image} alt={article.title} class="blog-image" />
+              <img src={article.image.src ?? article.image} alt={article.title} class="blog-image" loading="lazy" />
             </div>
 
             <div class="blog-content">
@@ -244,7 +268,7 @@ const articles = [
       </div>
 
       <div class="blog-cta-wrapper">
-        <a href="/blogs" class="blog-cta">
+        <a href="/blog/" class="blog-cta">
           View All Articles <span aria-hidden="true">→</span>
         </a>
       </div>
@@ -253,7 +277,14 @@ const articles = [
 </div>
 
 <script>
-  import { initFadeInScroll } from '../scripts/Animation'
+document.addEventListener('astro:page-load', () => {
+// Re-runs on every client-side navigation — drop the previous run's timer
+// and window-level listener first so they don't pile up.
+if (window.__testimonialIntervalId) clearInterval(window.__testimonialIntervalId)
+if (window.__testimonialAbort) window.__testimonialAbort.abort()
+const testimonialAbort = new AbortController()
+window.__testimonialAbort = testimonialAbort
+const { signal } = testimonialAbort
 
 const AUTO_SLIDE_INTERVAL = 3500
 
@@ -321,6 +352,7 @@ function goNext() {
 function startInterval() {
   if (isPaused || totalPages() <= 1) return
   intervalId = setInterval(() => showPage(currentPage + 1), AUTO_SLIDE_INTERVAL)
+  window.__testimonialIntervalId = intervalId
 }
 
 function stopInterval() {
@@ -348,7 +380,13 @@ function handleResize() {
 
 prevBtn?.addEventListener('click', goPrev)
 nextBtn?.addEventListener('click', goNext)
-window.addEventListener('resize', handleResize)
+
+// Hovering an arrow advances immediately — no click needed. Auto-slide
+// keeps running independently (goPrev/goNext already restart its timer).
+prevBtn?.addEventListener('mouseenter', goPrev)
+nextBtn?.addEventListener('mouseenter', goNext)
+
+window.addEventListener('resize', handleResize, { signal })
 
 carousel?.addEventListener('mouseenter', () => {
   isPaused = true
@@ -363,6 +401,5 @@ carousel?.addEventListener('mouseleave', () => {
 renderDots()
 showPage(0)
 startInterval()
-
-initFadeInScroll()
+})
 </script>

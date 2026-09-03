@@ -1,7 +1,5 @@
 ---
 import type { MarkdownHeading } from 'astro';
-import { createMarkdownProcessor } from '@astrojs/markdown-remark';
-import rehypeSlug from 'rehype-slug';
 import Layout from '../../layouts/Layout.astro';
 import '../../styles/template.css'
 import '../../styles/pricing.css'
@@ -12,6 +10,9 @@ import { ArrowLeft, Calendar, Clock, User } from 'lucide-astro'
 import blogs from '../../data/blogs.json';
 import Navbar from '../../component/Navbar.astro';
 import Footer from '../../component/Footer.astro';
+import { formatDate, readTimeFromBody } from '../../utils/dates.js';
+import { getMarkdownProcessor } from '../../utils/markdown.js';
+import { clampDescription } from '../../utils/seo.js';
 
 export async function getStaticPaths() {
   return blogs.map((entry) => ({
@@ -29,57 +30,114 @@ const firstH2Index = rawBody.indexOf('\n## ');
 const introMarkdown = firstH2Index !== -1 ? rawBody.slice(0, firstH2Index) : rawBody;
 const restMarkdown = firstH2Index !== -1 ? rawBody.slice(firstH2Index) : '';
 
-const processor = await createMarkdownProcessor({
-  syntaxHighlight: 'shiki',
-  rehypePlugins: [rehypeSlug],
-});
+const processor = await getMarkdownProcessor();
 
 const introResult = await processor.render(introMarkdown);
 const restResult = await processor.render(restMarkdown);
 
-const introHtml = introResult.code;
-const restHtml = restResult.code;
+// Body markdown links to the Shopify App Store should leave the site in a new
+// tab rather than navigating the reader away from the article.
+function openShopifyLinksInNewTab(html: string): string {
+  return html.replace(
+    /<a href="(https:\/\/apps\.shopify\.com[^"]*)"/g,
+    '<a target="_blank" rel="noopener noreferrer" href="$1"'
+  );
+}
+
+const introHtml = openShopifyLinksInNewTab(introResult.code);
+const restHtml = openShopifyLinksInNewTab(restResult.code);
 
 const headings: MarkdownHeading[] = [
   ...(introResult.metadata?.headings ?? []),
   ...(restResult.metadata?.headings ?? []),
 ];
 
-const wordCount = rawBody.trim().split(/\s+/).length;
-const readTime = Math.ceil(wordCount / 200);
+// Prefer the exact read time recorded from the original site; only estimate
+// from word count if an entry genuinely has none.
+const readTime = entry.readTime ?? readTimeFromBody(rawBody);
 
 const pageTitle = `${entry.title} | UnumPay Blog`;
-const pageDescription = entry.excerpt ?? `Read ${entry.title} on the UnumPay blog.`;
-const pageCanonical = `https://www.unumpay.com/blogs/${entry.slug}/`;
+const fullExcerpt = entry.excerpt ?? `Read ${entry.title} on the UnumPay blog.`;
 
+// Several excerpts run well past what a search result shows (the longest was
+// ~395 characters), so they'd be truncated mid-word in the SERP. Clamp on a
+// word boundary and keep the full excerpt for the schema, which has no limit.
+const pageDescription = clampDescription(fullExcerpt);
+
+// blogs.json stores dates as display strings ("Jun 24, 2026"); schema.org and
+// the article:* OG tags both need ISO 8601.
+const publishedISO = (() => {
+  const d = new Date(entry.date);
+  return isNaN(d.getTime()) ? undefined : d.toISOString();
+})();
+
+const postUrl = new URL(`/blog/${entry.slug}/`, Astro.site).href;
+const postImage = entry.image ?? '/og-image.jpg';
+const postImageUrl = new URL(postImage, Astro.site).href;
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: entry.title,
+  description: fullExcerpt,
+  image: postImageUrl,
+  datePublished: publishedISO,
+  dateModified: publishedISO,
+  author: { '@type': 'Person', name: entry.author ?? 'UnumPay Team' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'UnumPay',
+    url: 'https://www.unumpay.com/',
+    logo: { '@type': 'ImageObject', url: 'https://www.unumpay.com/og-image.jpg' },
+  },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl },
+  articleSection: entry.category,
+  inLanguage: 'en',
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.unumpay.com/' },
+    { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://www.unumpay.com/blog/' },
+    { '@type': 'ListItem', position: 3, name: entry.title, item: postUrl },
+  ],
+};
 ---
 
 <Layout title={pageTitle}
   description={pageDescription}
-  canonical={pageCanonical}
-  image="https://www.unumpay.com/og-image.jpg">
+  image={postImage}
+  imageAlt={entry.title}
+  ogType="article"
+  publishedTime={publishedISO}
+  modifiedTime={publishedISO}
+  author={entry.author}
+  section={entry.category}
+  schema={[articleSchema, breadcrumbSchema]}>
 
   <Navbar />
 
-  <section class="template-section">
+  <section class="template-section js-fade-scroll" data-direction="up">
     <div class='cta-section__glow' aria-label='hidden'></div>
      <div class="template-section-content">
       <div class="blog-detail-breadcrumb">
-        <a href="/blogs" class="blog-back-link flex gap-2"><ArrowLeft size="14" /> Back to Blog</a>
+        <a href="/blog/" class="blog-back-link flex gap-2"><ArrowLeft size="14" /> Back to Blog</a>
         <span class="blog-breadcrumb-sep">·</span>
         <span class="blog-breadcrumb-title">{entry.title}</span>
       </div>
       <span class="blog-detail-category">{entry.category}</span>
       <h1 class="blog-detail-title">{entry.title}</h1>
       <div class="blog-detail-meta">
-        <span><Calendar size="14" /> {entry.date}</span>
-        <span><Clock size="14" />  {readTime} min read</span>
+        <span><Calendar size="14" /> {formatDate(entry.date)}</span>
+        <span><Clock size="14" />  {readTime}</span>
         <span><User size="14" />  {entry.author}</span>
       </div>
      </div>
   </section>
 
-  <section class="blog-detail-body bg-white">
+  <section class="blog-detail-body bg-white js-fade-scroll" data-direction="up">
     <div class="post-body-inner">
       <div style="border-radius: 16px; overflow: hidden; aspect-ratio: 16 / 9; margin-bottom: 40px;">
         {entry.image && (
@@ -119,16 +177,16 @@ const pageCanonical = `https://www.unumpay.com/blogs/${entry.slug}/`;
       </div>
 
       <div class="mt-6 flex flex-wrap items-center gap-3">
-        <a href="https://apps.shopify.com/unum-pay" class="inline-flex items-center justify-center px-4 py-2 rounded-md border border-[#8B2BE2] text-[#8B2BE2] text-sm font-medium hover:bg-[#8B2BE2] hover:text-white transition-colors">
+        <a href="https://apps.shopify.com/unum-pay" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-4 py-2 rounded-md border border-[#8B2BE2] text-[#8B2BE2] text-sm font-medium transition-all hover:bg-[#8B2BE2] hover:text-white hover:-translate-y-0.5 active:translate-y-0 active:scale-95 focus-visible:outline-2 focus-visible:outline-[#8B2BE2] focus-visible:outline-offset-2">
           Install on Shopify
         </a>
-        <a href="/contact" class="inline-flex items-center justify-center px-4 py-2 rounded-md border border-[#8B2BE2] text-[#8B2BE2] text-sm font-medium hover:bg-[#8B2BE2] hover:text-white transition-colors">
+        <a href="/contact" class="inline-flex items-center justify-center px-4 py-2 rounded-md border border-[#8B2BE2] text-[#8B2BE2] text-sm font-medium transition-all hover:bg-[#8B2BE2] hover:text-white hover:-translate-y-0.5 active:translate-y-0 active:scale-95 focus-visible:outline-2 focus-visible:outline-[#8B2BE2] focus-visible:outline-offset-2">
           Contact Us
         </a>
       </div>
 
       <div class="mt-12 pt-6 border-t border-gray-200">
-        <a href="/blogs" class="inline-flex items-center gap-2 text-[#8B2BE2] hover:text-[#A040FF] font-semibold transition-colors"><ArrowLeft size="14" /> Back to All Articles</a>
+        <a href="/blog/" class="inline-flex items-center gap-2 text-[#8B2BE2] hover:text-[#A040FF] font-semibold transition-colors"><ArrowLeft size="14" /> Back to All Articles</a>
       </div>
        </div>
   </section>

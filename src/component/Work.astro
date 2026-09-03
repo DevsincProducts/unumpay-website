@@ -1,15 +1,5 @@
 ---
 // Work.astro
-import image2 from '../assets/images/image2.webp'
-import image3 from '../assets/images/image8.webp'
-import image4 from '../assets/images/image9.webp'
-import image5 from '../assets/images/image3.webp'
-import image6 from '../assets/images/Advance_Payment.webp'
-import image7 from '../assets/images/Paid_Order.webp'
-import image8 from '../assets/images/Payment_Gateway.webp'
-import image9 from '../assets/images/Customizable_Dashboard.webp'
-import image10 from '../assets/images/Currency_Switcher.webp'
-
 const stats = [
   { target: 40, suffix: '+', label: 'Payment Gateways' },
   { target: 45, suffix: '+', label: 'Countries' },
@@ -18,63 +8,76 @@ const stats = [
   { target: 4.6, decimals: 1, label: 'App Store Rating' },
 ]
 
+const ACCENTS = ['#c812d5', '#6a03ce']
+
 const steps = [
   {
-    image: image2,
+    video: '/videos/how-it-works/payment-provider.mp4',
+    poster: '/videos/posters/payment-provider.jpg',
     number: 1,
-    title: 'Install UnumPay',
-    desc: 'Install the app from the Shopify App Store in one click. No developer needed.',
+    title: 'Choose a Payment Provider',
+    desc: "Pick a payment provider from UnumPay's Coverage, apply for a merchant account, and get your credentials from them.",
   },
   {
-    image: image3,
+    video: '/videos/how-it-works/install-unumpay.mp4',
+    poster: '/videos/posters/install-unumpay.jpg',
     number: 2,
-    title: 'Connect Your Gateways',
-    desc: 'Choose from 40+ payment providers and activate them instantly from your dashboard.',
+    title: 'Install UnumPay and Configure',
+    desc: 'Install the UnumPay app from the Shopify App Store and enter the credentials provided by your chosen payment provider.',
   },
   {
-    image: image4,
+    video: '/videos/how-it-works/accepting-payment.mp4',
+    poster: '/videos/posters/accepting-payment.jpg',
     number: 3,
     title: 'Start Accepting Payments',
-    desc: 'Go live and start accepting payments from customers worldwide in minutes.',
+    desc: 'Go live instantly, start accepting payments from your customers, and manage payment data from unified dashboard.',
   },
+].map((step, i) => ({ ...step, accent: ACCENTS[i % ACCENTS.length] }))
+
+const KEY_FEATURE_GRADIENTS = [
+  'linear-gradient(150deg,#c812d5,#6a03ce)',
+  'linear-gradient(150deg,#8b2be2,#3d0a6b)',
+  'linear-gradient(150deg,#a020c0,#4a0e7a)',
+  'linear-gradient(150deg,#d946ef,#701a75)',
+  'linear-gradient(150deg,#9333ea,#2e0854)',
 ]
 
-const features = [
+const keyFeatures = [
   {
-    image: image5,
-    title: 'Intuitive Payment Integrations',
-    desc: 'Choose the best payment provider for your business. Offering a range of top-notch payment providers.',
+    video: '/videos/key-features/unified-dashboard.mp4',
+    poster: '/videos/posters/unified-dashboard.jpg',
+    title: 'Unified Dashboard',
+    desc: 'Track every gateway and transaction history together in one clear, and centralized dashboard.',
   },
   {
-    image: image7,
-    title: 'Paid Order Reporting',
-    desc: 'Get a comprehensive report on paid orders, payments and list order gateways along with their transaction ID.',
+    video: '/videos/key-features/multiple-gateways.mp4',
+    poster: '/videos/posters/multiple-gateways.jpg',
+    title: 'Multiple Gateways',
+    desc: 'Connect multiple gateways for each market and as backup, so your checkout keeps running always.',
   },
   {
-    image: image10,
-    title: 'Currency Switcher',
-    desc: 'Add and switch currencies to cater to your customers all around the globe.',
-  },
-  {
-    image: image8,
-    title: 'Payment Gateway Configuration',
-    desc: 'Configure and integrate your desired payment gateway all by yourself.',
-  },
-  {
-    image: image9,
-    title: 'Customizable Dashboard',
-    desc: 'Optimize your order table as you see fit. Add filters, generate reports, and analyze the performance of your payment gateway.',
-  },
-  {
-    image: image6,
+    video: '/videos/key-features/advance-payment.mp4',
+    poster: '/videos/posters/advance-payment.jpg',
     title: 'Advance Payment',
-    desc: 'Allowing you to take advance payment from customers for the products they ordered and are to be received at later dates.',
+    desc: 'Collect advance or partial payments from customers directly for your custom products.',
   },
-]
+  {
+    video: '/videos/key-features/multi-currency.mp4',
+    poster: '/videos/posters/multi-currency.jpg',
+    title: 'Multi-Currency',
+    desc: 'Accept payment in multiple currencies to serve customers all around the globe.',
+  },
+  {
+    video: '/videos/key-features/multilingual-portal.mp4',
+    poster: '/videos/posters/multilingual-portal.jpg',
+    title: 'Multilingual Portal',
+    desc: 'Run your UnumPay portal in your native language, including English, Arabic, and French.',
+  },
+].map((feature, i) => ({ ...feature, id: `kf${i}`, cardBg: KEY_FEATURE_GRADIENTS[i % KEY_FEATURE_GRADIENTS.length] }))
 ---
 
-<section class="work-section bg-white stats-section" id="stats-section">
-  <div class="max-w-300 mx-auto px-6 md:px-10 lg:px-12] xl:px-12">
+<section class="work-section bg-white stats-section js-fade-scroll" data-direction="up" id="stats-section">
+  <div class="max-w-300 mx-auto px-6 md:px-10 lg:px-12 xl:px-12">
     <span class="work-eyebrow">THE NUMBERS</span>
     <h2 class="work-heading">Powering Shopify Merchants Worldwide</h2>
     <p class="work-subtitle">
@@ -105,24 +108,32 @@ const features = [
   </div>
 </section>
 
-<section class="work-section bg-white stats-section" id="how-it-works">
-  <div class="max-w-300 mx-auto px-6 md:px-10 lg:px-12] xl:px-12">
-    <span class="work-eyebrow">HOW IT WORKS</span>
-    <h2 class="work-heading mb-14!">From Install to Live in Minutes</h2>
+<section class="how js-fade-scroll" data-direction="up" id="how-it-works">
+  <div class="max-w-300 mx-auto px-6 md:px-10 lg:px-12 xl:px-12 how__inner">
+    <div class="how__header" data-reveal>
+      <span class="work-eyebrow how__eyebrow">HOW IT WORKS</span>
+      <h2 class="work-heading how__title mb-6!">Set Up Digital Payments for Your Store</h2>
+    </div>
 
-    <div class="steps-row">
-      {steps.map((step) => (
-        <div
-          class="step-card"
-        >
-          <img src={step.image.src ?? step.image} alt={step.title} class="step-image" />
-          <div class="flex gap-2">
-            <div class="step-badge">{step.number}. </div>
-            <h3 class="step-title">{step.title}</h3>
-          </div>
-          <p class="step-desc">{step.desc}</p>
-        </div>
-      ))}
+    <div class="hiw-layout" data-reveal data-hiw-root>
+      <div class="hiw-tabs" id="hiw-tabs">
+        {steps.map((step, i) => (
+          <button type="button" class="hiw-tab" data-hiw-tab={i} style={`--accent:${step.accent}`}>
+            <span class="hiw-tab__number">{step.number}</span>
+            <span class="hiw-tab__body">
+              <span class="hiw-tab__title">{step.title}</span>
+              <span class="hiw-tab__desc">{step.desc}</span>
+              <span class="hiw-tab__track"><span class="hiw-tab__fill" data-hiw-fill></span></span>
+            </span>
+          </button>
+        ))}
+      </div>
+
+      <div class="hiw-stage">
+        {steps.map((step, i) => (
+          <video class="hiw-stage__video" data-hiw-video={i} src={step.video} poster={step.poster} muted playsinline preload={i === 0 ? 'auto' : 'metadata'}></video>
+        ))}
+      </div>
     </div>
 
     <div class="step-cta-wrapper">
@@ -133,34 +144,65 @@ const features = [
   </div>
 </section>
 
-<section class="work-section bg-white stats-section">
-  <div class="max-w-300 mx-auto px-6 md:px-10 lg:px-12] xl:px-12">
+<section class="work-section bg-white stats-section js-fade-scroll" data-direction="up" id="key-features">
+  <div class="max-w-300 mx-auto px-6 md:px-10 lg:px-12 xl:px-12">
     <span class="work-eyebrow">KEY FEATURES</span>
     <h2 class="work-heading">Everything You Need to Manage Shopify Payments</h2>
     <p class="work-subtitle">
       Powerful tools built for Shopify merchants. Manage gateways, monitor transactions, and grow your business without the complexity.
     </p>
 
-    <div class="features-grid">
-      {features.map((feature) => (
-        <div
-          class="feature-card"
-        >
-          <div class="feature-icon">
-            <img src={feature.image.src ?? feature.image} alt={feature.title} />
+    <div class="kf-slider-viewport">
+      <div class="kf-slider" id="kf-slider">
+        {keyFeatures.map((f, i) => (
+          <div class="kf-card" data-kf-id={f.id} style={`background:${f.cardBg}`}>
+            <div class="kf-card-media">
+              <video src={f.video} poster={f.poster} muted playsinline preload={i === 0 ? 'auto' : 'metadata'}></video>
+            </div>
+            <div class="kf-card-body">
+              <h3 class="kf-card-title">{f.title}</h3>
+              <p class="kf-card-desc">{f.desc}</p>
+            </div>
           </div>
-          <div class="gap-2! flex flex-col">
-            <h3 class="feature-title">{feature.title}</h3>
-            <p class="feature-desc">{feature.desc}</p>
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
+
+      <div class="kf-progress" id="kf-progress">
+        {keyFeatures.map((f, i) => (
+          <button type="button" class="kf-progress-bar" data-kf-dot={i} aria-label={`Show ${f.title}`}></button>
+        ))}
+      </div>
     </div>
   </div>
 </section>
 
 <script>
-  
+document.addEventListener('astro:page-load', () => {
+  // Re-runs on every client-side navigation — abort the previous run's
+  // window-level listeners first so they don't pile up.
+  if (window.__workAbort) window.__workAbort.abort()
+  const workAbort = new AbortController()
+  window.__workAbort = workAbort
+  const { signal } = workAbort
+
+  // A <video> that has loaded still paints NOTHING until the decoder has
+  // actually produced a frame — having readyState 4 is not enough on its own.
+  // That's why a card or the How It Works stage could sit there as an empty
+  // box until its clip's turn came round. Nudging currentTime forces that
+  // first frame out, so every clip shows its still image straight away and
+  // playback later just continues from it.
+  function primeFirstFrame(v: HTMLVideoElement | null) {
+    if (!v || v.dataset.primed) return
+    v.dataset.primed = '1'
+    const prime = () => {
+      // Never disturb a clip that's already running.
+      if (!v.paused || v.currentTime > 0) return
+      try { v.currentTime = 0.01 } catch { /* not seekable yet — harmless */ }
+    }
+    if (v.readyState >= 1) prime()
+    else v.addEventListener('loadedmetadata', prime, { once: true })
+  }
+
   const statsSection = document.getElementById('stats-section') as HTMLElement | null
   const statNumbers = Array.from(document.querySelectorAll<HTMLElement>('.stat-number'))
   let hasAnimated = false
@@ -209,4 +251,724 @@ const features = [
  
     observer.observe(statsSection)
   }
+
+  // ---------- Reveal on scroll (how-it-works header/slider) ----------
+  const revealEls = document.querySelectorAll<HTMLElement>('[data-reveal]')
+  const revealIo = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible')
+          revealIo.unobserve(entry.target)
+        }
+      })
+    },
+    { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+  )
+  revealEls.forEach((el) => revealIo.observe(el))
+
+  setTimeout(() => {
+    revealEls.forEach((el) => el.classList.add('is-visible'))
+  }, 2500)
+
+  // ---------- How It Works stepper — left-hand tabs + a single video stage
+  // on the right. Each step's clip plays once; its own 'ended' event (not a
+  // fixed timer) advances to the next tab, and each tab's thin progress bar
+  // fills in step with that clip's real playback position. Clicking a tab
+  // jumps straight to it. ----------
+  function initHowStepper(root: HTMLElement) {
+    const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-hiw-tab]'))
+    const videos = Array.from(root.querySelectorAll<HTMLVideoElement>('[data-hiw-video]'))
+    if (!tabs.length || !videos.length) return
+
+    videos.forEach(primeFirstFrame)
+    // Every clip in the stage sits at opacity:0 until it's the active step, so
+    // without this the stage is an empty box until the section scrolls into
+    // view and the stepper starts. Show step one from the outset instead.
+    setActiveTab(0)
+
+    let activeIndex = 0
+    let hoverPaused = false
+    let fallbackId: ReturnType<typeof setTimeout> | null = null
+    let started = false
+
+    function setFill(index: number, pct: number) {
+      const fill = tabs[index]?.querySelector<HTMLElement>('[data-hiw-fill]')
+      if (fill) fill.style.width = pct + '%'
+    }
+
+    function setActiveTab(index: number) {
+      tabs.forEach((tab, i) => {
+        tab.classList.toggle('is-active', i === index)
+        if (i !== index) setFill(i, i < index ? 100 : 0)
+      })
+      videos.forEach((v, i) => v.classList.toggle('is-shown', i === index))
+    }
+
+    function clearFallback() {
+      if (fallbackId) {
+        clearTimeout(fallbackId)
+        fallbackId = null
+      }
+    }
+
+    function armFallback(delayMs: number) {
+      clearFallback()
+      fallbackId = setTimeout(() => {
+        if (!hoverPaused) advance()
+      }, delayMs)
+    }
+
+    function onTimeUpdate(this: HTMLVideoElement) {
+      const i = videos.indexOf(this)
+      if (i !== activeIndex || !isFinite(this.duration) || this.duration <= 0) return
+      setFill(i, Math.min(100, (this.currentTime / this.duration) * 100))
+    }
+
+    // Large clips may not have buffered enough yet for currentTime/play to
+    // take effect immediately — wait for real readiness instead of assuming
+    // it (this is what made the first (largest) clip sometimes silently
+    // fail to start).
+    function whenReady(video: HTMLVideoElement, cb: () => void) {
+      if (video.readyState >= 2) {
+        cb()
+        return
+      }
+      const onReady = () => {
+        video.removeEventListener('loadeddata', onReady)
+        cb()
+      }
+      video.addEventListener('loadeddata', onReady)
+    }
+
+    function playActive() {
+      clearFallback()
+      setFill(activeIndex, 0)
+
+      videos.forEach((v, i) => {
+        if (i === activeIndex) return
+        v.pause()
+        // Only rewind clips that have actually started loading — assigning
+        // currentTime on a preload="none" video forces it to start
+        // fetching, which would defeat the point of not preloading it.
+        if (v.readyState > 0) v.currentTime = 0
+      })
+
+      const activeVideo = videos[activeIndex]
+      if (!activeVideo) return
+
+      // preload="none" videos never start fetching on their own — kick off
+      // the load explicitly now that this one is actually about to be shown.
+      if (activeVideo.readyState === 0) activeVideo.load()
+
+      // Also start fetching the NEXT step's clip in the background so it's
+      // already buffered by the time its turn comes up.
+      const nextVideo = videos[(activeIndex + 1) % videos.length]
+      if (nextVideo && nextVideo.readyState === 0) nextVideo.load()
+
+      whenReady(activeVideo, () => {
+        if (activeIndex !== videos.indexOf(activeVideo)) return
+        activeVideo.currentTime = 0
+        if (!hoverPaused) {
+          activeVideo.play().catch(() => {
+            // Same defensive retry as the Key Features slider — a play()
+            // called right as the opacity transition starts can occasionally
+            // get rejected by the browser's power-saving policy.
+            setTimeout(() => {
+              if (activeVideo === videos[activeIndex] && !hoverPaused) activeVideo.play().catch(() => {})
+            }, 200)
+          })
+        }
+
+        const durationMs =
+          isFinite(activeVideo.duration) && activeVideo.duration > 0
+            ? activeVideo.duration * 1000 + 800
+            : 5000
+        armFallback(durationMs)
+      })
+
+      // Placeholder fallback in case the clip never becomes ready at all.
+      armFallback(6000)
+    }
+
+    function goToIndex(index: number) {
+      activeIndex = (index + tabs.length) % tabs.length
+      setActiveTab(activeIndex)
+      playActive()
+    }
+
+    function advance() {
+      goToIndex(activeIndex + 1)
+    }
+
+    videos.forEach((v, i) => {
+      v.addEventListener('timeupdate', onTimeUpdate)
+      v.addEventListener('ended', () => {
+        if (i === activeIndex && !hoverPaused) advance()
+      })
+    })
+
+    function pauseForHover() {
+      hoverPaused = true
+      videos[activeIndex]?.pause()
+      clearFallback()
+    }
+
+    function resumeFromHover() {
+      hoverPaused = false
+      const activeVideo = videos[activeIndex]
+      activeVideo?.play().catch(() => {})
+      const remaining = activeVideo && isFinite(activeVideo.duration)
+        ? Math.max(0.3, activeVideo.duration - activeVideo.currentTime)
+        : 3
+      armFallback(remaining * 1000 + 800)
+    }
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => goToIndex(i))
+      tab.addEventListener('mouseenter', pauseForHover)
+      tab.addEventListener('mouseleave', resumeFromHover)
+    })
+
+    // Same watchdog approach as the Key Features slider below: a one-shot
+    // "start when it scrolls into view" is fragile because the browser can
+    // refuse the first play() (no visible pixels yet) and nothing would ever
+    // retry. Re-checking on a slow interval self-heals from that.
+    function stepperOnScreen() {
+      const r = root.getBoundingClientRect()
+      return r.top < window.innerHeight * 0.9 && r.bottom > 0
+    }
+
+    function ensureStepperPlaying() {
+      if (!stepperOnScreen() || hoverPaused) return
+      if (!started) {
+        started = true
+        goToIndex(0)
+        return
+      }
+      const active = videos[activeIndex]
+      if (active && active.paused && active.readyState > 0) {
+        active.play().catch(() => {})
+      }
+    }
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) ensureStepperPlaying()
+        })
+      },
+      { threshold: 0.2 }
+    )
+    io.observe(root)
+    window.addEventListener('scroll', ensureStepperPlaying, { passive: true })
+    if (window.__hiwWatchdog) clearInterval(window.__hiwWatchdog)
+    window.__hiwWatchdog = setInterval(ensureStepperPlaying, 1000)
+    ensureStepperPlaying()
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-hiw-root]').forEach(initHowStepper)
+
+  // ---------- Key Features video slider — horizontal scroll-snap row of
+  // cards that tilt in 3D as they move away from center. Each card's own
+  // clip plays exactly once (no loop); the card advances the instant its
+  // video's 'ended' event fires, so the card's on-screen time always
+  // matches that clip's real length instead of a guessed fixed delay. ----------
+  function initKeyFeaturesSlider() {
+    const slider = document.getElementById('kf-slider') as HTMLElement | null
+    if (!slider) return
+
+    const cards = Array.from(slider.querySelectorAll<HTMLElement>('[data-kf-id]'))
+    if (!cards.length) return
+
+    const videos = cards.map((card) => card.querySelector('video'))
+    videos.forEach(primeFirstFrame)
+
+    const progressRoot = document.getElementById('kf-progress')
+    const dots = progressRoot ? Array.from(progressRoot.querySelectorAll<HTMLButtonElement>('[data-kf-dot]')) : []
+
+    let activeIndex = 0
+    let tiltRaf = 0
+    let hoverPaused = false
+    let fallbackId: ReturnType<typeof setTimeout> | null = null
+
+    function setActiveDot(index: number) {
+      dots.forEach((dot, i) => dot.classList.toggle('is-active', i === index))
+    }
+
+    function computeTilts() {
+      const rect = slider!.getBoundingClientRect()
+      const centerX = rect.left + rect.width / 2
+
+      // Read every card's layout first, then write styles in a separate
+      // pass — interleaving reads and writes here forces a synchronous
+      // reflow per card on every scroll frame, which is what made this
+      // carousel feel laggy while scrolling/transitioning.
+      const cardRects = cards.map((card) => card.getBoundingClientRect())
+
+      cards.forEach((card, i) => {
+        const cardRect = cardRects[i]
+        const cardCenter = cardRect.left + cardRect.width / 2
+        const dist = cardCenter - centerX
+        const norm = Math.max(-1, Math.min(1, dist / (rect.width / 2)))
+
+        const deg = norm * 42
+        const scale = 1 - Math.abs(norm) * 0.16
+        const opacity = 1 - Math.abs(norm) * 0.45
+
+        card.style.transform = `rotateY(${deg}deg) scale(${scale})`
+        card.style.opacity = String(opacity)
+      })
+    }
+
+    function onSliderScroll() {
+      cancelAnimationFrame(tiltRaf)
+      tiltRaf = requestAnimationFrame(computeTilts)
+    }
+
+    function clearFallback() {
+      if (fallbackId) {
+        clearTimeout(fallbackId)
+        fallbackId = null
+      }
+    }
+
+    // Safety net only — if a clip fails to load/play, 'ended' never fires,
+    // so this still moves things along instead of getting stuck forever.
+    function armFallback(delayMs: number) {
+      clearFallback()
+      fallbackId = setTimeout(() => {
+        if (!hoverPaused) advance()
+      }, delayMs)
+    }
+
+    // Calling play() the instant the card starts scrolling into view can
+    // get rejected by the browser's power-saving policy (a muted autoplay
+    // video with ~0 visible pixels at that exact moment gets an AbortError,
+    // "paused to save power") — the scroll-into-view is still animating.
+    // Retry once shortly after; by then the card has scrolled enough to
+    // actually be on screen.
+    function playWithRetry(v: HTMLVideoElement) {
+      v.play().catch(() => {
+        setTimeout(() => {
+          if (v === videos[activeIndex] && !hoverPaused) v.play().catch(() => {})
+        }, 200)
+      })
+    }
+
+    function playActive() {
+      clearFallback()
+      videos.forEach((v, i) => {
+        if (!v) return
+        if (i === activeIndex) {
+          v.currentTime = 0
+          if (!hoverPaused) playWithRetry(v)
+        } else {
+          v.pause()
+          // Only rewind clips that have actually started loading — assigning
+          // currentTime on a preload="none" video forces it to start
+          // fetching, which would defeat the point of not preloading it.
+          if (v.readyState > 0) v.currentTime = 0
+        }
+      })
+
+      // Start fetching the NEXT card's clip now, in the background, so it's
+      // already buffered by the time its turn comes up instead of only
+      // starting to load (and visibly lagging) once it becomes active.
+      const nextVideo = videos[(activeIndex + 1) % videos.length]
+      if (nextVideo && nextVideo.readyState === 0) nextVideo.load()
+
+      const activeVideo = videos[activeIndex]
+      const durationMs =
+        activeVideo && isFinite(activeVideo.duration) && activeVideo.duration > 0
+          ? activeVideo.duration * 1000 + 800
+          : 4000
+      armFallback(durationMs)
+    }
+
+    function goToIndex(index: number, instant = false) {
+      activeIndex = (index + cards.length) % cards.length
+      const card = cards[activeIndex]
+      const target = card.offsetLeft - (slider!.clientWidth - card.clientWidth) / 2
+      slider!.scrollTo({ left: target, behavior: instant ? 'auto' : 'smooth' })
+      setActiveDot(activeIndex)
+      playActive()
+    }
+
+    function advance() {
+      // Don't burn through the cards while the section is scrolled away —
+      // off-screen clips can't play anyway, so the fallback timer would just
+      // cycle blindly and the reader would come back to a random card.
+      if (!stillOnScreen()) {
+        armFallback(1000)
+        return
+      }
+      goToIndex(activeIndex + 1)
+    }
+
+    videos.forEach((v, i) => {
+      v?.addEventListener('ended', () => {
+        if (i === activeIndex && !hoverPaused) advance()
+      })
+    })
+
+    function pauseForHover() {
+      hoverPaused = true
+      videos[activeIndex]?.pause()
+      clearFallback()
+    }
+
+    function resumeFromHover() {
+      hoverPaused = false
+      const activeVideo = videos[activeIndex]
+      activeVideo?.play().catch(() => {})
+      const remaining = activeVideo && isFinite(activeVideo.duration)
+        ? Math.max(0.3, activeVideo.duration - activeVideo.currentTime)
+        : 3
+      armFallback(remaining * 1000 + 800)
+    }
+
+    slider.addEventListener('scroll', onSliderScroll, { passive: true })
+    window.addEventListener('resize', computeTilts, { signal })
+
+    // Pause only while the cursor is over an individual card — moving
+    // between cards (even within the row) resumes it immediately.
+    cards.forEach((card) => {
+      card.addEventListener('mouseenter', pauseForHover)
+      card.addEventListener('mouseleave', resumeFromHover)
+    })
+
+    // Manual navigation — click a bar to jump straight to that card.
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => goToIndex(i))
+    })
+
+    // ---- Startup, deliberately not gated on a timing guess ----
+    //
+    // Two separate things have to happen: park the first card in the centre,
+    // and start its clip. Both were previously gated behind "wait until the
+    // DOM is laid out" polls, which is what kept breaking:
+    //   * rAF-based polling never resolves in a background tab (rAF is
+    //     suspended), so opening the site in a background tab left the whole
+    //     slider dead — no tilt, no video.
+    //   * setTimeout-based polling does run there, but throttled to ~1/sec,
+    //     so any attempt cap turns into a minute-long wait.
+    // ResizeObserver is the right primitive: it fires exactly when the slider
+    // actually gets a size, whatever the tab is doing.
+    let positioned = false
+
+    function positionFirstCard() {
+      if (positioned) return
+      const first = cards[0]
+      if (!slider!.clientWidth || !first.clientWidth) return
+      positioned = true
+      activeIndex = 0
+      slider!.scrollTo({
+        left: first.offsetLeft - (slider!.clientWidth - first.clientWidth) / 2,
+        behavior: 'auto',
+      })
+      setActiveDot(0)
+      computeTilts()
+    }
+
+    // How much of the slider is actually on screen, 0..1.
+    function visibleFraction() {
+      const r = slider!.getBoundingClientRect()
+      if (r.height <= 0) return 0
+      const shown = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0)
+      return Math.max(0, Math.min(1, shown / r.height))
+    }
+
+    // Deliberately strict for *starting* the carousel. Kicking it off as soon
+    // as the slider peeks in at the bottom of the screen means it has already
+    // auto-advanced past two or three cards by the time the reader scrolls it
+    // into view and actually looks — so the first card is effectively never
+    // seen. Waiting until it's properly on screen is what makes card one the
+    // card people actually get shown.
+    function readyToStart() {
+      return visibleFraction() >= 0.6
+    }
+
+    // Once running, a looser test is right: keep playing while any meaningful
+    // part of it is still on screen, so it doesn't stall mid-scroll.
+    function stillOnScreen() {
+      return visibleFraction() > 0.15
+    }
+
+    // Playback is a watchdog rather than a one-shot trigger. Every one-shot
+    // version of this regressed: whatever fires the first play() can fire at a
+    // moment the browser still refuses it (it rejects play() on a video with
+    // no visible pixels — "paused to save power"), and once an "already
+    // started" flag is set nothing ever retries, leaving the card frozen for
+    // good. Re-checking costs one rect read plus a paused check.
+    let started = false
+
+    function tick() {
+      positionFirstCard()
+      if (!positioned || hoverPaused) return
+      if (!started) {
+        if (!readyToStart()) return
+        started = true
+        goToIndex(0, true)
+        return
+      }
+      if (!stillOnScreen()) return
+      const active = videos[activeIndex]
+      if (active && active.paused) playWithRetry(active)
+    }
+
+    const ro = new ResizeObserver(() => {
+      positionFirstCard()
+      if (positioned) computeTilts()
+      tick()
+    })
+    ro.observe(slider!)
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) tick()
+        }
+      },
+      { threshold: 0.25 }
+    )
+    io.observe(slider!)
+
+    window.addEventListener('scroll', tick, { passive: true, signal })
+    document.addEventListener('visibilitychange', tick, { signal })
+
+    if (window.__kfWatchdog) clearInterval(window.__kfWatchdog)
+    window.__kfWatchdog = setInterval(tick, 1000)
+
+    tick()
+  }
+
+  initKeyFeaturesSlider()
+})
 </script>
+
+<style>
+  .how {
+    position: relative;
+    background: #fff;
+    padding: 48px 0;
+    overflow: hidden;
+  }
+
+  @media (min-width: 641px) {
+    .how {
+      padding: 56px 0;
+    }
+  }
+
+  .how__inner {
+    position: relative;
+  }
+
+  .how__header {
+    text-align: center;
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .how__header.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .how__eyebrow {
+    color: rgb(106, 3, 206) !important;
+  }
+
+  .how__title {
+    color: rgb(23, 23, 33) !important;
+  }
+
+  .hiw-layout {
+    position: relative;
+    display: flex;
+    gap: 56px;
+    align-items: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .hiw-layout.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .hiw-tabs {
+    flex: 1 1 380px;
+    min-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .hiw-tab {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    width: 100%;
+    padding: 18px 20px;
+    border-radius: 16px;
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid transparent;
+    text-align: left;
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .hiw-tab.is-active {
+    background: rgba(106, 3, 206, 0.06);
+    border-color: rgba(106, 3, 206, 0.16);
+  }
+
+  .hiw-tab__number {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgb(243, 238, 255);
+    color: rgb(106, 3, 206);
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  .hiw-tab.is-active .hiw-tab__number {
+    background: linear-gradient(135deg, #c812d5, #6a03ce);
+    color: #fff;
+  }
+
+  .hiw-tab__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .hiw-tab__title {
+    color: rgb(23, 23, 33);
+    font-size: 18px;
+    font-weight: 700;
+    margin: 2px 0 6px;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+  }
+
+  .hiw-tab.is-active .hiw-tab__title {
+    opacity: 1;
+  }
+
+  .hiw-tab__desc {
+    display: block;
+    color: rgb(107, 114, 128);
+    font-size: 13.5px;
+    line-height: 1.6;
+    margin: 0;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .hiw-tab.is-active .hiw-tab__desc {
+    max-height: 100px;
+    opacity: 1;
+  }
+
+  .hiw-tab__track {
+    display: block;
+    margin-top: 0;
+    height: 3px;
+    border-radius: 2px;
+    background: rgb(229, 229, 240);
+    overflow: hidden;
+    max-height: 0;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .hiw-tab.is-active .hiw-tab__track {
+    margin-top: 12px;
+    max-height: 3px;
+  }
+
+  .hiw-tab__fill {
+    display: block;
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #c812d5, #eabdff);
+  }
+
+  .hiw-tab.is-active .hiw-tab__fill {
+    transition: width 0.05s linear;
+  }
+
+  .hiw-stage {
+    position: relative;
+    flex: 1 1 460px;
+    min-width: 320px;
+    aspect-ratio: 16 / 9;
+    border-radius: 20px;
+    overflow: hidden;
+    background: rgb(243, 238, 255);
+    box-shadow: 0 20px 50px rgba(23, 0, 40, 0.12);
+  }
+
+  .hiw-stage__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .hiw-stage__video.is-shown {
+    opacity: 1;
+  }
+
+  @media (max-width: 767px) {
+    .hiw-layout {
+      flex-direction: column;
+    }
+
+    .hiw-stage {
+      order: -1;
+      width: 100%;
+    }
+  }
+
+  .step-cta-wrapper {
+    position: relative;
+    z-index: 2;
+    margin-top: 28px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .how__header,
+    .hiw-layout {
+      transition: none !important;
+      opacity: 1;
+      transform: none;
+    }
+    .hiw-tab,
+    .hiw-tab__number,
+    .hiw-tab__desc,
+    .hiw-tab__track,
+    .hiw-stage__video {
+      transition: none !important;
+    }
+  }
+</style>

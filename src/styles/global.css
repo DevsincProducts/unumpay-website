@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
 body {
   font-family: 'Poppins', sans-serif;
   scrollbar-width: thin;
@@ -104,38 +109,34 @@ body {
   50%      { transform: translate(-42px, -42px); }
 }
 
-.js-fade-in {
-  opacity: 0;
-  transform: translateY(var(--y-offset, 24px)) scale(var(--scale-from, 0.98));
-  will-change: opacity, transform;
-}
-
+.js-fade-in,
 .js-fade-in.is-visible {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: none;
 }
 
 /* FadeInUp / FadeInLeft / FadeInRight (scroll into view) */
-.js-fade-scroll {
-  opacity: 0;
-  will-change: opacity, transform;
-}
-
-.js-fade-scroll[data-direction='up'] {
-  transform: translateY(var(--y-offset, 40px));
-}
-
-.js-fade-scroll[data-direction='left'] {
-  transform: translateX(calc(-1 * var(--x-offset, 40px)));
-}
-
-.js-fade-scroll[data-direction='right'] {
-  transform: translateX(var(--x-offset, 40px));
-}
-
+.js-fade-scroll,
 .js-fade-scroll.is-visible {
   opacity: 1;
-  transform: translate(0, 0);
+  transform: none;
+}
+
+/* Page transitions.
+   The browser default cross-fade runs long enough that moving between pages
+   reads as "loading" rather than as an instant swap — the content is already
+   there, you're just watching it fade. A short blend keeps the edges from
+   flashing without adding perceptible waiting. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 90ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
 }
 
 .privacy-policy-heading {

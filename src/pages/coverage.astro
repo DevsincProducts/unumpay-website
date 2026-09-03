@@ -4,27 +4,222 @@ import '../styles/global.css'
 import '../styles/hero.css'
 import '../styles/usecases.css'
 import '../styles/pricing.css'
-import Gateway from '../components/Gateway';
 import '../styles/coverage.css'
 import Navbar from '../component/Navbar.astro';
 import Footer from '../component/Footer.astro';
 import Loader from '../component/Loader.astro';
+import GlobalBackground from '../components/GlobalBackground';
+import GatewaySearch from '../components/GatewaySearch';
+import FaqGlobeHero from '../components/FaqGlobeHero';
+import FaqAccordion from '../components/FaqAccordion';
+import { CreditCard, Building2 } from 'lucide-astro';
+import { gatewayGuides } from '../data/payments.js';
+import { graph, organizationSchema, websiteSchema, softwareApplicationSchema, faqPage, breadcrumb, ORG_ID, WEBSITE_ID, SITE } from '../utils/schema.js';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const faqs = [
+  {
+    question: 'Which countries does UnumPay support?',
+    answer: 'UnumPay currently supports merchants in 45+ countries including Pakistan, UAE, Saudi Arabia, Kuwait, Oman, Bahrain, Egypt, Jordan, Lebanon, Qatar, UK, USA, Bangladesh, Nigeria, Ghana, Kenya, South Africa, Tunisia, Georgia and more. We add new markets every month.',
+  },
+  {
+    question: 'Can I connect multiple payment gateways at the same time?',
+    answer: 'Yes. UnumPay allows you to connect and run multiple gateways simultaneously from one Shopify integration. If one gateway experiences an issue, another takes over instantly so your checkout never goes down.',
+  },
+  {
+    question: 'How long does it take to integrate a payment gateway?',
+    answer: 'Most integrations take under 5 minutes. Install UnumPay from the Shopify App Store, select your gateway, enter your credentials and go live. No developer or coding required.',
+  },
+  {
+    question: 'What is an Integration Guide?',
+    answer: 'Each gateway has a step-by-step Integration Guide that walks you through connecting that specific payment provider to your Shopify store through UnumPay. Click the Integration Guide link on any gateway card to view the full guide.',
+  },
+  {
+    question: 'Is UnumPay available where Shopify Payments is not supported?',
+    answer: 'Yes. UnumPay was specifically built for merchants in regions where Shopify Payments is not available. It works as a fully approved native payment solution for every region Shopify Payments does not cover.',
+  },
+  {
+    question: 'Can I request a gateway that is not currently listed?',
+    answer: 'Absolutely. Contact us at unumpay@devsinc.com or use the Partnership form below. We prioritize new gateway additions based on merchant demand and typically onboard new gateways within 4 to 6 weeks.',
+  },
+  {
+    question: 'Do all gateways support multi-currency?',
+    answer: 'Most gateways on UnumPay support multi-currency transactions. The specific currencies supported depend on each gateway provider. Check the Integration Guide for each gateway to see supported currencies.',
+  },
+]
+
+const partnerOptions = [
+  {
+    icon: CreditCard,
+    title: 'Payment Service Provider (PSP)',
+    desc: 'List your gateway on UnumPay and instantly reach thousands of Shopify merchants looking for your payment solution in your market.',
+    linkText: 'Apply as PSP Partner',
+    href: '/become-a-partner/',
+  },
+  {
+    icon: Building2,
+    title: 'Bank or Financial Institution',
+    desc: 'Partner with UnumPay to bring your banking infrastructure to Shopify merchants. Expand your merchant acquiring business through our platform.',
+    linkText: 'Apply as Bank Partner',
+    href: '/become-a-partner/',
+  },
+]
+const coverageSchema = graph([
+  organizationSchema,
+  websiteSchema,
+  softwareApplicationSchema,
+  {
+    '@type': 'CollectionPage',
+    '@id': `${SITE}/coverage/#webpage`,
+    url: `${SITE}/coverage/`,
+    name: 'Global Payment Gateway Coverage | UnumPay',
+    description:
+      'UnumPay connects Shopify stores to 40+ local and global payment gateways across 45+ countries. Browse all supported PSPs and find your payment gateway integration guide.',
+    isPartOf: { '@id': WEBSITE_ID },
+    about: { '@id': ORG_ID },
+    mainEntity: { '@id': `${SITE}/coverage/#gateway-list` },
+    breadcrumb: { '@id': `${SITE}/coverage/#breadcrumb` },
+    inLanguage: 'en',
+  },
+  {
+    '@type': 'ItemList',
+    '@id': `${SITE}/coverage/#gateway-list`,
+    name: 'Supported Payment Gateways',
+    numberOfItems: gatewayGuides.length,
+    itemListElement: gatewayGuides.map((g, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: g.name,
+      url: `${SITE}/${g.slug}/`,
+    })),
+  },
+  breadcrumb([['Home', '/'], ['Coverage', '/coverage/']], '/coverage/#breadcrumb'),
+  faqPage(faqs, '/coverage/#faq'),
+])
 ---
 
-
 <Layout title="Global Payment Gateway Coverage | UnumPay"
-  description="UnumPay connects Shopify stores to 40+ local and global payment gateways across 45+ countries. Browse all supported PSPs and find your payment gateway integration guide."
-  canonical="https://www.unumpay.com/coverage/"
-  image="https://www.unumpay.com/og-image.jpg">
+  description="UnumPay connects Shopify stores to 40+ payment gateways across 45+ countries. Browse supported PSPs and find your integration guide."
+  image="/og-coverage.jpg"
+  schema={coverageSchema}>
 
 	<Loader />
 
 	<Navbar />
 
-    <Gateway client:load />
+	<div>
+		<section class="relative flex items-center justify-center overflow-hidden pt-30!" style="min-height:55vh; padding-top:48px; padding-bottom:48px;">
+			<!-- client:load, not client:visible: this is the hero background, so
+			     it is on screen the instant the page opens. Waiting on an
+			     IntersectionObserver just delays the canvas for no benefit. -->
+			<GlobalBackground client:load />
+
+			<div class="relative text-center px-6" style="z-index:2; max-width:760px; margin:0px auto;">
+				<div class="inline-flex items-center gap-2 mb-4" style="background: rgba(200, 18, 213, 0.15); border: 1px solid rgba(200, 18, 213, 0.4); border-radius: 999px; padding: 6px 16px; font-size: 12px; font-weight: 600; color: #fff; letter-spacing: 0.02em;">
+					✦ Shopify Approved · 45+ Countries
+				</div>
+
+				<h1 style="font-family: Poppins, sans-serif; font-weight: 700; font-size: clamp(32px, 4vw, 52px); color: #fff; line-height: 1.15; margin-bottom: 16px;">
+					One App. Every Market. Every Gateway.
+				</h1>
+
+				<p style="font-family: Poppins, sans-serif; font-weight: 400; font-size: 18px; color: rgba(255, 255, 255, 0.7); max-width: 580px; margin: 0 auto 32px; line-height: 1.7;">
+					UnumPay connects your Shopify store to 40+ payment gateways across 45+ countries. Find your market below.
+				</p>
+
+				<div class="flex flex-wrap items-center justify-center gap-4">
+					<a
+						href="https://apps.shopify.com/unum-pay"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="coverage-btn-primary"
+					>
+						Install on Shopify →
+					</a>
+					<a href="#how-it-works" class="coverage-btn-ghost">
+						View All Gateways ↓
+					</a>
+				</div>
+			</div>
+		</section>
+
+		<section class="pay-gtw-section" id="how-it-works">
+			<div class="max-w-300 mx-auto px-6 md:px-10 lg:px-12 xl:px-12">
+				<span class="work-eyebrow">SUPPORTED PAYMENT GATEWAYS</span>
+				<h2 class="cov-heading">Find Your Payment Gateway</h2>
+				<p class="cov-subtitle">
+					Search by country or gateway name to find the payment providers available for your Shopify store.
+				</p>
+
+				<GatewaySearch client:visible />
+			</div>
+		</section>
+
+		<FaqGlobeHero
+			client:visible
+			compact
+			title="FAQ"
+			subtitle="Everything you need to know about UnumPay's global gateway coverage."
+		/>
+
+		<section class="faq-section">
+			<div class="faq-container">
+				<FaqAccordion client:visible items={faqs} columns={2} />
+			</div>
+		</section>
+
+		<section class="all-gateway-section">
+			<div class="cta-section__glow" aria-label="hidden"></div>
+			<div class="gta--content">
+				<span class="all-gateway-badge">Partner with Us</span>
+
+				<h2 class="all-gateway-heading">
+					Are You a Payment Provider?
+				</h2>
+
+				<p class="all-gateway-subtitle">
+					Join the UnumPay network and get your gateway in front of thousands of Shopify merchants across 45+ countries.
+				</p>
+
+				<div class="partner-cards-grid">
+					{partnerOptions.map((item) => (
+						<div class="partner-card">
+							<div class="partner-card__icon"><item.icon size={22} /></div>
+							<h3 class="partner-card__title">{item.title}</h3>
+							<p class="partner-card__desc">{item.desc}</p>
+							<a href={item.href} class="partner-card__link">
+								{item.linkText} <span aria-hidden="true">→</span>
+							</a>
+						</div>
+					))}
+				</div>
+
+				<a href="/become-a-partner/" class="gta-section__btn-primary">
+					Submit Partnership Inquiry <span aria-hidden="true">→</span>
+				</a>
+			</div>
+		</section>
+
+		<section class="gate-way-last-section">
+			<div class="pri-content">
+				<h2 class="gate-way-sec-heading">
+					Your Market Is Out There. UnumPay Gets You There.
+				</h2>
+
+				<p class="gate-way-sec-subtitle">
+					Don't let payment limitations hold your Shopify store back. UnumPay connects you to the gateways your customers trust.
+				</p>
+
+				<div class="cta-actions">
+					<a href="https://apps.shopify.com/unum-pay" target="_blank" class="gta__btn-primary">
+						Install on Shopify <span aria-hidden="true">→</span>
+					</a>
+					<a href="/contact" class="gta-section__btn-secondary">
+						Contact Our Team <span aria-hidden="true">→</span>
+					</a>
+				</div>
+			</div>
+		</section>
+	</div>
 
 	<Footer />
 

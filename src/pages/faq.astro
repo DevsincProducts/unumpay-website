@@ -11,13 +11,22 @@ import Navbar from '../component/Navbar.astro';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import { graph, organizationSchema, websiteSchema, breadcrumb, faqPage } from '../utils/schema.js'
+import { faqData } from '../data/faqs.js'
+
+const faqSchema = graph([
+  organizationSchema,
+  websiteSchema,
+  faqPage(faqData, '/faq/#faq'),
+  breadcrumb([['Home', '/'], ['FAQ', '/faq/']], '/faq/#breadcrumb'),
+])
+
 ---
 
 
 <Layout title="Frequently Asked Questions | UnumPay"
   description="Find answers to common questions about UnumPay, including pricing, payment gateway support, Shopify integration, and transaction management."
-  canonical="https://www.unumpay.com/faq/"
-  image="https://www.unumpay.com/og-image.jpg">
+  schema={faqSchema}>
 
 	<Navbar />
 

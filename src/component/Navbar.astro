@@ -14,14 +14,13 @@ const navLinks = [
   },
   { label: 'Pricing', href: '/pricing/' },
   { label: 'Partners', href: '/become-a-partner/' },
-  { label: 'Our Story', href: '/our-story/' },
+  { label: 'About Us', href: '/our-story/' },
 ]
 ---
 
 <header
   id="navbar"
-  class="fixed top-0 left-0 right-0 z-1000 pt-3 pb-3 transition-all duration-300"
-  style="background: rgb(13, 10, 28); border-bottom: 1px solid transparent;"
+  class="fixed top-0 left-0 right-0 z-1000 pt-3 pb-3"
 >
   <div class="max-w-300 mx-auto px-12 flex items-center justify-between gap-3 md:gap-4">
     <!-- Logo -->
@@ -79,7 +78,7 @@ const navLinks = [
     <!-- button -->
     <a
       href="/contact/"
-      class="hidden lg:inline-flex text-white font-semibold py-2.5 px-5 rounded-lg transition-all cursor-pointer"
+      class="navbar-cta hidden lg:inline-flex text-white font-semibold py-2.5 px-5 rounded-lg transition-all cursor-pointer"
       style="background: linear-gradient(135deg, rgb(200, 18, 213), rgb(106, 3, 206));"
     >
       Contact Us
@@ -123,7 +122,7 @@ const navLinks = [
     )}
     <a
       href="/contact/"
-      class="inline-flex justify-center text-white font-semibold py-2.5 px-5 rounded-lg transition-all text-center items-center cursor-pointer"
+      class="navbar-cta inline-flex justify-center text-white font-semibold py-2.5 px-5 rounded-lg transition-all text-center items-center cursor-pointer"
       style="background: linear-gradient(135deg, rgb(200, 18, 213), rgb(106, 3, 206));"
     >
       Contact Us
@@ -131,7 +130,68 @@ const navLinks = [
   </div>
 </header>
 
+<style>
+  #navbar {
+    background-color: rgb(13, 10, 28);
+    border-bottom: 1px solid transparent;
+    transition: background-color 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
+  }
+
+  #navbar.scrolled {
+    background-color: rgba(13, 10, 28, 0.9);
+    backdrop-filter: blur(12px);
+    border-bottom-color: rgba(200, 18, 213, 0.15);
+  }
+
+  .navbar-cta {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+  }
+
+  .navbar-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(200, 18, 213, 0.45);
+    filter: brightness(1.08);
+  }
+
+  .navbar-cta:active {
+    transform: translateY(0);
+    filter: brightness(0.96);
+  }
+
+  .nav-link:focus-visible,
+  .nav-dropdown-btn:focus-visible,
+  .dropdown-item:focus-visible,
+  .mobile-link:focus-visible,
+  .navbar-cta:focus-visible {
+    outline: 2px solid #c812d5;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  #mobile-toggle {
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  #mobile-toggle:hover {
+    color: #b565e8;
+  }
+
+  #mobile-toggle:active {
+    transform: scale(0.92);
+  }
+</style>
+
 <script>
+document.addEventListener('astro:page-load', () => {
+  // Re-runs on every client-side navigation — abort the previous run's
+  // window/document-level listeners first so they don't pile up (element-
+  // scoped listeners below don't need this: their elements are replaced by
+  // the page swap itself, so old ones are already gone).
+  if (window.__navbarAbort) window.__navbarAbort.abort()
+  const navbarAbort = new AbortController()
+  window.__navbarAbort = navbarAbort
+  const { signal } = navbarAbort
+
   // ---- Active link (path highlight) ----
   const currentPath = window.location.pathname
 
@@ -165,28 +225,19 @@ const navLinks = [
   }
 
   // ---- Scroll background change ----
-  const navbar = document.getElementById('navbar') as HTMLElement | null
+  const navbar = document.getElementById('navbar')
 
   function handleScroll() {
     if (!navbar) return
-    const scrolled = window.scrollY > 20
-    if (scrolled) {
-      navbar.style.background = 'rgba(13, 10, 28, 0.9)'
-      navbar.style.backdropFilter = 'blur(12px)'
-      navbar.style.borderBottom = '1px solid rgba(200, 18, 213, 0.15)'
-    } else {
-      navbar.style.background = 'rgb(13, 10, 28)'
-      navbar.style.backdropFilter = 'none'
-      navbar.style.borderBottom = '1px solid transparent'
-    }
+    navbar.classList.toggle('scrolled', window.scrollY > 20)
   }
 
   // ---- Dropdown (desktop hover + click) ----
-  const dropdownWrapper = document.querySelector('[data-dropdown]') as HTMLElement | null
-  const dropdownBtn = dropdownWrapper?.querySelector('.nav-dropdown-btn') as HTMLElement | null
-  const dropdownMenu = dropdownWrapper?.querySelector('.dropdown-menu') as HTMLElement | null
-  const chevron = dropdownWrapper?.querySelector('.dropdown-chevron') as HTMLElement | null
-  let closeTimeout: ReturnType<typeof setTimeout> | null = null
+  const dropdownWrapper = document.querySelector('[data-dropdown]')
+  const dropdownBtn = dropdownWrapper?.querySelector('.nav-dropdown-btn')
+  const dropdownMenu = dropdownWrapper?.querySelector('.dropdown-menu')
+  const chevron = dropdownWrapper?.querySelector('.dropdown-chevron')
+  let closeTimeout = null
 
   function openDropdown() {
     if (closeTimeout) {
@@ -221,19 +272,19 @@ const navLinks = [
     dropdownBtn.addEventListener('click', toggleDropdown)
 
     document.addEventListener('click', (e) => {
-      const target = e.target as Node
+      const target = e.target
       if (!dropdownWrapper.contains(target)) {
         dropdownMenu.classList.add('hidden')
         chevron?.classList.remove('rotate-180')
       }
-    })
+    }, { signal })
   }
 
   // ---- Mobile menu toggle ----
-  const mobileToggle = document.getElementById('mobile-toggle') as HTMLElement | null
-  const mobileMenu = document.getElementById('mobile-menu') as HTMLElement | null
-  const iconMenu = document.getElementById('icon-menu') as HTMLElement | null
-  const iconClose = document.getElementById('icon-close') as HTMLElement | null
+  const mobileToggle = document.getElementById('mobile-toggle')
+  const mobileMenu = document.getElementById('mobile-menu')
+  const iconMenu = document.getElementById('icon-menu')
+  const iconClose = document.getElementById('icon-close')
   let isOpen = false
 
   mobileToggle?.addEventListener('click', () => {
@@ -245,7 +296,8 @@ const navLinks = [
   })
 
   // ---- Init ----
-  window.addEventListener('scroll', handleScroll)
+  window.addEventListener('scroll', handleScroll, { signal })
   setActiveStates()
   handleScroll()
+})
 </script>

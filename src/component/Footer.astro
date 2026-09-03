@@ -5,12 +5,12 @@ const quickLinks = [
   { title: 'Home', href: '/' },
   { title: 'Coverage', href: '/coverage/' },
   { title: 'Pricing', href: '/pricing/' },
-  { title: 'Our Story', href: '/our-story/' },
+  { title: 'About Us', href: '/our-story/' },
   { title: 'Partners', href: '/become-a-partner/' },
 ]
 
 const resourceLinks = [
-  { title: 'Blog', href: '/blogs/' },
+  { title: 'Blog', href: '/blog/' },
   { title: 'FAQ', href: '/faq/' },
   { title: 'Contact', href: '/contact/' },
   { title: 'Privacy Policy', href: '/privacy-policy/' },
@@ -19,10 +19,7 @@ const resourceLinks = [
 
 const regionsLinks = [
   { title: 'Tunisia', href: '/payment-gateways/tunisia/' },
-  { title: 'Brazil', href: '/payment-gateways/brazil/' },
   { title: 'South Africa', href: '/payment-gateways/south-africa/' },
-  { title: 'Nigeria', href: '/payment-gateways/nigeria/' },
-  { title: 'Egypt', href: '/payment-gateways/egypt/' },
 ]
 ---
 
@@ -32,7 +29,7 @@ const regionsLinks = [
       <!-- Brand column -->
       <div class="footer-brand">
         <a href="/" class="footer-logo">
-          <img src={logo.src ?? logo} alt="UnumPay" class="footer-logo-img" />
+          <img src={logo.src ?? logo} alt="UnumPay" class="footer-logo-img" loading="lazy" />
         </a>
 
         <p class="footer-desc">

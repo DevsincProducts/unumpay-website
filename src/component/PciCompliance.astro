@@ -1,0 +1,135 @@
+---
+// PciCompliance.astro
+import pciBadge from '../assets/images/pci-dss-badge.webp'
+
+const points = [
+  {
+    icon: '<path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/>',
+    title: 'Certified Data Handling',
+    desc: 'UnumPay meets global security standards for handling cardholder data.',
+  },
+  {
+    icon: '<rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+    title: 'Encrypted End to End',
+    desc: 'Card data is encrypted in transit, so payment details are never exposed.',
+  },
+  {
+    icon: '<path d="M20 6 9 17l-5-5"/>',
+    title: 'Trust That Converts',
+    desc: 'A certified checkout tells buyers their payment processing is safe.',
+  },
+]
+---
+
+<section class="pci-section js-fade-scroll" data-direction="up">
+  <div class="max-w-300 mx-auto px-6 md:px-10 lg:px-12 xl:px-12">
+    <span class="work-eyebrow">SECURITY AND COMPLIANCE</span>
+    <h2 class="work-heading">PCI-DSS Compliant Payment Processing</h2>
+
+    <div class="pci-layout">
+    <div class="pci-content">
+      <div class="pci-points">
+        {points.map((point) => (
+          <div class="pci-point">
+            <div class="pci-point__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" set:html={point.icon} />
+            </div>
+            <div>
+              <h3 class="pci-point__title">{point.title}</h3>
+              <p class="pci-point__desc">{point.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <div class="pci-media">
+      <img src={pciBadge.src ?? pciBadge} alt="PCI-DSS Compliant" class="pci-media__img" loading="lazy" />
+    </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pci-section {
+    background: #fff;
+    padding: 32px 0 80px;
+  }
+
+  .pci-layout {
+    display: flex;
+    align-items: center;
+    gap: 64px;
+    flex-wrap: wrap;
+    margin-top: 48px;
+  }
+
+  .pci-content {
+    flex: 1 1 420px;
+    min-width: 320px;
+  }
+
+  .pci-points {
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .pci-point {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .pci-point__icon {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: rgb(243, 238, 255);
+    color: rgb(106, 3, 206);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pci-point__icon svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .pci-point__title {
+    font-size: 16px;
+    font-weight: 700;
+    color: rgb(23, 23, 33);
+    margin: 0 0 4px;
+  }
+
+  .pci-point__desc {
+    font-size: 14px;
+    color: rgb(107, 114, 128);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .pci-media {
+    flex: 1 1 420px;
+    min-width: 300px;
+    display: flex;
+    justify-content: center;
+  }
+
+  .pci-media__img {
+    width: 100%;
+    max-width: 640px;
+    height: auto;
+    display: block;
+  }
+
+  @media (max-width: 900px) {
+    .pci-layout {
+      flex-direction: column-reverse;
+      gap: 40px;
+    }
+  }
+</style>

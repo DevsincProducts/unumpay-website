@@ -11,6 +11,8 @@
   text-align: center;
   padding-top: 60px !important;
   padding-bottom: 60px !important;
+  padding-left: 24px;
+  padding-right: 24px;
   background: linear-gradient(
     135deg,
     rgb(23, 23, 33) 0%,
@@ -64,8 +66,19 @@
 }
 
 .gta-section__btn-primary:hover {
-  transform: translateY(2px);
+  transform: translateY(-2px);
   opacity: 0.9;
+  box-shadow: 0 8px 24px rgba(200, 18, 213, 0.4);
+}
+
+.gta-section__btn-primary:active {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.gta-section__btn-primary:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
 }
 
 .gta--content {
@@ -127,11 +140,18 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  transition: color .3s;
+  transition: color .3s, gap .2s;
 }
 
 .partner-card__link:hover {
   color: #eabdff;
+  gap: 9px;
+}
+
+.partner-card__link:focus-visible {
+  outline: 2px solid #eabdff;
+  outline-offset: 2px;
+  border-radius: 3px;
 }
 
 .gate-way-last-section {
@@ -176,10 +196,17 @@
 .gta__btn-primary:hover {
     transform: translateY(-2px);
     opacity: 0.9;
+    box-shadow: 0 8px 24px rgba(200, 18, 213, 0.35);
 }
 
-.gta-section__btn-secondary:hover {
-    transform: translateY(-2px);
+.gta__btn-primary:active {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.gta__btn-primary:focus-visible {
+    outline: 2px solid #c812d5;
+    outline-offset: 2px;
 }
 
 .gta-section__btn-secondary {
@@ -194,6 +221,21 @@
     display: flex;
     gap: 6px;
     align-items: center;
+}
+
+.gta-section__btn-secondary:hover {
+    transform: translateY(-2px);
+    background: rgba(106, 3, 206, 0.06);
+}
+
+.gta-section__btn-secondary:active {
+    transform: translateY(0);
+    background: transparent;
+}
+
+.gta-section__btn-secondary:focus-visible {
+    outline: 2px solid #6a03ce;
+    outline-offset: 2px;
 }
 
 .cov-heading {
@@ -360,6 +402,11 @@
   text-decoration: none;
 }
 
+.gtw-card__link:focus-visible {
+  outline: 2px solid #6a03ce;
+  outline-offset: 2px;
+}
+
 .gtw-empty {
   grid-column: 1 / -1;
   text-align: center;
@@ -385,6 +432,17 @@
 .coverage-btn-primary:hover {
   transform: translateY(-2px);
   opacity: 0.9;
+  box-shadow: 0 12px 32px rgba(200, 18, 213, 0.5);
+}
+
+.coverage-btn-primary:active {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.coverage-btn-primary:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
 }
 
 .coverage-btn-ghost {
@@ -404,6 +462,17 @@
 .coverage-btn-ghost:hover {
   background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(8px);
+  transform: translateY(-2px);
+}
+
+.coverage-btn-ghost:active {
+  transform: translateY(0);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.coverage-btn-ghost:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
 }
 
 @media (max-width: 1024px) {

@@ -10,7 +10,7 @@ const PARTNERSHIP_TYPES = [
 ---
 
 <div>
-  <section class="pri-section">
+  <section class="pri-section js-fade-scroll" data-direction="up">
     <div class="cta-section__glow" aria-label="hidden"></div>
     <div class="pri-content">
       <span class="pri-badge">✦ Partner with UnumPay</span>
@@ -25,7 +25,7 @@ const PARTNERSHIP_TYPES = [
     </div>
   </section>
 
-  <section class="pri-partner-section">
+  <section class="pri-partner-section js-fade-scroll" data-direction="up">
     <h2 class="pri-partner-heading">Choose Your Partnership Type</h2>
 
     <div class="pri-partner-container">
@@ -91,7 +91,7 @@ const PARTNERSHIP_TYPES = [
     </div>
   </section>
 
-  <section class="pree-section">
+  <section class="pree-section js-fade-scroll" data-direction="up">
     <div class="cta-section__glow" aria-label="hidden"></div>
     <div class="pri-content">
       <div class="pri-sec-heading">
@@ -106,7 +106,7 @@ const PARTNERSHIP_TYPES = [
         <a href="/contact" class="cta-section__btn-primary">
           Access Partner Portal <span aria-hidden="true">→</span>
         </a>
-        <a href="/blogs" class="cta-section__btn-secondary">
+        <a href="/blog/" class="cta-section__btn-secondary">
           View Partner Resouces <span aria-hidden="true">→</span>
         </a>
       </div>
@@ -205,9 +205,10 @@ const PARTNERSHIP_TYPES = [
 </div>
 
 <script>
-  import { initFadeIn, initFadeInScroll } from '../scripts/Animation'
+  import { initFadeIn } from '../scripts/Animation'
 
-  const WEB3FORMS_ACCESS_KEY = '4ebb0d44-eb1b-4b4d-b8c0-d0193282a1bf'
+  document.addEventListener('astro:page-load', () => {
+  const WEB3FORMS_ACCESS_KEY = '772938fc-9d4d-4af9-91f7-08e83f67688f'
 
   const overlay = document.getElementById('partner-modal-overlay') as HTMLElement | null
   const modal = document.getElementById('partner-modal') as HTMLElement | null
@@ -339,5 +340,5 @@ const PARTNERSHIP_TYPES = [
   })
 
   initFadeIn()
-  initFadeInScroll()
+  })
 </script>

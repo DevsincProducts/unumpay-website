@@ -1,4 +1,7 @@
 ---
+import FaqGlobeHero from '../components/FaqGlobeHero.jsx'
+import FaqAccordion from '../components/FaqAccordion.jsx'
+
 interface Provider {
   badge: string
   name: string
@@ -38,9 +41,9 @@ const { data } = Astro.props
 ---
 
 <div>
-  <section class="tun-hero-section bg-[#1a0028] relative overflow-hidden">
+  <section class="tun-hero-section bg-[#1a0028] relative overflow-hidden js-fade-scroll" data-direction="up">
     <div class="max-w-215 mx-auto px-4 sm:px-6 md:px-8 xl:px-0 relative z-10">
-      <h2 class="tun-hero-title">{data.hero.title}</h2>
+      <h1 class="tun-hero-title">{data.hero.title}</h1>
 
       <p class="text-[16px] sm:text-[17px] leading-relaxed text-[#C9B8E8] max-w-2xl mb-6">
         {data.hero.description}
@@ -54,7 +57,7 @@ const { data } = Astro.props
     </div>
   </section>
 
-  <section class="bg-white">
+  <section class="bg-white js-fade-scroll" data-direction="up">
     <div class="max-w-215 mx-auto px-4 sm:px-6 md:px-8 xl:px-0 py-14 md:py-20">
       <div class="mb-16">
         <h2 class="text-[26px] sm:text-[32px] font-bold text-[#171721] mb-5">
@@ -182,38 +185,26 @@ const { data } = Astro.props
         ))}
       </div>
 
-      <div class="mb-16">
-        <h2 class="text-[26px] sm:text-[32px] font-bold text-[#171721] mb-6">Frequently Asked Questions</h2>
-        <div class="flex flex-col gap-3">
-          {data.faqs.map((faq, index) => (
-            <div
-              class="rounded-xl border border-[#ECE7F5] overflow-hidden"
-              style="background: rgb(252, 251, 254);"
-            >
-              <button
-                type="button"
-                data-tun-faq-trigger
-                data-index={index}
-                class="w-full flex items-center justify-between gap-4 text-left px-5 py-4"
-                aria-expanded="false"
-              >
-                <h3 class="text-[15px] font-semibold text-[#171721]">{faq.question}</h3>
-                <svg
-                  class="tun-faq-chevron shrink-0 text-[#6A03CE] transition-transform duration-200"
-                  width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                >
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </button>
+    </div>
+  </section>
 
-              <div class="px-5 pb-4" data-tun-faq-panel style="display: none;">
-                <p class="text-[14px] leading-[1.7] text-[#6B7280]">
-                  {faq.answer}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
+  <FaqGlobeHero
+    client:visible
+    compact
+    title="FAQ"
+    subtitle={`Everything you need to know about accepting payments in ${data.countryName}.`}
+  />
+
+  <section class="bg-white js-fade-scroll" data-direction="up">
+    <div class="max-w-215 mx-auto px-4 sm:px-6 md:px-8 xl:px-0 py-14 md:py-20">
+      <div class="mb-16">
+        <FaqAccordion
+          client:visible
+          items={data.faqs}
+          columns={2}
+          questionAs="h3"
+          colors={{ border: '#ECE7F5', openBorder: '#e0c8f7', question: '#171721', openQuestion: '#6a03ce', icon: '#6A03CE', answer: '#6B7280' }}
+        />
       </div>
 
       <div class="rounded-2xl p-8 sm:p-10 text-center tum-ls">
@@ -225,7 +216,7 @@ const { data } = Astro.props
         </p>
         <p class="text-[15px] text-[#C9B8E8] mb-7">{data.cta.subtext}</p>
         <div class="flex flex-wrap items-center justify-center gap-3 mb-5">
-          <a href="https://apps.shopify.com/unum-pay" target="_blank" rel="noopener noreferrer" class="tum-btn inline-flex items-center gap-2 text-white font-semibold py-3.5 px-8 rounded-lg transition-all hover:opacity-90 text-[15.5px]">
+          <a href="https://apps.shopify.com/unum-pay" target="_blank" rel="noopener noreferrer" class="tum-btn inline-flex items-center gap-2 text-white font-semibold py-3.5 px-8 rounded-lg transition-all hover:opacity-90 hover:-translate-y-0.5 active:translate-y-0 active:opacity-100 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2 text-[15.5px]">
             Install UnumPay Free <span aria-hidden="true">→</span>
           </a>
         </div>
@@ -247,37 +238,3 @@ const { data } = Astro.props
     </div>
   </section>
 </div>
-
-<script>
-
-  const triggers = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-tun-faq-trigger]'))
-  let openIndex: number | null = null
-
-  function setFaqState(index: number, isOpen: boolean) {
-    const trigger = triggers[index]
-    const wrapper = trigger.closest('.rounded-xl')
-    const panel = wrapper?.querySelector<HTMLElement>('[data-tun-faq-panel]')
-    const chevron = trigger.querySelector<HTMLElement>('.tun-faq-chevron')
-
-    if (panel) panel.style.display = isOpen ? '' : 'none'
-    chevron?.classList.toggle('rotate-180', isOpen)
-    trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false')
-  }
-
-  triggers.forEach((trigger, index) => {
-    trigger.addEventListener('click', () => {
-      const isCurrentlyOpen = openIndex === index
-
-      if (openIndex !== null) {
-        setFaqState(openIndex, false)
-      }
-
-      if (isCurrentlyOpen) {
-        openIndex = null
-      } else {
-        setFaqState(index, true)
-        openIndex = index
-      }
-    })
-  })
-</script>

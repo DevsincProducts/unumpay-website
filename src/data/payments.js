@@ -8,6 +8,7 @@ import authorizenet from '../assets/paymentlogo/authorizenet.webp'
 import bankislami from '../assets/paymentlogo/bankislami.webp'
 import bankofpunjab from '../assets/paymentlogo/bankofpunjab.webp'
 import blinq from '../assets/paymentlogo/blinq.webp'
+import bankalfalahapg from '../assets/paymentlogo/bank-alfalah-apg.webp'
 import bop from '../assets/paymentlogo/bop.webp'
 import ccavenue from '../assets/paymentlogo/ccavenue.webp'
 import ccbill from '../assets/paymentlogo/ccbill.webp'
@@ -41,6 +42,16 @@ import walee from '../assets/paymentlogo/walee.webp'
 import flutter from '../assets/paymentlogo/flutterwave.webp'
 import mcb from '../assets/paymentlogo/mcb.webp'
 import naeem from '../assets/paymentlogo/neem.webp'
+import paystackLogo from '../assets/paymentlogo/paystack.webp'
+import mypayLogo from '../assets/paymentlogo/mypay.webp'
+import networkInternationalLogo from '../assets/paymentlogo/network-international.webp'
+import niftLogo from '../assets/paymentlogo/nift.webp'
+import pay2mLogo from '../assets/paymentlogo/pay2m.webp'
+import payfastLogo from '../assets/paymentlogo/payfast.webp'
+import paytabLogo from '../assets/paymentlogo/paytab.webp'
+import safepayLogo from '../assets/paymentlogo/safepay.webp'
+import ublLogo from '../assets/paymentlogo/ubl.webp'
+import zerocashLogo from '../assets/paymentlogo/zerocash.webp'
 
 // Reusable default breadcrumb path (same for all gateways via UnumPay app)
 const defaultBreadcrumb = [
@@ -503,7 +514,7 @@ export const gatewayGuides = [
   {
   slug: 'assan-pay-integration-guide',
   name: 'Assan Pay',
-  regions: ['Turkey'],
+  regions: ['Pakistan'],
   logo: assanPayLogo,
   setupTime: '~5 min setup',
   difficulty: 'Easy',
@@ -944,6 +955,152 @@ export const gatewayGuides = [
   },
 
   {
+  slug: 'bank-alfalah-apg-integration-guide',
+  name: 'Bank Alfalah APG',
+  regions: ['Pakistan'],
+  logo: bankalfalahapg,
+  setupTime: '~5 min setup',
+  difficulty: 'Easy',
+  beforeYouBegin: [
+    'A Shopify store with admin access',
+    'Bank Alfalah APG credentials (provided by Bank Alfalah APG)',
+    'Your Store Name and a short description or tagline',
+  ],
+  steps: [
+    {
+      title: 'Install the UnumPay Shopify App',
+      description:
+        'Visit the Shopify App Store and search for "UnumPay — Unified Transaction" or use the direct link below. Click "Add App" to begin installation.',
+      content: {
+        type: 'link',
+        value: 'https://apps.shopify.com/unum-pay',
+      },
+    },
+    {
+      title: 'Select Your Shopify Store',
+      description:
+        'Select your Shopify store on which you want to install it. Once installed you will be redirected back to the app screen.',
+      content: null,
+    },
+    {
+      title: 'Open the UnumPay App',
+      description:
+        'Open the application directly in your Shopify Store after installation. You can access it at:',
+      content: {
+        type: 'adminPath',
+        path: '/admin/apps/unified-transaction',
+        note:
+          'Replace [shopify-admin-domain] with your actual store domain e.g. yourstore.myshopify.com',
+        breadcrumb: defaultBreadcrumb,
+        footnote:
+          'Under payment methods search for "UnumPay" using the "Search by provider" filter.',
+      },
+    },
+    {
+      title: 'Configure {name} Credentials',
+      description:
+        'Click on Configurations and enter details on the below fields:',
+      content: {
+        type: 'table',
+        rows: [
+          { field: 'Client Name', instruction: 'Enter your Store Name' },
+          {
+            field: 'Client Description',
+            instruction:
+              'Enter Little Description / Tagline / Selling Good information',
+          },
+          { field: 'Channel ID', instruction: 'Channel ID provided by Alfalah APG' },
+          { field: 'Merchant ID', instruction: 'Merchant ID provided by Alfalah APG' },
+          { field: 'Store ID', instruction: 'Store ID provided by Alfalah APG' },
+          { field: 'Merchant Hash', instruction: 'Merchant Hash provided by Alfalah APG' },
+          {
+            field: 'Merchant Username',
+            instruction: 'Merchant Username provided by Alfalah APG',
+          },
+          {
+            field: 'Merchant Password',
+            instruction: 'Merchant Password provided by Alfalah APG',
+          },
+          { field: 'Key1', instruction: 'Key1 provided by Alfalah APG' },
+          { field: 'Key2', instruction: 'Key2 provided by Alfalah APG' },
+          { field: 'Active', instruction: 'Toggle to enable', isToggle: true },
+        ],
+      },
+    },
+    {
+      title: 'Save Your Configuration',
+      description:
+        'Once all the information is entered, click the "Save" button. You will be redirected to the confirmation screen.',
+      content: null,
+    },
+    {
+      title: 'Activate UnumPay',
+      description:
+        'Click on "Activate UnumPay" to enable the payment gateway on your storefront. Need to whitelist Return URL (https://unified-transaction-be.alchemative.net/payment_app/apg_request/) and Listener URL (https://unified-transaction-be.alchemative.net/payment_app/apg_response/) on APG portal.',
+      content: {
+        type: 'activation',
+        cards: [
+          {
+            color: '#f59e0b',
+            icon: '🧪',
+            title: 'Demo Credentials',
+            desc: 'If you have entered demo credentials you must enable Test Mode.',
+          },
+          {
+            color: '#16a34a',
+            icon: '✅',
+            title: 'Live Credentials',
+            desc: 'For live transactions ensure that Test Mode is unchecked.',
+          },
+          {
+            color: '#6a03ce',
+            icon: '💳',
+            title: 'Checkout Display',
+            desc: 'Once activated Bank Alfalah APG under UnumPay will appear at checkout as "Debit Credit Card".',
+          },
+        ],
+      },
+    },
+  ],
+  checkoutDisplayText: 'Debit Credit Card',
+  commonQuestions: [
+    {
+      question: 'Where do I get my Bank Alfalah APG credentials?',
+      answer:
+        'Contact Bank Alfalah APG directly through their official website or merchant dashboard to obtain your credentials before starting the setup.',
+    },
+    {
+      question: 'What will my customers see at checkout?',
+      answer:
+        'Bank Alfalah APG under UnumPay appears at your Shopify checkout as "Debit Credit Card".',
+    },
+    {
+      question: 'Can I test before going live?',
+      answer:
+        'If you have entered demo credentials make sure to enable test mode and for live make sure that checkbox is unchecked.',
+    },
+  ],
+  bottomCta: {
+    layout: 'full',
+    heading: 'Ready to Accept Bank Alfalah APG Payments?',
+    subtitle:
+      'Install the UnumPay app and start accepting Bank Alfalah APG payments on your Shopify store in minutes.',
+    buttons: [
+      {
+        label: 'Install on Shopify',
+        href: 'https://apps.shopify.com/unum-pay',
+        variant: 'primary',
+      },
+      {
+        label: 'Contact Support',
+        href: '/contact',
+        variant: 'secondary',
+      },
+    ],
+  },
+  },
+
+  {
   slug: 'blinq-integration-guide',
   name: 'Blinq',
   regions: ['Pakistan'],
@@ -1091,7 +1248,7 @@ export const gatewayGuides = [
   },
 
   {
-  slug: 'bank-of-punjab-integration-guide',
+  slug: 'bop-integration-guide',
   name: 'Bank of Punjab',
   regions: ['Pakistan'],
   logo: bop,
@@ -2153,7 +2310,7 @@ export const gatewayGuides = [
   },
 
   {
-  slug: 'fab-first-abu-dhabi-bank-integration-guide',
+  slug: 'fab-integration-guide',
   name: 'FAB (First Abu Dhabi Bank)',
   regions: ['UAE'],
   logo: fab,
@@ -2628,7 +2785,7 @@ export const gatewayGuides = [
   },
 
   {
-    slug: 'hbl-secure-acceptance-integration-guide',
+    slug: 'hbl-integration-guide',
     name: 'HBL Secure Acceptance',
     regions: ['Pakistan'],
     logo: hblsecure,
@@ -3582,7 +3739,7 @@ export const gatewayGuides = [
   {
     slug: 'swich-integration-guide',
     name: 'Swich',
-    regions: ['Global'],
+    regions: ['Global', 'Pakistan'],
     logo: swich,
     setupTime: '~5 min setup',
     difficulty: 'Easy',
@@ -3698,7 +3855,7 @@ export const gatewayGuides = [
   },
 
   {
-    slug: 'tap-payments-integration-guide',
+    slug: 'tap-payment-integration-guide',
     name: 'Tap Payment',
     regions: ['UAE', 'Saudi Arabia', 'Kuwait', 'Bahrain', 'Qatar'],
     logo: tap,
@@ -4286,7 +4443,7 @@ export const gatewayGuides = [
     slug: 'paystack-integration-guide',
     name: 'Paystack',
     regions: ['Nigeria', 'Ghana', 'South Africa'],
-    logo: paylogo2,
+    logo: paystackLogo,
     setupTime: '~5 min setup',
     difficulty: 'Easy',
     beforeYouBegin: [
@@ -4392,6 +4549,868 @@ export const gatewayGuides = [
       heading: 'Ready to Accept Paystack Payments?',
       subtitle:
         'Install the UnumPay app and start accepting Paystack payments on your Shopify store in minutes.',
+      buttons: [
+        { label: 'Install on Shopify', href: 'https://apps.shopify.com/unum-pay', variant: 'primary' },
+        { label: 'Contact Support', href: '/contact', variant: 'secondary' },
+      ],
+    },
+  },
+
+  {
+    slug: 'mypay-integration-guide',
+    name: 'MyPay',
+    regions: ['Global'],
+    logo: mypayLogo,
+    setupTime: '~5 min setup',
+    difficulty: 'Easy',
+    beforeYouBegin: [
+      'A Shopify store with admin access',
+      'MyPay credentials (provided by MyPay)',
+      'Your Store Name and a short description or tagline',
+    ],
+    steps: [
+      {
+        title: 'Install the UnumPay Shopify App',
+        description:
+          'Visit the Shopify App Store and search for "UnumPay — Unified Transaction" or use the direct link below. Click "Add App" to begin installation.',
+        content: { type: 'link', value: 'https://apps.shopify.com/unum-pay' },
+      },
+      {
+        title: 'Select Your Shopify Store',
+        description:
+          'Select your Shopify store on which you want to install it. Once installed you will be redirected back to the app screen.',
+        content: null,
+      },
+      {
+        title: 'Open the UnumPay App',
+        description: 'Open the application directly in your Shopify Store after installation. You can access it at:',
+        content: {
+          type: 'adminPath',
+          path: '/admin/apps/unified-transaction',
+          note: 'Replace [shopify-admin-domain] with your actual store domain e.g. yourstore.myshopify.com',
+          breadcrumb: defaultBreadcrumb,
+          footnote: 'Under payment methods search for "UnumPay" using the "Search by provider" filter.',
+        },
+      },
+      {
+        title: 'Configure {name} Credentials',
+        description: 'Click on Configurations and enter details on the below fields:',
+        content: {
+          type: 'table',
+          rows: [
+            { field: 'Client Name', instruction: 'Enter your Store Name' },
+            { field: 'Client Description', instruction: 'Enter Little Description / Tagline / Selling Good information' },
+            { field: 'Publishable Key', instruction: 'Will be provided by MyPay' },
+            { field: 'Secret Key', instruction: 'Will be provided by MyPay' },
+            { field: 'Active', instruction: 'Toggle to enable', isToggle: true },
+          ],
+        },
+      },
+      {
+        title: 'Save Your Configuration',
+        description: 'Once all the information is entered, click the "Save" button. You will be redirected to the confirmation screen.',
+        content: null,
+      },
+      {
+        title: 'Activate UnumPay',
+        description: 'Click on "Activate UnumPay" to enable the payment gateway on your storefront.',
+        content: {
+          type: 'activation',
+          cards: [
+            { color: '#f59e0b', icon: '🧪', title: 'Demo Credentials', desc: 'If you have entered demo credentials you must enable Test Mode.' },
+            { color: '#16a34a', icon: '✅', title: 'Live Credentials', desc: 'For live transactions ensure that Test Mode is unchecked.' },
+            { color: '#6a03ce', icon: '💳', title: 'Checkout Display', desc: 'Once activated {name} under UnumPay will appear at checkout as "{checkoutDisplayText}."' },
+          ],
+        },
+      },
+    ],
+    checkoutDisplayText: 'Debit Credit Card',
+    commonQuestions: [
+      { question: 'Where do I get my MyPay credentials?', answer: 'Contact MyPay directly through their official website or merchant dashboard to obtain your credentials before starting the setup.' },
+      { question: 'What will my customers see at checkout?', answer: 'MyPay under UnumPay appears at your Shopify checkout as "Debit Credit Card".' },
+      { question: 'Can I test before going live?', answer: 'If you have entered demo credentials make sure to enable test mode and for live make sure that checkbox is unchecked.' },
+    ],
+    bottomCta: {
+      layout: 'full',
+      heading: 'Ready to Accept MyPay Payments?',
+      subtitle: 'Install the UnumPay app and start accepting MyPay payments on your Shopify store in minutes.',
+      buttons: [
+        { label: 'Install on Shopify', href: 'https://apps.shopify.com/unum-pay', variant: 'primary' },
+        { label: 'Contact Support', href: '/contact', variant: 'secondary' },
+      ],
+    },
+  },
+
+  {
+    slug: 'network-international-integration-guide',
+    name: 'Network International',
+    regions: ['UAE', 'UK', 'USA'],
+    logo: networkInternationalLogo,
+    setupTime: '~5 min setup',
+    difficulty: 'Easy',
+    beforeYouBegin: [
+      'A Shopify store with admin access',
+      'Network International credentials (provided by Network International)',
+      'Your Store Name and a short description or tagline',
+    ],
+    steps: [
+      {
+        title: 'Install the UnumPay Shopify App',
+        description:
+          'Visit the Shopify App Store and search for "UnumPay — Unified Transaction" or use the direct link below. Click "Add App" to begin installation.',
+        content: { type: 'link', value: 'https://apps.shopify.com/unum-pay' },
+      },
+      {
+        title: 'Select Your Shopify Store',
+        description:
+          'Select your Shopify store on which you want to install it. Once installed you will be redirected back to the app screen.',
+        content: null,
+      },
+      {
+        title: 'Open the UnumPay App',
+        description: 'Open the application directly in your Shopify Store after installation. You can access it at:',
+        content: {
+          type: 'adminPath',
+          path: '/admin/apps/unified-transaction',
+          note: 'Replace [shopify-admin-domain] with your actual store domain e.g. yourstore.myshopify.com',
+          breadcrumb: defaultBreadcrumb,
+          footnote: 'Under payment methods search for "UnumPay" using the "Search by provider" filter.',
+        },
+      },
+      {
+        title: 'Configure {name} Credentials',
+        description: 'Click on Configurations and enter details on the below fields:',
+        content: {
+          type: 'table',
+          rows: [
+            { field: 'Client Name', instruction: 'Enter your Store Name' },
+            { field: 'Client Description', instruction: 'Enter Little Description / Tagline / Selling Good information' },
+            { field: 'Outlet Reference', instruction: 'Outlet Reference provided by Network International (N-Genius)' },
+            { field: 'API Key', instruction: 'API Key provided by Network International' },
+            { field: 'Active', instruction: 'Toggle to enable', isToggle: true },
+          ],
+        },
+      },
+      {
+        title: 'Save Your Configuration',
+        description: 'Once all the information is entered, click the "Save" button. You will be redirected to the confirmation screen.',
+        content: null,
+      },
+      {
+        title: 'Activate UnumPay',
+        description: 'Click on "Activate UnumPay" to enable the payment gateway on your storefront.',
+        content: {
+          type: 'activation',
+          cards: [
+            { color: '#f59e0b', icon: '🧪', title: 'Demo Credentials', desc: 'If you have entered demo credentials you must enable Test Mode.' },
+            { color: '#16a34a', icon: '✅', title: 'Live Credentials', desc: 'For live transactions ensure that Test Mode is unchecked.' },
+            { color: '#6a03ce', icon: '💳', title: 'Checkout Display', desc: 'Once activated {name} under UnumPay will appear at checkout as "{checkoutDisplayText}."' },
+          ],
+        },
+      },
+    ],
+    checkoutDisplayText: 'Debit - Credit Card',
+    commonQuestions: [
+      { question: 'Where do I get my Network International credentials?', answer: 'Contact Network International directly through their official website or merchant dashboard to obtain your credentials before starting the setup.' },
+      { question: 'What will my customers see at checkout?', answer: 'Network International under UnumPay appears at your Shopify checkout as "Debit - Credit Card".' },
+      { question: 'Can I test before going live?', answer: 'If you have entered demo credentials make sure to enable test mode and for live make sure that checkbox is unchecked.' },
+    ],
+    bottomCta: {
+      layout: 'full',
+      heading: 'Ready to Accept Network International Payments?',
+      subtitle: 'Install the UnumPay app and start accepting Network International payments on your Shopify store in minutes.',
+      buttons: [
+        { label: 'Install on Shopify', href: 'https://apps.shopify.com/unum-pay', variant: 'primary' },
+        { label: 'Contact Support', href: '/contact', variant: 'secondary' },
+      ],
+    },
+  },
+
+  {
+    slug: 'nift-integration-guide',
+    name: 'Nift ePay',
+    regions: ['Pakistan'],
+    logo: niftLogo,
+    setupTime: '~5 min setup',
+    difficulty: 'Easy',
+    beforeYouBegin: [
+      'A Shopify store with admin access',
+      'Nift ePay credentials (provided by Nift ePay)',
+      'Your Store Name and a short description or tagline',
+    ],
+    steps: [
+      {
+        title: 'Install the UnumPay Shopify App',
+        description:
+          'Visit the Shopify App Store and search for "UnumPay — Unified Transaction" or use the direct link below. Click "Add App" to begin installation.',
+        content: { type: 'link', value: 'https://apps.shopify.com/unum-pay' },
+      },
+      {
+        title: 'Select Your Shopify Store',
+        description:
+          'Select your Shopify store on which you want to install it. Once installed you will be redirected back to the app screen.',
+        content: null,
+      },
+      {
+        title: 'Open the UnumPay App',
+        description: 'Open the application directly in your Shopify Store after installation. You can access it at:',
+        content: {
+          type: 'adminPath',
+          path: '/admin/apps/unified-transaction',
+          note: 'Replace [shopify-admin-domain] with your actual store domain e.g. yourstore.myshopify.com',
+          breadcrumb: defaultBreadcrumb,
+          footnote: 'Under payment methods search for "UnumPay" using the "Search by provider" filter.',
+        },
+      },
+      {
+        title: 'Configure {name} Credentials',
+        description: 'Click on Configurations and enter details on the below fields:',
+        content: {
+          type: 'table',
+          rows: [
+            { field: 'Client Name', instruction: 'Enter your Store Name' },
+            { field: 'Client Description', instruction: 'Enter Little Description / Tagline / Selling Good information' },
+            { field: 'Merchant ID', instruction: 'Merchant ID provided by Nift - ePay' },
+            { field: 'Sub Merchant ID', instruction: 'Sub Merchant ID provided by Nift - ePay' },
+            { field: 'Merchant Password', instruction: 'Merchant Password provided by Nift - ePay' },
+            { field: 'API Version', instruction: 'API Version provided by Nift - ePay' },
+            { field: 'Integrity Salt', instruction: 'Integrity Salt provided by Nift - ePay' },
+            { field: 'Active', instruction: 'Toggle to enable', isToggle: true },
+          ],
+        },
+      },
+      {
+        title: 'Save Your Configuration',
+        description: 'Once all the information is entered, click the "Save" button. You will be redirected to the confirmation screen.',
+        content: null,
+      },
+      {
+        title: 'Activate UnumPay',
+        description: 'Click on "Activate UnumPay" to enable the payment gateway on your storefront. Response URL needed to update by Nift Team: https://unumpay.alche.cloud/payment_app/nift_response/',
+        content: {
+          type: 'activation',
+          cards: [
+            { color: '#f59e0b', icon: '🧪', title: 'Demo Credentials', desc: 'If you have entered demo credentials you must enable Test Mode.' },
+            { color: '#16a34a', icon: '✅', title: 'Live Credentials', desc: 'For live transactions ensure that Test Mode is unchecked.' },
+            { color: '#6a03ce', icon: '💳', title: 'Checkout Display', desc: 'Once activated {name} under UnumPay will appear at checkout as "{checkoutDisplayText}."' },
+          ],
+        },
+      },
+    ],
+    checkoutDisplayText: 'Debit - Credit Card',
+    commonQuestions: [
+      { question: 'Where do I get my Nift ePay credentials?', answer: 'Contact Nift ePay directly through their official website or merchant dashboard to obtain your credentials before starting the setup.' },
+      { question: 'What will my customers see at checkout?', answer: 'Nift ePay under UnumPay appears at your Shopify checkout as "Debit - Credit Card".' },
+      { question: 'Can I test before going live?', answer: 'If you have entered demo credentials make sure to enable test mode and for live make sure that checkbox is unchecked.' },
+    ],
+    bottomCta: {
+      layout: 'full',
+      heading: 'Ready to Accept Nift ePay Payments?',
+      subtitle: 'Install the UnumPay app and start accepting Nift ePay payments on your Shopify store in minutes.',
+      buttons: [
+        { label: 'Install on Shopify', href: 'https://apps.shopify.com/unum-pay', variant: 'primary' },
+        { label: 'Contact Support', href: '/contact', variant: 'secondary' },
+      ],
+    },
+  },
+
+  {
+    slug: 'pay2m-integration-guide',
+    name: 'Pay2M',
+    regions: ['Global'],
+    logo: pay2mLogo,
+    setupTime: '~5 min setup',
+    difficulty: 'Easy',
+    beforeYouBegin: [
+      'A Shopify store with admin access',
+      'Pay2M credentials (provided by Pay2M)',
+      'Your Store Name and a short description or tagline',
+    ],
+    steps: [
+      {
+        title: 'Install the UnumPay Shopify App',
+        description:
+          'Visit the Shopify App Store and search for "UnumPay — Unified Transaction" or use the direct link below. Click "Add App" to begin installation.',
+        content: { type: 'link', value: 'https://apps.shopify.com/unum-pay' },
+      },
+      {
+        title: 'Select Your Shopify Store',
+        description:
+          'Select your Shopify store on which you want to install it. Once installed you will be redirected back to the app screen.',
+        content: null,
+      },
+      {
+        title: 'Open the UnumPay App',
+        description: 'Open the application directly in your Shopify Store after installation. You can access it at:',
+        content: {
+          type: 'adminPath',
+          path: '/admin/apps/unified-transaction',
+          note: 'Replace [shopify-admin-domain] with your actual store domain e.g. yourstore.myshopify.com',
+          breadcrumb: defaultBreadcrumb,
+          footnote: 'Under payment methods search for "UnumPay" using the "Search by provider" filter.',
+        },
+      },
+      {
+        title: 'Configure {name} Credentials',
+        description: 'Click on Configurations and enter details on the below fields:',
+        content: {
+          type: 'table',
+          rows: [
+            { field: 'Client Name', instruction: 'Enter your Store Name' },
+            { field: 'Client Description', instruction: 'Enter Little Description / Tagline / Selling Good information' },
+            { field: 'Merchant ID', instruction: 'Merchant ID provided by Pay2M' },
+            { field: 'Secured Key', instruction: 'Secured Key provided by Pay2M' },
+            { field: 'Hide for Countries', instruction: 'Need to add comma separated country code (if you want to hide this for specific countries)' },
+            { field: 'Active', instruction: 'Toggle to enable', isToggle: true },
+          ],
+        },
+      },
+      {
+        title: 'Save Your Configuration',
+        description: 'Once all the information is entered, click the "Save" button. You will be redirected to the confirmation screen.',
+        content: null,
+      },
+      {
+        title: 'Activate UnumPay',
+        description: 'Click on "Activate UnumPay" to enable the payment gateway on your storefront.',
+        content: {
+          type: 'activation',
+          cards: [
+            { color: '#f59e0b', icon: '🧪', title: 'Demo Credentials', desc: 'If you have entered demo credentials you must enable Test Mode.' },
+            { color: '#16a34a', icon: '✅', title: 'Live Credentials', desc: 'For live transactions ensure that Test Mode is unchecked.' },
+            { color: '#6a03ce', icon: '💳', title: 'Checkout Display', desc: 'Once activated {name} under UnumPay will appear at checkout as "{checkoutDisplayText}."' },
+          ],
+        },
+      },
+    ],
+    checkoutDisplayText: 'Debit Credit Card',
+    commonQuestions: [
+      { question: 'Where do I get my Pay2M credentials?', answer: 'Contact Pay2M directly through their official website or merchant dashboard to obtain your credentials before starting the setup.' },
+      { question: 'What will my customers see at checkout?', answer: 'Pay2M under UnumPay appears at your Shopify checkout as "Debit Credit Card".' },
+      { question: 'Can I test before going live?', answer: 'If you have entered demo credentials make sure to enable test mode and for live make sure that checkbox is unchecked.' },
+    ],
+    bottomCta: {
+      layout: 'full',
+      heading: 'Ready to Accept Pay2M Payments?',
+      subtitle: 'Install the UnumPay app and start accepting Pay2M payments on your Shopify store in minutes.',
+      buttons: [
+        { label: 'Install on Shopify', href: 'https://apps.shopify.com/unum-pay', variant: 'primary' },
+        { label: 'Contact Support', href: '/contact', variant: 'secondary' },
+      ],
+    },
+  },
+
+  {
+    slug: 'payfast-integration-guide',
+    name: 'PayFast',
+    regions: ['Pakistan', 'South Africa'],
+    logo: payfastLogo,
+    setupTime: '~5 min setup',
+    difficulty: 'Easy',
+    beforeYouBegin: [
+      'A Shopify store with admin access',
+      'PayFast credentials (provided by PayFast)',
+      'Your Store Name and a short description or tagline',
+    ],
+    steps: [
+      {
+        title: 'Install the UnumPay Shopify App',
+        description:
+          'Visit the Shopify App Store and search for "UnumPay — Unified Transaction" or use the direct link below. Click "Add App" to begin installation.',
+        content: { type: 'link', value: 'https://apps.shopify.com/unum-pay' },
+      },
+      {
+        title: 'Select Your Shopify Store',
+        description:
+          'Select your Shopify store on which you want to install it. Once installed you will be redirected back to the app screen.',
+        content: null,
+      },
+      {
+        title: 'Open the UnumPay App',
+        description: 'Open the application directly in your Shopify Store after installation. You can access it at:',
+        content: {
+          type: 'adminPath',
+          path: '/admin/apps/unified-transaction',
+          note: 'Replace [shopify-admin-domain] with your actual store domain e.g. yourstore.myshopify.com',
+          breadcrumb: defaultBreadcrumb,
+          footnote: 'Under payment methods search for "UnumPay" using the "Search by provider" filter.',
+        },
+      },
+      {
+        title: 'Configure {name} Credentials',
+        description: 'Click on Configurations and enter details on the below fields:',
+        content: {
+          type: 'table',
+          rows: [
+            { field: 'Client Name', instruction: 'Enter your Store Name' },
+            { field: 'Client Description', instruction: 'Enter Little Description / Tagline / Selling Good information' },
+            { field: 'Merchant ID', instruction: 'Merchant ID provided by PayFast' },
+            { field: 'Secured Key', instruction: 'Secured Key provided by PayFast' },
+            { field: 'Switch Currency', instruction: 'Select it (if applicable)' },
+            { field: 'Store Currency', instruction: 'Select your Shopify store currency' },
+            { field: 'Account Currency', instruction: 'Select your PayFast account currency' },
+            { field: 'Conversion Rate', instruction: 'Set the currency conversion rate as per your need' },
+            { field: 'Active', instruction: 'Toggle to enable', isToggle: true },
+          ],
+        },
+      },
+      {
+        title: 'Save Your Configuration',
+        description: 'Once all the information is entered, click the "Save" button. You will be redirected to the confirmation screen.',
+        content: null,
+      },
+      {
+        title: 'Activate UnumPay',
+        description: 'Click on "Activate UnumPay" to enable the payment gateway on your storefront.',
+        content: {
+          type: 'activation',
+          cards: [
+            { color: '#f59e0b', icon: '🧪', title: 'Demo Credentials', desc: 'If you have entered demo credentials you must enable Test Mode.' },
+            { color: '#16a34a', icon: '✅', title: 'Live Credentials', desc: 'For live transactions ensure that Test Mode is unchecked.' },
+            { color: '#6a03ce', icon: '💳', title: 'Checkout Display', desc: 'Once activated {name} under UnumPay will appear at checkout as "{checkoutDisplayText}."' },
+          ],
+        },
+      },
+    ],
+    checkoutDisplayText: 'Debit - Credit Card',
+    commonQuestions: [
+      { question: 'Where do I get my PayFast credentials?', answer: 'Contact PayFast directly through their official website or merchant dashboard to obtain your credentials before starting the setup.' },
+      { question: 'What will my customers see at checkout?', answer: 'PayFast under UnumPay appears at your Shopify checkout as "Debit - Credit Card".' },
+      { question: 'Can I test before going live?', answer: 'If you have entered demo credentials make sure to enable test mode and for live make sure that checkbox is unchecked.' },
+    ],
+    bottomCta: {
+      layout: 'full',
+      heading: 'Ready to Accept PayFast Payments?',
+      subtitle: 'Install the UnumPay app and start accepting PayFast payments on your Shopify store in minutes.',
+      buttons: [
+        { label: 'Install on Shopify', href: 'https://apps.shopify.com/unum-pay', variant: 'primary' },
+        { label: 'Contact Support', href: '/contact', variant: 'secondary' },
+      ],
+    },
+  },
+
+  {
+    slug: 'paypro-integration-guide',
+    name: 'PayPro',
+    regions: ['Pakistan'],
+    logo: paypro,
+    setupTime: '~5 min setup',
+    difficulty: 'Easy',
+    beforeYouBegin: [
+      'A Shopify store with admin access',
+      'PayPro credentials (provided by PayPro)',
+      'Your Store Name and a short description or tagline',
+    ],
+    steps: [
+      {
+        title: 'Install the UnumPay Shopify App',
+        description:
+          'Visit the Shopify App Store and search for "UnumPay — Unified Transaction" or use the direct link below. Click "Add App" to begin installation.',
+        content: { type: 'link', value: 'https://apps.shopify.com/unum-pay' },
+      },
+      {
+        title: 'Select Your Shopify Store',
+        description:
+          'Select your Shopify store on which you want to install it. Once installed you will be redirected back to the app screen.',
+        content: null,
+      },
+      {
+        title: 'Open the UnumPay App',
+        description: 'Open the application directly in your Shopify Store after installation. You can access it at:',
+        content: {
+          type: 'adminPath',
+          path: '/admin/apps/unified-transaction',
+          note: 'Replace [shopify-admin-domain] with your actual store domain e.g. yourstore.myshopify.com',
+          breadcrumb: defaultBreadcrumb,
+          footnote: 'Under payment methods search for "UnumPay" using the "Search by provider" filter.',
+        },
+      },
+      {
+        title: 'Configure {name} Credentials',
+        description: 'Click on Configurations and enter details on the below fields:',
+        content: {
+          type: 'table',
+          rows: [
+            { field: 'Client Name', instruction: 'Enter your Store Name' },
+            { field: 'Client Description', instruction: 'Enter Little Description / Tagline / Selling Good information' },
+            { field: 'Merchant ID', instruction: 'Will be provided by PayPro' },
+            { field: 'Merchant Password', instruction: 'Will be provided by PayPro' },
+            { field: 'Active', instruction: 'Toggle to enable', isToggle: true },
+          ],
+        },
+      },
+      {
+        title: 'Save Your Configuration',
+        description: 'Once all the information is entered, click the "Save" button. You will be redirected to the confirmation screen.',
+        content: null,
+      },
+      {
+        title: 'Activate UnumPay',
+        description: 'Click on "Activate UnumPay" to enable the payment gateway on your storefront.',
+        content: {
+          type: 'activation',
+          cards: [
+            { color: '#f59e0b', icon: '🧪', title: 'Demo Credentials', desc: 'If you have entered demo credentials you must enable Test Mode.' },
+            { color: '#16a34a', icon: '✅', title: 'Live Credentials', desc: 'For live transactions ensure that Test Mode is unchecked.' },
+            { color: '#6a03ce', icon: '💳', title: 'Checkout Display', desc: 'Once activated {name} under UnumPay will appear at checkout as "{checkoutDisplayText}."' },
+          ],
+        },
+      },
+    ],
+    checkoutDisplayText: 'Debit - Credit Card',
+    commonQuestions: [
+      { question: 'Where do I get my PayPro credentials?', answer: 'Contact PayPro directly through their official website or merchant dashboard to obtain your credentials before starting the setup.' },
+      { question: 'What will my customers see at checkout?', answer: 'PayPro under UnumPay appears at your Shopify checkout as "Debit - Credit Card".' },
+      { question: 'Can I test before going live?', answer: 'If you have entered demo credentials make sure to enable test mode and for live make sure that checkbox is unchecked.' },
+    ],
+    bottomCta: {
+      layout: 'full',
+      heading: 'Ready to Accept PayPro Payments?',
+      subtitle: 'Install the UnumPay app and start accepting PayPro payments on your Shopify store in minutes.',
+      buttons: [
+        { label: 'Install on Shopify', href: 'https://apps.shopify.com/unum-pay', variant: 'primary' },
+        { label: 'Contact Support', href: '/contact', variant: 'secondary' },
+      ],
+    },
+  },
+
+  {
+    slug: 'paytab-integration-guide',
+    name: 'Paytab',
+    regions: ['Oman', 'Kuwait', 'Saudi Arabia', 'UAE'],
+    logo: paytabLogo,
+    setupTime: '~5 min setup',
+    difficulty: 'Easy',
+    beforeYouBegin: [
+      'A Shopify store with admin access',
+      'Paytab credentials (provided by Paytab)',
+      'Your Store Name and a short description or tagline',
+    ],
+    steps: [
+      {
+        title: 'Install the UnumPay Shopify App',
+        description:
+          'Visit the Shopify App Store and search for "UnumPay — Unified Transaction" or use the direct link below. Click "Add App" to begin installation.',
+        content: { type: 'link', value: 'https://apps.shopify.com/unum-pay' },
+      },
+      {
+        title: 'Select Your Shopify Store',
+        description:
+          'Select your Shopify store on which you want to install it. Once installed you will be redirected back to the app screen.',
+        content: null,
+      },
+      {
+        title: 'Open the UnumPay App',
+        description: 'Open the application directly in your Shopify Store after installation. You can access it at:',
+        content: {
+          type: 'adminPath',
+          path: '/admin/apps/unified-transaction',
+          note: 'Replace [shopify-admin-domain] with your actual store domain e.g. yourstore.myshopify.com',
+          breadcrumb: defaultBreadcrumb,
+          footnote: 'Under payment methods search for "UnumPay" using the "Search by provider" filter.',
+        },
+      },
+      {
+        title: 'Configure {name} Credentials',
+        description: 'Click on Configurations and enter details on the below fields:',
+        content: {
+          type: 'table',
+          rows: [
+            { field: 'Client Name', instruction: 'Enter your Store Name' },
+            { field: 'Client Description', instruction: 'Enter Little Description / Tagline / Selling Good information' },
+            { field: 'Profile ID', instruction: 'Will be provided by Paytab' },
+            { field: 'Secret Key', instruction: 'Will be provided by Paytab' },
+            { field: 'Client Key', instruction: 'Will be provided by Paytab' },
+            { field: 'Active', instruction: 'Toggle to enable', isToggle: true },
+          ],
+        },
+      },
+      {
+        title: 'Save Your Configuration',
+        description: 'Once all the information is entered, click the "Save" button. You will be redirected to the confirmation screen.',
+        content: null,
+      },
+      {
+        title: 'Activate UnumPay',
+        description: 'Click on "Activate UnumPay" to enable the payment gateway on your storefront.',
+        content: {
+          type: 'activation',
+          cards: [
+            { color: '#f59e0b', icon: '🧪', title: 'Demo Credentials', desc: 'If you have entered demo credentials you must enable Test Mode.' },
+            { color: '#16a34a', icon: '✅', title: 'Live Credentials', desc: 'For live transactions ensure that Test Mode is unchecked.' },
+            { color: '#6a03ce', icon: '💳', title: 'Checkout Display', desc: 'Once activated {name} under UnumPay will appear at checkout as "{checkoutDisplayText}."' },
+          ],
+        },
+      },
+    ],
+    checkoutDisplayText: 'Debit Credit Card',
+    commonQuestions: [
+      { question: 'Where do I get my Paytab credentials?', answer: 'Contact Paytab directly through their official website or merchant dashboard to obtain your credentials before starting the setup.' },
+      { question: 'What will my customers see at checkout?', answer: 'Paytab under UnumPay appears at your Shopify checkout as "Debit Credit Card".' },
+      { question: 'Can I test before going live?', answer: 'If you have entered demo credentials make sure to enable test mode and for live make sure that checkbox is unchecked.' },
+    ],
+    bottomCta: {
+      layout: 'full',
+      heading: 'Ready to Accept Paytab Payments?',
+      subtitle: 'Install the UnumPay app and start accepting Paytab payments on your Shopify store in minutes.',
+      buttons: [
+        { label: 'Install on Shopify', href: 'https://apps.shopify.com/unum-pay', variant: 'primary' },
+        { label: 'Contact Support', href: '/contact', variant: 'secondary' },
+      ],
+    },
+  },
+
+  {
+    slug: 'safepay-integration-guide',
+    name: 'SafePay',
+    regions: ['Pakistan'],
+    logo: safepayLogo,
+    setupTime: '~5 min setup',
+    difficulty: 'Easy',
+    beforeYouBegin: [
+      'A Shopify store with admin access',
+      'SafePay credentials (provided by SafePay)',
+      'Your Store Name and a short description or tagline',
+    ],
+    steps: [
+      {
+        title: 'Install the UnumPay Shopify App',
+        description:
+          'Visit the Shopify App Store and search for "UnumPay — Unified Transaction" or use the direct link below. Click "Add App" to begin installation.',
+        content: { type: 'link', value: 'https://apps.shopify.com/unum-pay' },
+      },
+      {
+        title: 'Select Your Shopify Store',
+        description:
+          'Select your Shopify store on which you want to install it. Once installed you will be redirected back to the app screen.',
+        content: null,
+      },
+      {
+        title: 'Open the UnumPay App',
+        description: 'Open the application directly in your Shopify Store after installation. You can access it at:',
+        content: {
+          type: 'adminPath',
+          path: '/admin/apps/unified-transaction',
+          note: 'Replace [shopify-admin-domain] with your actual store domain e.g. yourstore.myshopify.com',
+          breadcrumb: defaultBreadcrumb,
+          footnote: 'Under payment methods search for "UnumPay" using the "Search by provider" filter.',
+        },
+      },
+      {
+        title: 'Configure {name} Credentials',
+        description: 'Click on Configurations and enter details on the below fields:',
+        content: {
+          type: 'table',
+          rows: [
+            { field: 'Client Name', instruction: 'Enter your Store Name' },
+            { field: 'Client Description', instruction: 'Enter Little Description / Tagline / Selling Good information' },
+            { field: 'Sandbox API Key', instruction: 'Will be provided by SafePay' },
+            { field: 'Sandbox Secret Key', instruction: 'Will be provided by SafePay' },
+            { field: 'Production API Key', instruction: 'Will be provided by SafePay' },
+            { field: 'Production Secret Key', instruction: 'Will be provided by SafePay' },
+            { field: 'Active', instruction: 'Toggle to enable', isToggle: true },
+          ],
+        },
+      },
+      {
+        title: 'Save Your Configuration',
+        description: 'Once all the information is entered, click the "Save" button. You will be redirected to the confirmation screen.',
+        content: null,
+      },
+      {
+        title: 'Activate UnumPay',
+        description: 'Click on "Activate UnumPay" to enable the payment gateway on your storefront.',
+        content: {
+          type: 'activation',
+          cards: [
+            { color: '#f59e0b', icon: '🧪', title: 'Demo Credentials', desc: 'If you have entered demo credentials you must enable Test Mode.' },
+            { color: '#16a34a', icon: '✅', title: 'Live Credentials', desc: 'For live transactions ensure that Test Mode is unchecked.' },
+            { color: '#6a03ce', icon: '💳', title: 'Checkout Display', desc: 'Once activated {name} under UnumPay will appear at checkout as "{checkoutDisplayText}."' },
+          ],
+        },
+      },
+    ],
+    checkoutDisplayText: 'Debit - Credit Card',
+    commonQuestions: [
+      { question: 'Where do I get my SafePay credentials?', answer: 'Contact SafePay directly through their official website or merchant dashboard to obtain your credentials before starting the setup.' },
+      { question: 'What will my customers see at checkout?', answer: 'SafePay under UnumPay appears at your Shopify checkout as "Debit - Credit Card".' },
+      { question: 'Can I test before going live?', answer: 'If you have entered demo credentials make sure to enable test mode and for live make sure that checkbox is unchecked.' },
+    ],
+    bottomCta: {
+      layout: 'full',
+      heading: 'Ready to Accept SafePay Payments?',
+      subtitle: 'Install the UnumPay app and start accepting SafePay payments on your Shopify store in minutes.',
+      buttons: [
+        { label: 'Install on Shopify', href: 'https://apps.shopify.com/unum-pay', variant: 'primary' },
+        { label: 'Contact Support', href: '/contact', variant: 'secondary' },
+      ],
+    },
+  },
+
+  {
+    slug: 'ubl-integration-guide',
+    name: 'UBL',
+    regions: ['Pakistan'],
+    logo: ublLogo,
+    setupTime: '~5 min setup',
+    difficulty: 'Easy',
+    beforeYouBegin: [
+      'A Shopify store with admin access',
+      'UBL credentials (provided by UBL)',
+      'Your Store Name and a short description or tagline',
+    ],
+    steps: [
+      {
+        title: 'Install the UnumPay Shopify App',
+        description:
+          'Visit the Shopify App Store and search for "UnumPay — Unified Transaction" or use the direct link below. Click "Add App" to begin installation.',
+        content: { type: 'link', value: 'https://apps.shopify.com/unum-pay' },
+      },
+      {
+        title: 'Select Your Shopify Store',
+        description:
+          'Select your Shopify store on which you want to install it. Once installed you will be redirected back to the app screen.',
+        content: null,
+      },
+      {
+        title: 'Open the UnumPay App',
+        description: 'Open the application directly in your Shopify Store after installation. You can access it at:',
+        content: {
+          type: 'adminPath',
+          path: '/admin/apps/unified-transaction',
+          note: 'Replace [shopify-admin-domain] with your actual store domain e.g. yourstore.myshopify.com',
+          breadcrumb: defaultBreadcrumb,
+          footnote: 'Under payment methods search for "UnumPay" using the "Search by provider" filter.',
+        },
+      },
+      {
+        title: 'Configure {name} Credentials',
+        description: 'Click on Configurations and enter details on the below fields:',
+        content: {
+          type: 'table',
+          rows: [
+            { field: 'Client Name', instruction: 'Enter your Store Name' },
+            { field: 'Client Description', instruction: 'Enter Little Description / Tagline / Selling Good information' },
+            { field: 'Merchant ID', instruction: 'Merchant ID provided by UBL' },
+            { field: 'API Username', instruction: 'API Username provided by UBL' },
+            { field: 'API Password', instruction: 'API Password provided by UBL' },
+            { field: 'Active', instruction: 'Toggle to enable', isToggle: true },
+          ],
+        },
+      },
+      {
+        title: 'Save Your Configuration',
+        description: 'Once all the information is entered, click the "Save" button. You will be redirected to the confirmation screen.',
+        content: null,
+      },
+      {
+        title: 'Activate UnumPay',
+        description: 'Click on "Activate UnumPay" to enable the payment gateway on your storefront.',
+        content: {
+          type: 'activation',
+          cards: [
+            { color: '#f59e0b', icon: '🧪', title: 'Demo Credentials', desc: 'If you have entered demo credentials you must enable Test Mode.' },
+            { color: '#16a34a', icon: '✅', title: 'Live Credentials', desc: 'For live transactions ensure that Test Mode is unchecked.' },
+            { color: '#6a03ce', icon: '💳', title: 'Checkout Display', desc: 'Once activated {name} under UnumPay will appear at checkout as "{checkoutDisplayText}."' },
+          ],
+        },
+      },
+    ],
+    checkoutDisplayText: 'Debit - Credit Card',
+    commonQuestions: [
+      { question: 'Where do I get my UBL credentials?', answer: 'Contact UBL directly through their official website or merchant dashboard to obtain your credentials before starting the setup.' },
+      { question: 'What will my customers see at checkout?', answer: 'UBL under UnumPay appears at your Shopify checkout as "Debit - Credit Card".' },
+      { question: 'Can I test before going live?', answer: 'If you have entered demo credentials make sure to enable test mode and for live make sure that checkbox is unchecked.' },
+    ],
+    bottomCta: {
+      layout: 'full',
+      heading: 'Ready to Accept UBL Payments?',
+      subtitle: 'Install the UnumPay app and start accepting UBL payments on your Shopify store in minutes.',
+      buttons: [
+        { label: 'Install on Shopify', href: 'https://apps.shopify.com/unum-pay', variant: 'primary' },
+        { label: 'Contact Support', href: '/contact', variant: 'secondary' },
+      ],
+    },
+  },
+
+  {
+    slug: 'zerocash-integration-guide',
+    name: 'ZeroCash',
+    regions: ['Global', 'Pakistan'],
+    logo: zerocashLogo,
+    setupTime: '~5 min setup',
+    difficulty: 'Easy',
+    beforeYouBegin: [
+      'A Shopify store with admin access',
+      'ZeroCash credentials (provided by ZeroCash)',
+      'Your Store Name and a short description or tagline',
+    ],
+    steps: [
+      {
+        title: 'Install the UnumPay Shopify App',
+        description:
+          'Visit the Shopify App Store and search for "UnumPay — Unified Transaction" or use the direct link below. Click "Add App" to begin installation.',
+        content: { type: 'link', value: 'https://apps.shopify.com/unum-pay' },
+      },
+      {
+        title: 'Select Your Shopify Store',
+        description:
+          'Select your Shopify store on which you want to install it. Once installed you will be redirected back to the app screen.',
+        content: null,
+      },
+      {
+        title: 'Open the UnumPay App',
+        description: 'Open the application directly in your Shopify Store after installation. You can access it at:',
+        content: {
+          type: 'adminPath',
+          path: '/admin/apps/unified-transaction',
+          note: 'Replace [shopify-admin-domain] with your actual store domain e.g. yourstore.myshopify.com',
+          breadcrumb: defaultBreadcrumb,
+          footnote: 'Under payment methods search for "UnumPay" using the "Search by provider" filter.',
+        },
+      },
+      {
+        title: 'Configure {name} Credentials',
+        description: 'Click on Configurations and enter details on the below fields:',
+        content: {
+          type: 'table',
+          rows: [
+            { field: 'Client Name', instruction: 'Enter your Store Name' },
+            { field: 'Client Description', instruction: 'Enter Little Description / Tagline / Selling Good information' },
+            { field: 'Merchant ID', instruction: 'Merchant ID provided by ZeroCash' },
+            { field: 'API Key', instruction: 'API Key provided by ZeroCash' },
+            { field: 'Active', instruction: 'Toggle to enable', isToggle: true },
+          ],
+        },
+      },
+      {
+        title: 'Save Your Configuration',
+        description: 'Once all the information is entered, click the "Save" button. You will be redirected to the confirmation screen.',
+        content: null,
+      },
+      {
+        title: 'Activate UnumPay',
+        description: 'Click on "Activate UnumPay" to enable the payment gateway on your storefront.',
+        content: {
+          type: 'activation',
+          cards: [
+            { color: '#f59e0b', icon: '🧪', title: 'Demo Credentials', desc: 'If you have entered demo credentials you must enable Test Mode.' },
+            { color: '#16a34a', icon: '✅', title: 'Live Credentials', desc: 'For live transactions ensure that Test Mode is unchecked.' },
+            { color: '#6a03ce', icon: '💳', title: 'Checkout Display', desc: 'Once activated {name} under UnumPay will appear at checkout as "{checkoutDisplayText}."' },
+          ],
+        },
+      },
+    ],
+    checkoutDisplayText: 'Debit - Credit Card',
+    commonQuestions: [
+      { question: 'Where do I get my ZeroCash credentials?', answer: 'Contact ZeroCash directly through their official website or merchant dashboard to obtain your credentials before starting the setup.' },
+      { question: 'What will my customers see at checkout?', answer: 'ZeroCash under UnumPay appears at your Shopify checkout as "Debit - Credit Card".' },
+      { question: 'Can I test before going live?', answer: 'If you have entered demo credentials make sure to enable test mode and for live make sure that checkbox is unchecked.' },
+    ],
+    bottomCta: {
+      layout: 'full',
+      heading: 'Ready to Accept ZeroCash Payments?',
+      subtitle: 'Install the UnumPay app and start accepting ZeroCash payments on your Shopify store in minutes.',
       buttons: [
         { label: 'Install on Shopify', href: 'https://apps.shopify.com/unum-pay', variant: 'primary' },
         { label: 'Contact Support', href: '/contact', variant: 'secondary' },

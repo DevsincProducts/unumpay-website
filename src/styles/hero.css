@@ -85,7 +85,22 @@
     border-radius: 12px;
     padding: 14px 28px;
     font-size: 15px;
-    transition: transform .2s, opacity .2s, background .2s, border-color .2s;
+    transition: transform .2s, opacity .2s, background .2s, border-color .2s, box-shadow .2s;
+}
+
+.hero-home__primary-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 36px #c812d580;
+}
+
+.hero-home__primary-cta:active {
+    transform: translateY(0);
+    box-shadow: 0 6px 20px #c812d559;
+}
+
+.hero-home__primary-cta:focus-visible, .hero-home__ghost-cta:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
 }
 
 .hero-home__ghost-cta {
@@ -94,6 +109,17 @@
     border: 1px solid #fff3;
     font-weight: 500;
     backdrop-filter: blur(8px);
+}
+
+.hero-home__ghost-cta:hover {
+    background: #ffffff1f;
+    border-color: #ffffff59;
+    transform: translateY(-2px);
+}
+
+.hero-home__ghost-cta:active {
+    transform: translateY(0);
+    background: #ffffff14;
 }
 
 .hero-home__graphic {
@@ -221,78 +247,12 @@
   margin-top: 6px;
 }
 
-.steps-row {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  gap: 32px;
-  position: relative;
-}
-
-.step-card {
-  z-index: 1;
-  background: #fff;
-  border: 1px solid #e5e7eb;
-  border-radius: 20px;
-  padding: 32px;
-  box-shadow: 0 4px 24px #6a03ce14;
-  position: relative;
-  transition: all 0.3s;
-}
-
-.step-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 32px #6a03ce26;
-    border-color: #c812d5;
-}
-
-.step-image {
-  aspect-ratio: 16/9;
-  background: #f3e5ff;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  overflow: hidden;
-  margin-bottom: 24px !important;
-}
-
-.step-badge {
-  /* width: 44px;
-  height: 44px; */
-  /* border-radius: 50%; */
-  background: linear-gradient(135deg, #c812d5, #6a03ce);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent;
-
-  font-size: 18px;
-  font-weight: 800;
-  margin-bottom: 0;
-}
-
-.step-title {
-  font-size: 18px;
-  color: #171721;
-  margin-bottom: 10px;
-  font-weight: 600;
-}
-
-.step-desc {
-  font-size: 15px;
-  color: #6b7280;
-  line-height: 1.7;
-  font-weight: 400;
-}
-
-.step-connector {
-  flex: 0 0 40px;
-  align-self: center;
-  height: 0;
-  border-top: 2px dashed #d9b8ea;
-  margin-top: -160px;
-}
+/* .steps-row/.step-card/.step-image/.step-badge/.step-title/.step-desc were
+   the static 3-column grid this section used before it became the
+   auto-playing slider (see the <style> block in Work.astro, which reuses
+   .step-card as a scoped, differently-styled selector for the slider's
+   cards). .step-cta-wrapper/.step-cta below are still used, unchanged, for
+   the "Install on Shopify" button under the slider. */
 
 .step-cta-wrapper {
   display: flex;
@@ -305,9 +265,9 @@
   background: linear-gradient(135deg, rgb(200, 18, 213), rgb(106, 3, 206));
   color: #fff;
   font-weight: 600;
-  font-size: 17px;
-  padding: 18px 40px;
-  border-radius: 14px;
+  font-size: 14px;
+  padding: 12px 28px;
+  border-radius: 12px;
   box-shadow: 0 8px 32px rgba(200, 18, 213, 0.35);
   transition: opacity 0.2s, transform 0.2s;
 }
@@ -320,51 +280,56 @@
 /* features */
 .features-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  margin-top: 48px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 40px;
 }
 
 .feature-card {
   display: flex;
-  align-items: center;
-  gap: 16px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
   background: #fff;
   border: 1px solid #e5e7eb;
-  border-radius: 20px;
-  padding: 18px 20px;
+  border-radius: 18px;
+  padding: 20px 18px;
   box-shadow: 0 4px 24px #6a03ce14;
-  transition: all 0.3s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   height: 100%;
 }
 
 .feature-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 32px rgba(200, 18, 213, 0.15);
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(200, 18, 213, 0.18);
   border-color: rgb(200, 18, 213);
+}
+
+.feature-card:hover .feature-icon {
+  transform: scale(1.08) rotate(-4deg);
 }
 
 .feature-icon {
   flex-shrink: 0;
-  width: 80px;
-  min-width: 80px;
-  height: 70px;
-  border-radius: 10px;
-  background: #fff;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  margin-bottom: 10px;
+  box-shadow: 0 6px 16px rgba(106, 3, 206, 0.28);
+  transition: transform 0.3s ease;
 }
 
-.feature-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.feature-icon svg {
+  width: 21px;
+  height: 21px;
 }
 
 .feature-title {
-  font-size: 16px;
+  font-size: 15.5px;
   font-weight: 600;
   color: rgb(23, 23, 33);
   margin: 0;
@@ -372,11 +337,150 @@
 }
 
 .feature-desc {
-  font-size: 14px;
+  font-size: 13px;
   color: rgb(107, 114, 128);
-  line-height: 1.6;
+  line-height: 1.55;
   font-weight: 400;
   margin: 0;
+}
+
+/* Key Features video slider — horizontal scroll-snap row of tilted cards,
+   each holding a short looping clip; JS drives the 3D tilt + auto-advance. */
+
+.kf-slider-viewport {
+  position: relative;
+  margin-top: 12px;
+  mask-image: linear-gradient(90deg, #0000, #000 6% 94%, #0000);
+  -webkit-mask-image: linear-gradient(90deg, #0000 0%, #000 6% 94%, #0000 100%);
+}
+
+.kf-slider {
+  --kf-card-w: min(540px, 78vw);
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 30px calc(50% - (var(--kf-card-w) / 2)) 40px;
+  perspective: 1400px;
+  scrollbar-width: none;
+}
+
+.kf-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.kf-card {
+  flex: 0 0 var(--kf-card-w);
+  scroll-snap-align: center;
+  height: 340px;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transform-style: preserve-3d;
+  /* No CSS transition here on purpose — computeTilts() in Work.astro
+     already updates transform/opacity every scroll frame via rAF, so a
+     competing CSS transition just forces the browser to recompute a new
+     easing curve ~60x/sec on top of that, which is what made scrolling
+     through this section feel laggy. */
+  will-change: transform, opacity;
+  box-shadow: 0 20px 50px rgba(23, 0, 40, 0.18);
+}
+
+.kf-card-media {
+  height: 288px;
+  flex: 0 0 288px;
+  position: relative;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.kf-card-media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.kf-card-body {
+  flex: 1;
+  padding: 6px 18px 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.kf-card-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 2px;
+  line-height: 1.2;
+}
+
+.kf-card-desc {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 10px;
+  line-height: 1.3;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Manual navigation bars below the slider — short pill segments, brand
+   gradient on the active one, click to jump straight to that card. */
+.kf-progress {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.kf-progress-bar {
+  width: 28px;
+  flex-shrink: 0;
+  height: 4px;
+  border-radius: 2px;
+  border: none;
+  padding: 0;
+  background: rgb(229, 229, 240);
+  cursor: pointer;
+  transition: background 0.3s ease, width 0.3s ease;
+}
+
+.kf-progress-bar:hover {
+  background: rgb(200, 190, 220);
+}
+
+.kf-progress-bar.is-active {
+  width: 40px;
+  background: linear-gradient(90deg, rgb(200, 18, 213), rgb(106, 3, 206));
+}
+
+@media (max-width: 640px) {
+  .kf-slider {
+    --kf-card-w: 82vw;
+    gap: 16px;
+  }
+
+  .kf-card {
+    height: 300px;
+  }
+
+  .kf-card-media {
+    height: 250px;
+    flex-basis: 250px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 @media (max-width: 768px) {
@@ -392,10 +496,6 @@
     display: grid;
     grid-template-columns: 1fr 1fr !important;
     gap: 32px !important;
-  }
-
-  .steps-row {
-    grid-template-columns: 1fr !important;
   }
 
   .features-grid {

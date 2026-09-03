@@ -1,4 +1,6 @@
 ---
+import FaqGlobeHero from '../components/FaqGlobeHero.jsx'
+import FaqAccordion from '../components/FaqAccordion.jsx'
 
 const features = [
   'Multiple Payment Gateways',
@@ -45,7 +47,7 @@ const faqs = [
 ---
 
 <div>
-  <section class="pri-section">
+  <section class="pri-section js-fade-scroll" data-direction="up">
     <div class="cta-section__glow" aria-label="hidden"></div>
     <div class="pri-content">
       <span class="pri-badge">✦ Transparent Pricing</span>
@@ -60,7 +62,7 @@ const faqs = [
     </div>
   </section>
 
-  <section class="pri-compare-section">
+  <section class="pri-compare-section js-fade-scroll" data-direction="up">
     <div class="pri-compare-container">
       <!-- Left: Pricing card -->
       <div
@@ -132,41 +134,20 @@ const faqs = [
     </div>
   </section>
 
-  <section class="faq-section">
+  <FaqGlobeHero
+    client:visible
+    compact
+    title="FAQ"
+    subtitle="Everything you need to know about UnumPay's pay-as-you-go pricing."
+  />
+
+  <section class="faq-section js-fade-scroll" data-direction="up">
     <div class="faq-container">
-      <h2 class="faq-heading">Pricing Questions Answered</h2>
-
-      <div class="faq-list">
-        {faqs.map((faq, index) => (
-          <div
-            class="faq-item"
-          >
-            <button
-              type="button"
-              class="faq-question"
-              data-faq-trigger
-              data-index={index}
-              aria-expanded={index === 1 ? 'true' : 'false'}
-            >
-              <span>{faq.question}</span>
-              <span class={`faq-icon ${index === 1 ? 'open' : ''}`}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="12" y1="5" x2="12" y2="19"></line>
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
-              </span>
-            </button>
-
-            <div class="faq-answer" data-faq-panel style={index === 1 ? '' : 'display: none;'}>
-              <p>{faq.answer}</p>
-            </div>
-          </div>
-        ))}
-      </div>
+      <FaqAccordion client:visible items={faqs} columns={2} />
     </div>
   </section>
 
-  <section class="pree-section">
+  <section class="pree-section js-fade-scroll" data-direction="up">
     <div class="cta-section__glow" aria-label="hidden"></div>
     <div class="pri-content" >
       <div class="pri-sec-heading" data-direction="up" style="--y-offset: 40px;" data-duration="0.7" data-delay="0.1" data-amount="0.2">
@@ -190,40 +171,9 @@ const faqs = [
 </div>
 
 <script>
-  import { initFadeIn, initFadeInScroll } from '../scripts/Animation'
+  import { initFadeIn } from '../scripts/Animation'
 
-  // ---- FAQ accordion (default open index = 1) ----
-  const triggers = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-faq-trigger]'))
-  let openIndex: number | null = 1
-
-  function setFaqState(index: number, isOpen: boolean) {
-    const trigger = triggers[index]
-    const item = trigger.closest('.faq-item')
-    const panel = item?.querySelector<HTMLElement>('[data-faq-panel]')
-    const icon = trigger.querySelector<HTMLElement>('.faq-icon')
-
-    if (panel) panel.style.display = isOpen ? '' : 'none'
-    icon?.classList.toggle('open', isOpen)
-    trigger.setAttribute('aria-expanded', isOpen ? 'true' : 'false')
-  }
-
-  triggers.forEach((trigger, index) => {
-    trigger.addEventListener('click', () => {
-      const isCurrentlyOpen = openIndex === index
-
-      if (openIndex !== null) {
-        setFaqState(openIndex, false)
-      }
-
-      if (isCurrentlyOpen) {
-        openIndex = null
-      } else {
-        setFaqState(index, true)
-        openIndex = index
-      }
-    })
+  document.addEventListener('astro:page-load', () => {
+    initFadeIn()
   })
-
-  initFadeIn()
-  initFadeInScroll()
 </script>

@@ -1,3 +1,12 @@
+/* The live site's <body> is #1A0028, so any gap between sections (behind
+   the search bar, around cards) shows that dark purple. Our body has no
+   background of its own, so those same gaps were showing through as plain
+   white. Scoped to this one wrapper instead of <body> so it doesn't affect
+   every other page on the site. */
+.blog-page {
+  background: #1a0028;
+}
+
 .blog-hero-section {
   text-align: center;
   padding-top: 130px;
@@ -15,7 +24,7 @@
 .blog-hero-content {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 48px;
+  padding: 0 40px;
 }
 
 .blog-hero-badge {
@@ -95,9 +104,6 @@
 }
 
 .blog-listing-section {
-  position: sticky;
-  top: 0px;
-  z-index: 10;
   background: rgb(255, 255, 255);
   border-bottom: 1px solid rgb(229, 229, 240);
   padding: 16px 40px;
@@ -126,11 +132,22 @@
   cursor: pointer;
   transition:
     background 0.2s,
-    color 0.2s;
+    color 0.2s,
+    transform 0.2s;
 }
 
 .blog-category-pill:hover {
   background: #f3e8ff;
+  transform: translateY(-1px);
+}
+
+.blog-category-pill:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.blog-category-pill:focus-visible {
+  outline: 2px solid #6a03ce;
+  outline-offset: 2px;
 }
 
 .blog-category-pill--active {
@@ -168,12 +185,19 @@
   overflow: hidden;
   padding: 0px;
   height: 100%;
+  /* Matches the live site: object-fit: contain never crops the image, so
+     any leftover space (when the image's aspect ratio doesn't match the
+     card) needs a fill colour behind it instead of being left blank. */
+  background: rgb(107, 33, 206);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .blog-featured-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
 }
 
@@ -374,6 +398,22 @@
   font-size: 15px;
   cursor: pointer;
   white-space: nowrap;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.stay-ahead-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.stay-ahead-btn:active {
+  transform: translateY(0);
+  opacity: 0.9;
+}
+
+.stay-ahead-btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
 }
 
 @media (max-width: 900px) {

@@ -218,6 +218,16 @@
   opacity: 0.9;
 }
 
+.pri-card__cta:active {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.pri-card__cta:focus-visible {
+  outline: 2px solid #c812d5;
+  outline-offset: 2px;
+}
+
 /* Comparison table side */
 .pri-compare-content {
   padding-top: 48px;
@@ -288,14 +298,17 @@
   flex-shrink: 0;
 }
 
-/* faq */
+/* faq — two-column accordion: border-top on each column, border-bottom per
+   item, chevron rotates 180deg on open. Columns stack to one on mobile; the
+   second column's top border is suppressed there so the seam between the
+   two stacked lists doesn't read as a doubled line. */
 .faq-section {
   background: #fff;
-  padding: 30px 48px 50px;
+  padding: 30px 40px 50px;
 }
 
 .faq-container {
-  max-width: 780px;
+  max-width: 960px;
   margin: 0 auto;
 }
 
@@ -308,12 +321,42 @@
 }
 
 .faq-list {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: 56px;
+}
+
+@media (min-width: 768px) {
+  .faq-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.faq-col {
+  border-top: 1px solid rgb(229, 231, 235);
+}
+
+.faq-col + .faq-col {
+  border-top: none;
+}
+
+@media (min-width: 768px) {
+  .faq-col + .faq-col {
+    border-top: 1px solid rgb(229, 231, 235);
+  }
 }
 
 .faq-item {
   border-bottom: 1px solid rgb(229, 231, 235);
+  border-radius: 12px;
+  padding: 0 16px;
+  margin: 0 -16px;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.faq-item.is-open {
+  background: #f3e5ff;
+  border-color: #e0c8f7;
 }
 
 .faq-question {
@@ -321,6 +364,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 16px;
   background: transparent;
   border-width: medium;
   padding: 18px 0;
@@ -331,6 +375,11 @@
   font-size: 15px;
   font-weight: 600;
   color: rgb(23, 23, 33);
+  transition: color 0.25s ease;
+}
+
+.faq-item.is-open .faq-question {
+  color: #6a03ce;
 }
 
 .faq-icon {
@@ -338,16 +387,29 @@
   align-items: center;
   justify-content: center;
   color: rgb(106, 3, 206);
-  margin-left: 12px;
-  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.faq-icon.open {
-  transform: rotate(45deg);
+.faq-icon.open,
+.faq-item.is-open .faq-icon {
+  transform: rotate(180deg);
 }
 
+/* Smooth expand/collapse via the row-height trick, same technique as the
+   /faq page — animates height without a hard display:none cut. */
 .faq-answer {
-  padding-bottom: 14px;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.faq-item.is-open .faq-answer {
+  grid-template-rows: 1fr;
+}
+
+.faq-answer-inner {
+  overflow: hidden;
 }
 
 .faq-answer p {
@@ -355,6 +417,16 @@
   color: #6b7280;
   line-height: 1.7;
   margin: 0;
+  padding: 2px 8px 20px 0;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.faq-item.is-open .faq-answer p {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.1s;
 }
 
 /* Partners */
@@ -375,6 +447,8 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 28px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .pri-partner-card {
@@ -457,6 +531,16 @@
 .pri-partner-card__cta:hover {
   transform: translateY(-2px);
   opacity: 0.9;
+}
+
+.pri-partner-card__cta:active {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.pri-partner-card__cta:focus-visible {
+  outline: 2px solid #c812d5;
+  outline-offset: 2px;
 }
 
 .our-story-mission {
@@ -556,14 +640,35 @@
   border: 1px solid rgb(229, 229, 240);
   border-radius: 12px;
   padding: 24px;
-  transition: border-color 0.2s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease;
   cursor: default;
 }
 
+.why-matters-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(106, 3, 206, 0.14);
+  border-color: rgba(200, 18, 213, 0.35);
+  background: rgb(250, 248, 255);
+}
+
 .why-matters-card__icon {
-  font-size: 28px;
-  list-style: 1;
+  font-size: 24px;
+  line-height: 1;
   flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: rgb(243, 238, 255);
+  transition: transform 0.35s ease, background 0.35s ease;
+}
+
+.why-matters-card:hover .why-matters-card__icon {
+  transform: scale(1.12) rotate(-6deg);
+  background: linear-gradient(135deg, rgb(200, 18, 213), rgb(106, 3, 206));
+  filter: grayscale(0) brightness(1) drop-shadow(0 4px 10px rgba(106, 3, 206, 0.35));
 }
 
 .why-matters-card__title {
@@ -571,6 +676,11 @@
   font-weight: 600;
   color: rgb(23, 23, 33);
   margin: 0 0 6px;
+  transition: color 0.3s ease;
+}
+
+.why-matters-card:hover .why-matters-card__title {
+  color: rgb(106, 3, 206);
 }
 
 .why-matters-card__desc {
@@ -579,6 +689,129 @@
   color: rgb(107, 114, 128);
   line-height: 1.6;
   margin: 0;
+}
+
+/* Our Team — photo sits contained at the top of the card; name/role/
+   LinkedIn live in their own white panel below it (not overlaid on the
+   image), matching a reference "meet the team" card layout. */
+.our-team-section {
+  background: #fff;
+  padding: 80px 40px;
+  text-align: center;
+}
+
+.our-team-badge {
+  display: inline-block;
+  background: rgb(243, 238, 255);
+  border: 1px solid rgb(221, 214, 254);
+  color: rgb(106, 3, 206);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  padding: 5px 14px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.our-team-heading {
+  font-size: clamp(20px, 2.6vw, 38px);
+  font-weight: 700;
+  color: rgb(23, 23, 33);
+  margin: 0 auto 56px;
+  max-width: 900px;
+  white-space: nowrap;
+}
+
+.our-team-grid {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.our-team-card {
+  border-radius: 20px;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid rgb(229, 229, 240);
+  box-shadow: 0 4px 16px rgba(23, 23, 33, 0.05);
+  transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.our-team-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 48px rgba(106, 3, 206, 0.16);
+  border-color: rgba(200, 18, 213, 0.3);
+}
+
+.our-team-photo-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 645 / 720;
+  overflow: hidden;
+  background: #fff;
+}
+
+.our-team-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.our-team-card:hover .our-team-photo {
+  transform: scale(1.05);
+}
+
+.our-team-info {
+  padding: 12px 16px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  text-align: left;
+}
+
+.our-team-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: rgb(23, 23, 33);
+  margin: 0 0 3px;
+  letter-spacing: 0.01em;
+}
+
+.our-team-role {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: rgb(106, 3, 206);
+  margin: 0;
+}
+
+.our-team-linkedin {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  flex-shrink: 0;
+  background: rgb(243, 238, 255);
+  border: 1px solid rgb(221, 214, 254);
+  color: rgb(106, 3, 206);
+  transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.our-team-linkedin:hover {
+  background: linear-gradient(135deg, rgb(200, 18, 213), rgb(106, 3, 206));
+  border-color: transparent;
+  color: #fff;
+  transform: translateY(-2px);
 }
 
 /* Our Journey */
@@ -821,7 +1054,7 @@
   );
   border-radius: 20px; */
   padding: 48px 40px 0px;
-  max-width: 1200px;
+  max-width: 1152px;
   margin: 0 auto;
 }
 
@@ -874,6 +1107,19 @@
 
   .our-story-mission {
     padding: 50px 20px !important;
+  }
+
+  .our-team-section {
+    padding: 20px 20px 50px;
+  }
+
+  .our-team-heading {
+    white-space: normal;
+  }
+
+  .our-team-grid {
+    grid-template-columns: 1fr;
+    max-width: 340px;
   }
 }
 
@@ -964,10 +1210,22 @@
   color: rgb(156, 163, 175);
   line-height: 1;
   padding: 4px 8px;
+  transition: color 0.2s ease, transform 0.2s ease;
+  border-radius: 6px;
 }
 
 .partner-modal__close:hover {
   color: rgb(23, 23, 33);
+  transform: scale(1.1);
+}
+
+.partner-modal__close:active {
+  transform: scale(0.9);
+}
+
+.partner-modal__close:focus-visible {
+  outline: 2px solid #c812d5;
+  outline-offset: 2px;
 }
 
 .partner-modal__title {
@@ -1096,13 +1354,24 @@
   border-image: none;
   cursor: pointer;
   opacity: 1;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
   margin-top: 4px;
 }
 
 .partner-modal__submit:hover {
   transform: translateY(-2px);
   opacity: 0.9;
+  box-shadow: 0 8px 24px rgba(200, 18, 213, 0.4);
+}
+
+.partner-modal__submit:active {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.partner-modal__submit:focus-visible {
+  outline: 2px solid #c812d5;
+  outline-offset: 2px;
 }
 
 /* Partner Modal — Success State */
@@ -1153,11 +1422,23 @@
   border-color: currentcolor;
   border-image: none;
   cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .partner-modal__success-close:hover {
   transform: translateY(-2px);
   opacity: 0.9;
+  box-shadow: 0 8px 24px rgba(200, 18, 213, 0.4);
+}
+
+.partner-modal__success-close:active {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.partner-modal__success-close:focus-visible {
+  outline: 2px solid #c812d5;
+  outline-offset: 2px;
 }
 
 @media (max-width: 640px) {
@@ -1170,19 +1451,3 @@
   }
 }
 
-.earth-container {
-  height: 22rem; 
-}
-
-@media (min-width: 768px) {
-  .earth-container {
-    height: 34.5rem;
-  }
-}
-
-@media (min-width: 1280px) {
-  .earth-container {
-    flex: 1 1 0%;
-    height: 34rem;
-  }
-}
