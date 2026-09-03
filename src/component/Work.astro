@@ -366,11 +366,15 @@ document.addEventListener('astro:page-load', () => {
 
       // preload="none" videos never start fetching on their own — kick off
       // the load explicitly now that this one is actually about to be shown.
-      // (Previously this also force-loaded the NEXT step's clip ahead of
-      // time; skipped now — the poster image already covers the "don't show
-      // an empty box" need, so pre-fetching MBs of video nobody's watching
-      // yet isn't worth the bandwidth.)
       if (activeVideo.readyState === 0) activeVideo.load()
+
+      // Also load the NEXT step's clip now, in the background — without
+      // this, that clip only starts fetching once it becomes active, racing
+      // the fallback timer below. On anything but a fast connection the
+      // fallback usually wins, so the stepper visually auto-advances through
+      // every poster while the videos rarely get enough buffered to play.
+      const nextVideo = videos[(activeIndex + 1) % videos.length]
+      if (nextVideo && nextVideo.readyState === 0) nextVideo.load()
 
       whenReady(activeVideo, () => {
         if (activeIndex !== videos.indexOf(activeVideo)) return
@@ -580,11 +584,16 @@ document.addEventListener('astro:page-load', () => {
         }
       })
 
-      // Previously this also force-loaded the NEXT card's clip ahead of time.
-      // That's no longer needed now that every clip has a poster image (the
-      // card never shows an empty box while its video loads), and skipping
-      // it avoids fetching 1-3MB clips for cards the visitor may never
-      // reach — this carousel auto-advances even without scrolling into view.
+      // Load the NEXT card's clip now, in the background. This isn't just a
+      // "nice to have" — without it, a card's video starts fetching from
+      // zero only once it becomes active, racing the ~4s fallback timer
+      // below. On anything but a fast connection the fallback usually wins,
+      // so the carousel visually auto-advances through every poster while
+      // the actual videos rarely get enough buffered to ever play — exactly
+      // the "only posters, video never starts" bug this fixes.
+      const nextVideo = videos[(activeIndex + 1) % videos.length]
+      if (nextVideo && nextVideo.readyState === 0) nextVideo.load()
+
       const activeVideo = videos[activeIndex]
       const durationMs =
         activeVideo && isFinite(activeVideo.duration) && activeVideo.duration > 0
