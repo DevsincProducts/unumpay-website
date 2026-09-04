@@ -135,13 +135,13 @@ const faqs = [
   </section>
 
   <FaqGlobeHero
-    client:visible
+    client:visible={{ rootMargin: '200px' }}
     compact
     title="FAQ"
     subtitle="Everything you need to know about UnumPay's pay-as-you-go pricing."
   />
 
-  <section class="faq-section js-fade-scroll" data-direction="up">
+  <section class="faq-section js-fade-scroll" data-direction="up" data-duration="0.45" data-amount="0">
     <div class="faq-container">
       <FaqAccordion client:visible items={faqs} columns={2} />
     </div>
