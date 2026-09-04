@@ -203,6 +203,18 @@ document.addEventListener('astro:page-load', () => {
     else v.addEventListener('loadedmetadata', prime, { once: true })
   }
 
+  // .load() is not idempotent — calling it again while a fetch is already
+  // in flight aborts that fetch and restarts it from scratch. The eager
+  // first-clip fetch, "load it now that it's active", and "prefetch the
+  // next one" call sites below can all still see readyState 0 on a slow
+  // connection and re-trigger this, downloading the same clip 2-3x over.
+  // Track which videos already had .load() called so it only ever fires once.
+  function safeLoad(v: HTMLVideoElement | null | undefined) {
+    if (!v || v.dataset.loadTriggered || v.readyState > 0) return
+    v.dataset.loadTriggered = '1'
+    v.load()
+  }
+
   // Tried deferring this setup to requestIdleCallback for a TBT win, but on
   // a soft (client-side) navigation the browser can sit "busy" long enough
   // that idle never fires for several seconds — so a card/video that must
@@ -288,7 +300,12 @@ document.addEventListener('astro:page-load', () => {
     const videos = Array.from(root.querySelectorAll<HTMLVideoElement>('[data-hiw-video]'))
     if (!tabs.length || !videos.length) return
 
-    videos.forEach(primeFirstFrame)
+    // Only the first step needs its frame forced out now — the others get
+    // primed just before they become active (see playActive below). Doing
+    // this for all of them upfront meant every preload="metadata" clip
+    // decoded a real frame the moment its metadata arrived, all competing
+    // for the same handful of per-origin connections at once.
+    primeFirstFrame(videos[0])
     // Every clip in the stage sits at opacity:0 until it's the active step, so
     // without this the stage is an empty box until the section scrolls into
     // view and the stepper starts. Show step one from the outset instead.
@@ -297,7 +314,7 @@ document.addEventListener('astro:page-load', () => {
     // Fetch step 0's clip immediately, independent of whether the section is
     // anywhere near the viewport yet — see the identical comment in the Key
     // Features slider above for why.
-    if (videos[0] && videos[0].readyState === 0) videos[0].load()
+    safeLoad(videos[0])
 
     let activeIndex = 0
     let hoverPaused = false
@@ -371,7 +388,7 @@ document.addEventListener('astro:page-load', () => {
 
       // preload="none" videos never start fetching on their own — kick off
       // the load explicitly now that this one is actually about to be shown.
-      if (activeVideo.readyState === 0) activeVideo.load()
+      safeLoad(activeVideo)
 
       // Also load the NEXT step's clip now, in the background — without
       // this, that clip only starts fetching once it becomes active, racing
@@ -379,7 +396,8 @@ document.addEventListener('astro:page-load', () => {
       // fallback usually wins, so the stepper visually auto-advances through
       // every poster while the videos rarely get enough buffered to play.
       const nextVideo = videos[(activeIndex + 1) % videos.length]
-      if (nextVideo && nextVideo.readyState === 0) nextVideo.load()
+      safeLoad(nextVideo)
+      primeFirstFrame(nextVideo)
 
       whenReady(activeVideo, () => {
         if (activeIndex !== videos.indexOf(activeVideo)) return
@@ -523,7 +541,9 @@ document.addEventListener('astro:page-load', () => {
     if (!cards.length) return
 
     const videos = cards.map((card) => card.querySelector('video'))
-    videos.forEach(primeFirstFrame)
+    // Only the first card needs its frame forced out now — see the identical
+    // comment in the How It Works stepper above for why the rest wait.
+    primeFirstFrame(videos[0])
 
     // Fetch card 0's clip immediately, independent of whether the section is
     // anywhere near the viewport yet. Playback still waits for the section to
@@ -531,7 +551,7 @@ document.addEventListener('astro:page-load', () => {
     // *fetching* from *playing*, so the data is already there (or well on its
     // way) by the time the reader scrolls to it, instead of the fetch only
     // starting at that moment and racing to buffer enough to play in time.
-    if (videos[0] && videos[0].readyState === 0) videos[0].load()
+    safeLoad(videos[0])
 
     const progressRoot = document.getElementById('kf-progress')
     const dots = progressRoot ? Array.from(progressRoot.querySelectorAll<HTMLButtonElement>('[data-kf-dot]')) : []
@@ -629,7 +649,8 @@ document.addEventListener('astro:page-load', () => {
       // the actual videos rarely get enough buffered to ever play — exactly
       // the "only posters, video never starts" bug this fixes.
       const nextVideo = videos[(activeIndex + 1) % videos.length]
-      if (nextVideo && nextVideo.readyState === 0) nextVideo.load()
+      safeLoad(nextVideo)
+      primeFirstFrame(nextVideo)
 
       const activeVideo = videos[activeIndex]
       if (!activeVideo) return
