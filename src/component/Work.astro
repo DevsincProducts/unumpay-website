@@ -131,7 +131,9 @@ const keyFeatures = [
 
       <div class="hiw-stage">
         {steps.map((step, i) => (
-          <video class="hiw-stage__video" data-hiw-video={i} src={step.video} poster={step.poster} muted playsinline preload="metadata"></video>
+          <video class="hiw-stage__video" data-hiw-video={i} src={step.video} poster={step.poster} muted playsinline preload="metadata">
+            <track kind="captions" src="/videos/no-audio.vtt" srclang="en" label="English" />
+          </video>
         ))}
       </div>
     </div>
@@ -157,7 +159,9 @@ const keyFeatures = [
         {keyFeatures.map((f, i) => (
           <div class="kf-card" data-kf-id={f.id} style={`background:${f.cardBg}`}>
             <div class="kf-card-media">
-              <video src={f.video} poster={f.poster} muted playsinline preload="metadata"></video>
+              <video src={f.video} poster={f.poster} muted playsinline preload="metadata">
+                <track kind="captions" src="/videos/no-audio.vtt" srclang="en" label="English" />
+              </video>
             </div>
             <div class="kf-card-body">
               <h3 class="kf-card-title">{f.title}</h3>
