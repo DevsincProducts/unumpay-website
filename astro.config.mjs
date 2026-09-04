@@ -28,11 +28,6 @@ export default defineConfig({
   // Required for canonical URLs, absolute og:image URLs and the sitemap.
   site: 'https://www.unumpay.com',
 
-  // Live site always serves the trailing-slash form (e.g. /privacy-policy/).
-  // Without this, Astro's default ('ignore') lets both forms resolve locally,
-  // which is why localhost looked inconsistent with production.
-  trailingSlash: 'always',
-
   // Prefetch internal links on hover, so the page is already in cache by the
   // time the click lands.
   //
