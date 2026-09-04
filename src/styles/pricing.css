@@ -973,11 +973,13 @@
   padding: 80px 48px;
 }
 
-.content-form-card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 40px 25px;
-  box-shadow: 0 4px 24px #6a03ce14;
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+  max-width: 1152px;
+  margin: 0 auto;
 }
 
 .contact-form-input {
@@ -1038,24 +1040,53 @@
   line-height: 1.6;
 }
 
-.panel {
+.contact-help-panel {
   background: linear-gradient(
     135deg,
     rgba(200, 18, 213, 0.08),
     rgba(106, 3, 206, 0.08)
   );
+  border-radius: 20px;
+  padding: 48px 40px;
 }
 
-.here-to-help-panel {
-  /* background: linear-gradient(
-    135deg,
-    rgba(200, 18, 213, 0.08),
-    rgba(106, 3, 206, 0.08)
-  );
-  border-radius: 20px; */
-  padding: 48px 40px 0px;
-  max-width: 1152px;
-  margin: 0 auto;
+.contact-help-heading {
+  font-size: 22px;
+  font-weight: 600;
+  color: #171721;
+  margin-bottom: 32px;
+}
+
+.help-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.help-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+}
+
+.help-card__icon {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+
+.help-card__title {
+  font-weight: 600;
+  font-size: 16px;
+  color: #171721;
+  margin-bottom: 8px;
+}
+
+.help-card__desc {
+  font-weight: 400;
+  font-size: 13px;
+  color: #666;
+  line-height: 1.5;
 }
 
 @media (max-width: 900px) {
@@ -1087,11 +1118,20 @@
   }
 
   .contact-form-section {
-    padding: 80px 20px !important;
+    padding: 48px 20px !important;
   }
 
-  .here-to-help-panel {
-    padding: 48px 25px !important;
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+
+  .help-cards-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .contact-help-panel {
+    padding: 40px 25px !important;
   }
 }
 
