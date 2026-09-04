@@ -85,6 +85,8 @@ const marqueeLogos = [...logos, ...logos]
           src={HeroImg.src ?? HeroImg}
           srcset={`${HeroImgSmall.src ?? HeroImgSmall} 480w, ${HeroImgMobile.src ?? HeroImgMobile} 750w, ${HeroImg.src ?? HeroImg} 1300w`}
           sizes="(min-width: 1024px) 600px, 90vw"
+          width={HeroImg.width}
+          height={HeroImg.height}
           alt="UnumPay integration diagram"
           class="w-full max-w-2xl h-auto animate-float"
           fetchpriority="high"
@@ -103,6 +105,8 @@ const marqueeLogos = [...logos, ...logos]
               <div class="marquee-logo" aria-hidden={index >= logos.length ? 'true' : undefined}>
                 <img
                   src={logo.img.src}
+                  width={logo.img.width}
+                  height={logo.img.height}
                   alt={index >= logos.length ? '' : `${logo.name} logo`}
                   class="h-8 w-auto object-contain"
                 />

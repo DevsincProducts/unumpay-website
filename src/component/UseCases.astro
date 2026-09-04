@@ -167,7 +167,7 @@ const articles = [
             class={`usecase-row ${index % 2 === 1 ? 'usecase-row--reverse' : ''}`}
           >
             <div class="usecase-image-wrapper" style={item.imageRatio ? `aspect-ratio: ${item.imageRatio};` : undefined}>
-              <img src={item.image.src ?? item.image} alt={item.title} class="usecase-image" loading="lazy" />
+              <img src={item.image.src ?? item.image} width={item.image.width} height={item.image.height} alt={item.title} class="usecase-image" loading="lazy" />
               <div class="usecase-badge">{item.number}</div>
             </div>
 

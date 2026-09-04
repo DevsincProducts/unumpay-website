@@ -85,6 +85,8 @@ const PaymentGateway = () => {
           >
             <img
               src={logo.img?.src ?? logo.img ?? logo}
+              width={logo.img?.width}
+              height={logo.img?.height}
               alt={isRepeat ? '' : `${logo.name} payment gateway logo`}
               className="pg-logo-img"
               loading="lazy"
