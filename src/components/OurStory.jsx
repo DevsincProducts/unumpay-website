@@ -207,7 +207,7 @@ const OurStory = () => {
         </div>
     </FadeInSection>
 
-    <FadeInSection className="pri-section">
+    <FadeInSection className="pree-section">
         <div className='cta-section__glow' aria-hidden='true'></div>
         <div className="pri-content">
 
