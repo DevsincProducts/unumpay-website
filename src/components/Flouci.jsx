@@ -1,6 +1,5 @@
 import { ArrowLeft } from 'lucide-react'
 import React, { useState } from 'react'
-import { FadeInUp, FadeInSection } from './Animations'
 import FaqAccordion from './FaqAccordion'
 
 // Replaces {name} and {checkoutDisplayText} placeholders with real values
@@ -136,7 +135,7 @@ const Flouci = ({ data }) => {
 
   return (
     <div>
-      <FadeInSection className='bg-[#1a0028] relative overflow-hidden' style={{ paddingTop: '110px', paddingBottom: '40px' }}>
+      <section className='bg-[#1a0028] relative overflow-hidden' style={{ paddingTop: '110px', paddingBottom: '40px' }}>
         <div className='absolute inset-0 bg-linear-to-br from-[#2D0050]/40 to-transparent pointer-events-none'></div>
         <div className='px-4 sm:px-6 md:px-8 xl:px-0 relative z-10 w-full max-w-225 mx-auto'>
           <a href="/coverage/" className='inline-flex items-center gap-2 text-[#C9B8E8] hover:text-white 
@@ -151,9 +150,9 @@ const Flouci = ({ data }) => {
             Set up {data.name} as a payment gateway on your Shopify store through the UnumPay app. Follow these steps to start accepting payments in minutes.
           </p>
         </div>
-      </FadeInSection>
+      </section>
 
-      <FadeInSection className="pt-8 md:pt-12 pb-14 md:pb-20 bg-white">
+      <section className="pt-8 md:pt-12 pb-14 md:pb-20 bg-white">
         <div className="px-4 sm:px-6 md:px-8 xl:px-0 w-full max-w-225 mx-auto">
 
           <div className="flg-header-card">
@@ -224,30 +223,30 @@ const Flouci = ({ data }) => {
           )}
 
         </div>
-      </FadeInSection>
+      </section>
 
       {/* Bottom CTA - "full" layout (full-width dark section, e.g. Abhi Pay, Aik by BankIslami) */}
       {data.bottomCta?.layout === 'full' && (
-        <FadeInSection className="pree-section">
+        <section className="pree-section">
           <div className='cta-section__glow' aria-hidden='true'></div>
-          <FadeInUp className="pri-content">
+          <div className="pri-content">
 
-            <FadeInUp delay={0.1} className="pri-sec-heading">
+            <div className="pri-sec-heading">
               {data.bottomCta.heading}
-            </FadeInUp>
+            </div>
 
-            <FadeInUp delay={0.2} className="pri-sec-subtitle">
+            <p className="pri-sec-subtitle">
               {data.bottomCta.subtitle}
-            </FadeInUp>
+            </p>
 
-            <FadeInUp delay={0.3} className="cta-actions">
+            <div className="cta-actions">
               {data.bottomCta.buttons.map((btn) =>
                 renderCtaButton(btn, 'cta-section__btn-primary', 'cta-section__btn-secondary')
               )}
-            </FadeInUp>
+            </div>
 
-          </FadeInUp>
-        </FadeInSection>
+          </div>
+        </section>
       )}
 
     </div>
