@@ -153,7 +153,7 @@ const articles = [
 ---
 
 <div>
-  <section class="work-section bg-white stats-section js-fade-scroll" data-direction="up">
+  <section class="work-section bg-white stats-section">
     <div class="max-w-300 mx-auto px-6 md:px-10 lg:px-12 xl:px-12">
       <span class="work-eyebrow">USE CASES</span>
       <h2 class="work-heading">Real Problems. Real Solutions.</h2>
@@ -164,12 +164,7 @@ const articles = [
       <div class="usecases-list">
         {useCases.map((item, index) => (
           <div
-            class={`usecase-row js-fade-scroll ${index % 2 === 1 ? 'usecase-row--reverse' : ''}`}
-            data-direction="up"
-            style="--y-offset: 40px;"
-            data-duration="0.45"
-            data-delay="0"
-            data-amount="0"
+            class={`usecase-row ${index % 2 === 1 ? 'usecase-row--reverse' : ''}`}
           >
             <div class="usecase-image-wrapper" style={item.imageRatio ? `aspect-ratio: ${item.imageRatio};` : undefined}>
               <img src={item.image.src ?? item.image} alt={item.title} class="usecase-image" loading="lazy" />
@@ -191,7 +186,7 @@ const articles = [
     </div>
   </section>
 
-  <section class="work-section bg-white stats-section js-fade-scroll" data-direction="up" style="background: linear-gradient(#fff, #f9f7ff);">
+  <section class="work-section bg-white stats-section" style="background: linear-gradient(#fff, #f9f7ff);">
     <div class="max-w-300 mx-auto px-6 md:px-10 lg:px-12 xl:px-12 pb-6 sm:pb-0">
       <span class="work-eyebrow">CUSTOMER SUCCESS STORIES</span>
       <h2 class="work-heading">Loved by Shopify Merchants Worldwide</h2>
@@ -243,7 +238,7 @@ const articles = [
     </div>
   </section>
 
-  <section class="work-section bg-white stats-section js-fade-scroll" data-direction="up">
+  <section class="work-section bg-white stats-section">
     <div class="max-w-300 mx-auto px-6 md:px-10 lg:px-12 xl:px-12">
       <span class="work-eyebrow">RESOURCE HUB</span>
       <h2 class="work-heading">Shopify Payment Guides & Insights</h2>

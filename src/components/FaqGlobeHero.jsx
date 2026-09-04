@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react'
-import { FadeInSection } from './Animations'
 
 // Rough continent bounding boxes — stylized, not exact geo data
 const CONTINENTS = [
@@ -333,9 +332,7 @@ const FaqGlobeHero = ({ title, subtitle, eyebrow, compact = false }) => {
   const globeSize = compact ? 140 : 220
 
   return (
-    <FadeInSection
-
-
+    <section
       style={{
         position: 'relative',
         overflow: 'hidden',
@@ -405,7 +402,7 @@ const FaqGlobeHero = ({ title, subtitle, eyebrow, compact = false }) => {
           />
         </div>
       </div>
-    </FadeInSection>
+    </section>
   )
 }
 

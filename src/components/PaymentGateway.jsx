@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { FadeInSection } from './Animations'
 import assanPay from '../assets/paymentlogo/assan-pay.webp'
 import blinq from '../assets/paymentlogo/blinq.webp'
 import bop from '../assets/paymentlogo/bop.webp'
@@ -98,7 +97,7 @@ const PaymentGateway = () => {
   )
 
   return (
-    <FadeInSection className="work-section bg-white stats-section" id="payment-gateways">
+    <section className="work-section bg-white stats-section" id="payment-gateways">
       <div className='max-w-300 mx-auto px-6 md:px-10 lg:px-12 xl:px-12'>
         <span className="work-eyebrow">PAYMENT PARTNERS</span>
         <h2 className="work-heading">40+ Payment Gateways. One Integration.</h2>
@@ -118,7 +117,7 @@ const PaymentGateway = () => {
           </a>
         </div>
       </div>
-    </FadeInSection>
+    </section>
   )
 }
 

@@ -47,7 +47,7 @@ const faqs = [
 ---
 
 <div>
-  <section class="pri-section js-fade-scroll" data-direction="up">
+  <section class="pri-section">
     <div class="cta-section__glow" aria-hidden="true"></div>
     <div class="pri-content">
       <span class="pri-badge">✦ Transparent Pricing</span>
@@ -62,17 +62,10 @@ const faqs = [
     </div>
   </section>
 
-  <section class="pri-compare-section js-fade-scroll" data-direction="up">
+  <section class="pri-compare-section">
     <div class="pri-compare-container">
       <!-- Left: Pricing card -->
-      <div
-        class="pri-card js-fade-scroll"
-        data-direction="left"
-        style="--x-offset: 40px;"
-        data-duration="0.7"
-        data-delay="0"
-        data-amount="0.2"
-      >
+      <div class="pri-card">
         <div class="pri-card__accent"></div>
         <div class="pri-card__body">
           <span class="pri-card__badge">UNUMPAY STANDARD</span>
@@ -102,14 +95,7 @@ const faqs = [
       </div>
 
       <!-- Right: Comparison table -->
-      <div
-        class="pri-compare-content js-fade-scroll"
-        data-direction="right"
-        style="--x-offset: 40px;"
-        data-duration="0.7"
-        data-delay="0"
-        data-amount="0.2"
-      >
+      <div class="pri-compare-content">
         <h2 class="pri-compare-heading">Why Merchants Choose UnumPay</h2>
 
         <div class="pri-table">
@@ -141,13 +127,13 @@ const faqs = [
     subtitle="Everything you need to know about UnumPay's pay-as-you-go pricing."
   />
 
-  <section class="faq-section js-fade-scroll" data-direction="up" data-duration="0.45" data-amount="0">
+  <section class="faq-section">
     <div class="faq-container">
       <FaqAccordion client:visible items={faqs} columns={2} />
     </div>
   </section>
 
-  <section class="pree-section js-fade-scroll" data-direction="up">
+  <section class="pree-section">
     <div class="cta-section__glow" aria-hidden="true"></div>
     <div class="pri-content" >
       <div class="pri-sec-heading" data-direction="up" style="--y-offset: 40px;" data-duration="0.7" data-delay="0.1" data-amount="0.2">

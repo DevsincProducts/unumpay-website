@@ -41,7 +41,7 @@ const { data } = Astro.props
 ---
 
 <div>
-  <section class="tun-hero-section bg-[#1a0028] relative overflow-hidden js-fade-scroll" data-direction="up">
+  <section class="tun-hero-section bg-[#1a0028] relative overflow-hidden">
     <div class="max-w-215 mx-auto px-4 sm:px-6 md:px-8 xl:px-0 relative z-10">
       <h1 class="tun-hero-title">{data.hero.title}</h1>
 
@@ -57,7 +57,7 @@ const { data } = Astro.props
     </div>
   </section>
 
-  <section class="bg-white js-fade-scroll" data-direction="up">
+  <section class="bg-white">
     <div class="max-w-215 mx-auto px-4 sm:px-6 md:px-8 xl:px-0 py-14 md:py-20">
       <div class="mb-16">
         <h2 class="text-[26px] sm:text-[32px] font-bold text-[#171721] mb-5">
@@ -195,7 +195,7 @@ const { data } = Astro.props
     subtitle={`Everything you need to know about accepting payments in ${data.countryName}.`}
   />
 
-  <section class="bg-white js-fade-scroll" data-direction="up" data-duration="0.45" data-amount="0">
+  <section class="bg-white">
     <div class="max-w-215 mx-auto px-4 sm:px-6 md:px-8 xl:px-0 py-14 md:py-20">
       <div class="mb-16">
         <FaqAccordion
