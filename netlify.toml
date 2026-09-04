@@ -27,3 +27,11 @@
   for = "/apple-touch-icon.png"
   [headers.values]
     Cache-Control = "public, max-age=2592000"
+
+# Force trailing slashes to match the live site (e.g. /privacy-policy -> /privacy-policy/).
+# Not forced, so real files (assets, and the /page/index.html routes themselves)
+# are still served directly without going through this redirect.
+[[redirects]]
+  from = "/*"
+  to = "/:splat/"
+  status = 301
