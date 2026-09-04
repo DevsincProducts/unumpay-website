@@ -150,12 +150,12 @@ const coverageSchema = graph([
 					Search by country or gateway name to find the payment providers available for your Shopify store.
 				</p>
 
-				<GatewaySearch client:visible={{ rootMargin: '200px' }} />
+				<GatewaySearch client:visible />
 			</div>
 		</section>
 
 		<FaqGlobeHero
-			client:visible={{ rootMargin: '200px' }}
+			client:visible
 			compact
 			title="FAQ"
 			subtitle="Everything you need to know about UnumPay's global gateway coverage."
@@ -163,7 +163,7 @@ const coverageSchema = graph([
 
 		<section class="faq-section">
 			<div class="faq-container">
-				<FaqAccordion client:visible={{ rootMargin: '200px' }} items={faqs} columns={2} />
+				<FaqAccordion client:visible items={faqs} columns={2} />
 			</div>
 		</section>
 

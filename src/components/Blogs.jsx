@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Search } from 'lucide-react'
-import { FadeInSection } from './Animations'
 
 const categories = ['All', 'Shopify Payments', 'Integrations', 'Merchant Guides']
 
@@ -57,7 +56,7 @@ const Blogs = ({ articles }) => {
 
   return (
     <div className="blog-page">
-      <FadeInSection className="blog-hero-section">
+      <section className="blog-hero-section">
         <div className='cta-section__glow' aria-hidden='true'></div>
         <div className="blog-hero-content">
           <span className="blog-hero-badge">RESOURCE HUB</span>
@@ -89,7 +88,7 @@ const Blogs = ({ articles }) => {
             </div>
           </div>
         </div>
-      </FadeInSection>
+      </section>
 
       <section className="blog-listing-section">
         <div className="blog-listing-container">
@@ -112,7 +111,7 @@ const Blogs = ({ articles }) => {
       </section>
 
       {featuredArticle && (activeCategory === 'All' || activeCategory === featuredArticle.category) && searchTerm === '' && (
-        <FadeInSection className='blog-featured-section'>
+        <section className='blog-featured-section'>
             <a href={featuredArticle.slug} className="blog-featured-card">
             <div className="blog-featured-image-wrapper">
                 <img
@@ -131,10 +130,10 @@ const Blogs = ({ articles }) => {
                 </span>
             </div>
             </a>
-        </FadeInSection>
+        </section>
       )}
 
-      <FadeInSection className='blog-articles-section'>
+      <section className='blog-articles-section'>
         <p className="blog-all-articles-heading">All Articles</p>
 
           <div className="blog-articles-grid">
@@ -166,9 +165,9 @@ const Blogs = ({ articles }) => {
               <p className="blog-empty-state">No articles found matching your search.</p>
             )}
           </div>
-      </FadeInSection>
+      </section>
 
-      <FadeInSection className='stay-ahead-section'>
+      <section className='stay-ahead-section'>
         <div style={{maxWidth: '640px', margin: '0px auto'}}>
             <h2 style={{fontWeight: 700, fontSize: 'clamp(22px, 3vw, 32px)', color: 'white', marginBottom: '12px'}}>
                 Stay Ahead of Shopify Payments
@@ -203,7 +202,7 @@ const Blogs = ({ articles }) => {
             </>
             )}
         </div>
-      </FadeInSection>
+      </section>
 
     </div>
   )

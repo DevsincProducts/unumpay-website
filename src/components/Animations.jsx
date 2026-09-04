@@ -2,16 +2,8 @@ import { motion } from 'framer-motion'
 
 // Reveals once, the first time each element scrolls into view — not on
 // every re-entry, so scrolling back up and down doesn't replay it.
-//
-// `amount: 0.2` (needing 20% of the element visible) combined with the
-// default viewport margin made sections feel like they arrived late — the
-// reader had already scrolled well into them before anything happened.
-// `amount: 0` fires the instant even 1px is visible, and the positive
-// bottom margin extends the trigger zone below the viewport so the reveal
-// actually starts just *before* the section reaches the screen — by the
-// time it's in view it's already animating in, not still waiting to start.
-const VIEWPORT = { once: true, amount: 0, margin: '0px 0px 150px 0px' }
-const TRANSITION = { duration: 0.45, ease: 'easeOut' }
+const VIEWPORT = { once: true, amount: 0.2 }
+const TRANSITION = { duration: 0.6, ease: 'easeOut' }
 
 export const FadeIn = ({ children, className = '' }) => {
   return (

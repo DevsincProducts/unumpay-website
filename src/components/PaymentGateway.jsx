@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { FadeInSection } from './Animations'
 import assanPay from '../assets/paymentlogo/assan-pay.webp'
 import blinq from '../assets/paymentlogo/blinq.webp'
 import bop from '../assets/paymentlogo/bop.webp'
@@ -97,13 +98,7 @@ const PaymentGateway = () => {
   )
 
   return (
-    // Not wrapped in FadeInSection: this island only hydrates once scrolled
-    // into view (client:visible), and FadeInSection's initial opacity:0
-    // renders into the static HTML before that hydration happens — so for
-    // a moment the section is structurally there but genuinely invisible,
-    // which read as "empty" while scrolling to it. A moving logo marquee
-    // doesn't need a reveal animation to feel intentional anyway.
-    <section className="work-section bg-white stats-section" id="payment-gateways">
+    <FadeInSection className="work-section bg-white stats-section" id="payment-gateways">
       <div className='max-w-300 mx-auto px-6 md:px-10 lg:px-12 xl:px-12'>
         <span className="work-eyebrow">PAYMENT PARTNERS</span>
         <h2 className="work-heading">40+ Payment Gateways. One Integration.</h2>
@@ -123,7 +118,7 @@ const PaymentGateway = () => {
           </a>
         </div>
       </div>
-    </section>
+    </FadeInSection>
   )
 }
 

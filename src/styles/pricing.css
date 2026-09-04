@@ -97,9 +97,6 @@
 .pri-compare-section {
   background: #fff;
   padding: 60px 40px 36px;
-  /* The left/right js-fade-scroll cards inside sit translated by
-     --x-offset until scrolled into view — clip that locally. */
-  overflow-x: hidden;
 }
 
 .pri-compare-container {
@@ -436,9 +433,6 @@
 .pri-partner-section {
   background: rgb(249, 245, 255);
   padding: 48px 48px 80px;
-  /* The left/right partner cards inside sit translated by --x-offset
-     until scrolled into view — clip that locally. */
-  overflow-x: hidden;
 }
 
 .pri-partner-heading {
@@ -591,11 +585,6 @@
 .why-matters-section {
   background: #fff;
   padding: 80px 40px;
-  /* The FadeInLeft/FadeInRight cards inside sit translated up to 40px off
-     their final x-position until scrolled into view — clip that pre-animation
-     offset here instead of on html/body, since this section's height is
-     content-driven and never becomes an independent scroll container. */
-  overflow-x: hidden;
 }
 
 .why-matters-container {
@@ -830,9 +819,6 @@
   background: rgb(23, 23, 33);
   padding: 80px 40px;
   text-align: center;
-  /* Same as .why-matters-section: clip the journey cards' pre-animation
-     FadeInLeft/FadeInRight offset locally, not on html/body. */
-  overflow-x: hidden;
 }
 
 .journey-badge {
