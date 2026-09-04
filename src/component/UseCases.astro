@@ -31,6 +31,10 @@ const useCases = [
     tag: 'USE CASE 02',
     title: 'Never Lose a Sale to a Failed Payment.',
     desc: 'Relying on a single payment gateway puts your entire revenue at risk. If it goes down, your checkout goes down with it. UnumPay connects your Shopify store to 40+ payment gateways through one single integration, so you can run several gateways at once and keep your store open no matter what happens.',
+    // The source graphic is a full circle of gateway logos at a 3:2 ratio —
+    // the shared 16:9 wrapper cropped the top/bottom logos off. Match this
+    // wrapper to the image's real ratio instead so nothing gets cut.
+    imageRatio: '3 / 2',
   },
   {
     image: image6,
@@ -167,7 +171,7 @@ const articles = [
             data-delay="0"
             data-amount="0"
           >
-            <div class="usecase-image-wrapper">
+            <div class="usecase-image-wrapper" style={item.imageRatio ? `aspect-ratio: ${item.imageRatio};` : undefined}>
               <img src={item.image.src ?? item.image} alt={item.title} class="usecase-image" loading="lazy" />
               <div class="usecase-badge">{item.number}</div>
             </div>
