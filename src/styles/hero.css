@@ -183,6 +183,13 @@
   padding-bottom: 40px;
 }
 
+/* The hero itself carries no bottom padding, so without this the gap
+   into "The Numbers" reads as half the ~80px gap used everywhere else
+   on the page. */
+#stats-section {
+  padding-top: 80px;
+}
+
 .work-eyebrow {
   display: block;
   font-size: 12px;
