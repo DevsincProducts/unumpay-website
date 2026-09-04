@@ -2,6 +2,7 @@
 
 import HeroImg from '../assets/images/image1.webp'
 import HeroImgMobile from '../assets/images/image1-mobile.webp'
+import HeroImgSmall from '../assets/images/image1-mobile-sm.webp'
 import logo1 from '../assets/logos/logo1.webp'
 import logo2 from '../assets/logos/logo2.webp'
 import logo3 from '../assets/logos/logo3.webp'
@@ -102,7 +103,7 @@ const marqueeLogos = [...logos, ...logos]
       <div class="hero-home__graphic">
         <img
           src={HeroImg.src ?? HeroImg}
-          srcset={`${HeroImgMobile.src ?? HeroImgMobile} 750w, ${HeroImg.src ?? HeroImg} 1300w`}
+          srcset={`${HeroImgSmall.src ?? HeroImgSmall} 480w, ${HeroImgMobile.src ?? HeroImgMobile} 750w, ${HeroImg.src ?? HeroImg} 1300w`}
           sizes="(min-width: 1024px) 600px, 90vw"
           alt="UnumPay integration diagram"
           class="w-full max-w-2xl h-auto animate-float"

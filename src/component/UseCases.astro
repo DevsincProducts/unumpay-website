@@ -263,7 +263,7 @@ const articles = [
               <p class="blog-date">{article.date}</p>
               <h3 class="blog-title">{article.title}</h3>
               <p class="blog-excerpt">{article.excerpt}</p>
-              <a href={article.link} class="blog-link">
+              <a href={article.link} class="blog-link" aria-label={`Read Article: ${article.title}`}>
                 Read Article <span aria-hidden="true">→</span>
               </a>
             </div>
