@@ -3,12 +3,18 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
+  overflow-x: hidden;
 }
 
 body {
   font-family: 'Poppins', sans-serif;
   scrollbar-width: thin;
-  scrollbar-color: #a1a1a1 #2c2c2c !important; 
+  scrollbar-color: #a1a1a1 #2c2c2c !important;
+  /* Scroll-reveal elements (FadeInLeft/Right, marquees) sit translated
+     off their final x-position until they animate into view. Without this,
+     that pre-animation offset widens the page and adds a horizontal
+     scrollbar / lets edge content spill past the viewport on mobile. */
+  overflow-x: hidden;
 }
 
 ::-webkit-scrollbar {
