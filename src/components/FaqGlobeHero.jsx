@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react'
-import { FadeInSection } from './Animations'
 
 // Rough continent bounding boxes — stylized, not exact geo data
 const CONTINENTS = [
@@ -333,9 +332,12 @@ const FaqGlobeHero = ({ title, subtitle, eyebrow, compact = false }) => {
   const globeSize = compact ? 140 : 220
 
   return (
-    <FadeInSection
-
-
+    // Not FadeInSection: this island only hydrates once scrolled into view
+    // (client:visible on the Coverage page), so FadeInSection's initial
+    // opacity:0 would render into the static HTML before hydration ever
+    // runs — the section sits there structurally present but genuinely
+    // invisible for a moment, reading as "empty" while scrolling to it.
+    <section
       style={{
         position: 'relative',
         overflow: 'hidden',
@@ -405,7 +407,7 @@ const FaqGlobeHero = ({ title, subtitle, eyebrow, compact = false }) => {
           />
         </div>
       </div>
-    </FadeInSection>
+    </section>
   )
 }
 
